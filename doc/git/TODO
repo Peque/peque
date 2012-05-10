@@ -1,0 +1,14 @@
+Mention some other commands:
+
+  - fetch
+  - log
+  - show
+  - diff
+  - rebase
+  - stash
+  - cherry-pick
+  - config remote.origin.url
+
+Documentation on the crontribution flow: downloading the code, making changes,
+generating patches/pulling requests, adquiring write permissions, configuring
+remote server, creating local personal branches for development...
