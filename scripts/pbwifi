@@ -82,7 +82,7 @@ else
 	if [ $# -lt 2 ]; then
 		while read pipe_line; do
 			mac=$(openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//')
-			ifconfig eth0 down && ifconfig eth0 hw ether $mac && ifconfig eth0 up
+			ifconfig $PWIFI_DEV down && ifconfig $PWIFI_DEV hw ether $mac && ifconfig $PWIFI_DEV up
 			echo "Trying with password \"$pipe_line\" and MAC \"$mac\""
 			wifi_con $1 $pipe_line $PWIFI_DEV
 		done
