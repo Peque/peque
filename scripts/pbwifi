@@ -1,0 +1,90 @@
+#!/bin/bash
+
+#
+#  pbwifi.sh
+#
+#  Copyright 2012 Miguel Sánchez de León Peque <peque@xps15>
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+#  MA 02110-1301, USA.
+#
+#
+
+#
+# pbwifi <ssid> [password]
+#
+
+
+function select_dev {
+	device_list=$(nmcli -t -f TYPE,DEVICE dev status | grep wireless | sed 's/^.*:\(.*\)$/\1/')
+	# TODO: ask the user which device to use
+	PWIFI_DEV=$(nmcli -t -f TYPE,DEVICE dev status | grep wireless | sed 's/^.*:\(.*\)$/\1/' | head -n 1)
+	echo "Using device \"$PWIFI_DEV\""
+	echo "TODO: ask which device to use!"
+	return 0
+}
+
+# delete_con <ssid>
+function delete_con () {
+	network_uuid=$(nmcli -t -f NAME,UUID con list | grep $1 | sed 's/^.*:\(.*\)$/\1/')
+	nmcli con delete uuid $network_uuid
+}
+
+# wifi_lst <iface>
+function wifi_lst () {
+	nmcli dev wifi list iface $1
+}
+
+# wifi_con <ssid> <password> <iface>
+function wifi_con () {
+	nmcli dev wifi connect $1 password $2 iface $3 --private --timeout 30
+	delete_con $1
+}
+
+# verify_ssid <ssid> <iface>
+function verify_ssid () {
+	if [ "$(wifi_lst $2 | grep $1)" = "" ]; then
+		echo "SSID unreachable from the specified device!"
+		echo "Aborting..."
+		exit
+	fi
+}
+
+function print_help {
+	echo -e "\nUsage:\n"
+	echo -e "  pbwifi <ssid> [password]\n"
+	echo -e "Being:\n"
+	echo -e "  <ssid>      = Name of the wireless network"
+	echo -e "  [password]  = Password to use. If not present, it will read from stdin"
+	echo -e ""
+}
+
+if [ $# -lt 1 ]; then
+	print_help
+else
+
+	select_dev
+
+	verify_ssid $1 $PWIFI_DEV
+
+	if [ $# -lt 2 ]; then
+		while read pipe_line; do
+			echo "Trying with password \"$pipe_line\""
+			wifi_con $1 $pipe_line $PWIFI_DEV
+		done
+	else
+		wifi_con $1 $2 $PWIFI_DEV
+	fi
+fi
