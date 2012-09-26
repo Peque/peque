@@ -49,8 +49,7 @@ function wifi_lst () {
 
 # wifi_con <ssid> <password> <iface>
 function wifi_con () {
-	nmcli dev wifi connect $1 password $2 iface $3 --private --timeout 30
-	delete_con $1
+	nmcli dev wifi connect $1 password $2 iface $3 --private --timeout 30 2>&1
 }
 
 # verify_ssid <ssid> <iface>
