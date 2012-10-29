@@ -83,10 +83,6 @@ else
 	command4="aircrack-ng $2*.cap"
 
 	gnome-terminal -x sh -c "while true;do $command0;done" &
-
-	echo "Press enter on successful authentication..."
-	read a
-
 	gnome-terminal -x sh -c "while true;do $command2;done" &
 	gnome-terminal -x sh -c "while true;do $command3;done" &
 
