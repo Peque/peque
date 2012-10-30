@@ -53,7 +53,7 @@ airmon-ng stop mon0 # Stop mon0 in case it already exists
 airmon-ng stop $1
 airmon-ng start $1
 ifconfig mon0 down
-FAKE_MAC="CC:AF:78:C5:C4:91"
+FAKE_MAC="00:11:22:33:44:55"
 macchanger -m $FAKE_MAC mon0
 ifconfig mon0 up
 
