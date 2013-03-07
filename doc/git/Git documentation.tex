@@ -39,9 +39,6 @@
 \newcommand{\projectgitrepo}{git://cookie-libs.git.sourceforge.net/gitroot/cookie-libs/cookie-libs}
 \newcommand{\projectsshgitrepo}{ssh://USERNAME@cookie-libs.git.sourceforge.net/gitroot/cookie-libs/cookie-libs}
 
-% TODO: remove "% Fix $" when a solution is found for the highlight
-%       issue with many editors.
-
 % TODO: fix image positioning. Perhaps a good solution is to use labels
 %       and refer to them instead of depending on the exact figure
 %       position.
@@ -272,7 +269,7 @@ Fedora, installing Git would be as easy as:
 \begin{terminal}
 \begin{verbatim}
 $ su -c 'yum install -y git gitk'
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 To initialize a Git repository, create an empty folder which will
@@ -283,7 +280,7 @@ contain the full project.
 $ mkdir git-test
 $ cd git-test
 $ git init
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 The command \texttt{git init} initializes an empty Git repository in
@@ -296,7 +293,7 @@ line:
 \begin{terminal}
 \begin{verbatim}
 $ echo Line 0 > test-file.txt
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 That would be our initial commit.
@@ -305,7 +302,7 @@ That would be our initial commit.
 \begin{verbatim}
 $ git add .
 $ git commit -m 'Initial commit'
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 We'll use the \texttt{git add} command whenever we want to confirm
@@ -335,7 +332,7 @@ no changes to be commited.
 $ git status
 # On branch master
 nothing to commit (working directory clean)
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 Lets say we make a change to the \texttt{text-file.txt}. Lets delete the
@@ -344,7 +341,7 @@ line we wrote and write a new one.
 \begin{terminal}
 \begin{verbatim}
 $ echo New line 0 > test-file.txt
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 Now, our status has changed:
@@ -360,7 +357,7 @@ $ git status
 #	modified:   test-file.txt
 #
 no changes added to commit (use "git add" and/or "git commit -a")
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 We can see \texttt{text-file.txt} has been modified. As Git is
@@ -376,7 +373,7 @@ see how it looks like.
 \begin{terminal}
 \begin{verbatim}
 $ gitk
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 On the upper-left of the window, we can see the history tree, where
@@ -422,7 +419,7 @@ confirm the changes we made, as we have already reviewed them with the
 \begin{terminal}
 \begin{verbatim}
 $ git add test-file.txt
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 Lets see what happened.
@@ -436,7 +433,7 @@ $ git status
 #
 #	modified:   test-file.txt
 #
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 And if we use the \texttt{gitk} tool, we'll see the upper line has now
@@ -464,7 +461,7 @@ $ git commit -m 'Changed line in test-file.txt'
 $ git status
 # On branch master
 nothing to commit (working directory clean)
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 The \texttt{gitk} tool will show us a new commit:
@@ -486,7 +483,7 @@ yet), undo the last commit in the local tree:
 \begin{terminal}
 \begin{verbatim}
 $ git reset --soft HEAD^
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 That way, we'll go back to the previous status.
@@ -511,7 +508,7 @@ exist (that way, you'll create a new branch called
 \begin{verbatim}
 $ git checkout -b newbr
 Switched to a new branch 'newbr'
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 Now we are exactly at the same revision as before, but in a new branch.
@@ -540,7 +537,7 @@ $ git add test-file.txt
 $ git commit -m 'Added line 1 to test-file.txt'
 [newbr 405f629] Added line 1 to test-file.txt
  1 files changed, 1 insertions(+), 0 deletions(-)
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 
@@ -566,7 +563,7 @@ $ git add test-file.txt
 $ git commit -m 'Added line 1 to test-file.txt'
 [master c373bbc] Added line 1 to test-file.txt
  1 files changed, 1 insertions(+), 0 deletions(-)
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 \begin{tip}
@@ -595,7 +592,7 @@ $ git merge newbr
 Auto-merging test-file.txt
 CONFLICT (content): Merge conflict in test-file.txt
 Automatic merge failed; fix conflicts and then commit the result.
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 What happened here? Well, sometimes when you are working in a project
@@ -616,7 +613,7 @@ $ git status
 #	both modified:      test-file.txt
 #
 no changes added to commit (use "git add" and/or "git commit -a")
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 For solving merging conflicts manually, we'll first a look at the
@@ -656,7 +653,7 @@ making a normal commit:
 $ git add test-file.txt
 $ git commit -m 'Merge branch newbr into master (conflicts solved)'
 [master aea5947] Merge branch newbr into master (conflicts solved)
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 \begin{figure}[h]
@@ -705,7 +702,7 @@ remote: Compressing objects: 100% (447/447), done.
 remote: Total 452 (delta 251), reused 0 (delta 0)
 Receiving objects: 100% (452/452), 5.24 MiB | 109 KiB/s, done.
 Resolving deltas: 100% (251/251), done.
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 Once the process has been completed, you'll see a folder called
@@ -720,7 +717,7 @@ $ cd cookie-libs
 $ git status
 # On branch master
 nothing to commit (working directory clean)
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 Before starting making changes, as we'll be now sharing our work with
@@ -733,7 +730,7 @@ know who are you and how to contact you in case they need it.}.
 \begin{verbatim}
 $ git config --global user.name "Here Comes My Name"
 $ git config --global user.email "here.comes@my.email"
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 Do not forget the \texttt{" "} around your name and email! If you want
@@ -742,7 +739,7 @@ to check your configuration, just execute:
 \begin{terminal}
 \begin{verbatim}
 $ git config -l
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 You should see your name and email address displayed (among other
@@ -783,7 +780,7 @@ already made the commit in our local repository.
 \begin{terminal}
 \begin{verbatim}
 $ git push
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 \begin{figure}[h]
@@ -801,7 +798,7 @@ to undo the last commit, you can revert the changes you made:
 \begin{terminal}
 \begin{verbatim}
 $ git revert <SHA1 ID>
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 Where \texttt{<SHA1 ID>} is the commit's ID (or the begining of
@@ -815,7 +812,7 @@ a very simple task too:
 \begin{terminal}
 \begin{verbatim}
 $ git pull
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 \begin{tip}
@@ -833,7 +830,7 @@ a local branch, we can initialize it in the server with:
 \begin{terminal}
 \begin{verbatim}
 $ git push origin new_branch_name
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 Once the branch has been initialized, we can share our changes with a
@@ -844,7 +841,7 @@ If we want to download changes in a specific branch, we can use:
 \begin{terminal}
 \begin{verbatim}
 $ git pull origin branch_name
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 Again, it is not a good idea to delete branches from the server once
@@ -856,7 +853,7 @@ delete our local branch:
 \begin{terminal}
 \begin{verbatim}
 $ git branch -d branch_name
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 \begin{tip}
@@ -872,7 +869,7 @@ can delete the remote branch:
 \begin{terminal}
 \begin{verbatim}
 $ git push origin :branch_name
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 \section{Git command reference}
@@ -960,7 +957,7 @@ Example:
 \begin{verbatim}
 $ git tag -a v0.1 -m 'versión 0.1'
 $ git push origin v0.1
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 \begin{table}[h]
@@ -981,7 +978,7 @@ Example:
 \begin{verbatim}
 $ git format-patch origin/master
 $ git apply filename.patch
-\end{verbatim}% Fix $
+\end{verbatim}
 \end{terminal}
 
 \end{document}
