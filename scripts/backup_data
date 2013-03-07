@@ -54,13 +54,6 @@ export backup_reg_file=~/.backup_reg
 export nc_timeout=2
 
 
-function abort() {
-	echo "0">> $backup_reg_file
-	echo "Aborted!"
-	read a
-	exit 0
-}
-
 # If the register file does not exists or it is empty or the last line
 # in it has a wrong value, recreate it
 last_backup_date=$(cat $backup_reg_file 2>/dev/null | tail -n 1 | grep -e "^[0-9]*$")
@@ -90,7 +83,10 @@ echo "You may want to start a data security backup..."
 printf "Do you want to do it now? (y/n): "
 read a
 if [[ $a != "Y" && $a != "y" ]]; then
-	abort
+	echo "0">> $backup_reg_file
+	echo "Aborted!"
+	read a
+	exit 0
 fi
 
 # Testing and mounting the remote share
@@ -100,7 +96,10 @@ while [[ $(nc $backup_host $backup_port -i $nc_timeout -w $nc_timeout 2>/dev/nul
 	echo -n "Do you want to retry connection? (y/n): "
 	read a
 	if [[ $a != "Y" && $a != "y" ]]; then
-		abort
+		echo "0">> $backup_reg_file
+		echo "Aborted!"
+		read a
+		exit 0
 	fi
 	(( nc_timeout *= 2 ))
 	echo "Retrying connection..."
@@ -116,7 +115,7 @@ read a
 if [[ $a == "Y" || $a == "y" ]]
 	then
 		echo "The security backup process will be executed again after $period_weeks weeks $period_days days $period_hours hours $period_mins mins"
-		echo $todays_date >> $backup_reg_file
+		echo "$(date +%s)" >> $backup_reg_file
 	else
 		echo "The security backup process will be executed again next time"
 		echo "0" >> $backup_reg_file
