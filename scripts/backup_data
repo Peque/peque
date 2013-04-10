@@ -117,6 +117,7 @@ if [[ $(cat ~/.ssh/known_hosts | grep "$ssh_key") == "" ]]; then
 		read a
 		exit 0
 	fi
+	echo "$ssh_key" >> ~/.ssh/known_hosts
 fi
 
 echo "Mounting remote share..."
