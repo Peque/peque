@@ -104,6 +104,21 @@ while [[ $(nc $backup_host $backup_port -i $nc_timeout -w $nc_timeout 2>/dev/nul
 	(( nc_timeout *= 2 ))
 	echo "Retrying connection..."
 done
+
+# Adding remote share to the known hosts
+ssh_key=$(ssh-keyscan -p $backup_port $backup_host 2> /dev/null)
+if [[ $(cat ~/.ssh/known_hosts | grep "$ssh_key") == "" ]]; then
+	echo "WARNING! remote host identification:"
+	echo $ssh_key
+	echo -n "Do you want to permanently add this host to the list of known hosts? (y/n): "
+	read a
+	if [[ $a != "Y" && $a != "y" ]]; then
+		echo "Aborted!"
+		read a
+		exit 0
+	fi
+fi
+
 echo "Mounting remote share..."
 gvfs-mount $backup_protocol\:\/\/$backup_user@$backup_host\:$backup_port
 
