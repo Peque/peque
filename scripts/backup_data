@@ -40,7 +40,6 @@ export period_mins=0
 # Backup server configuration
 export backup_protocol="protocol"
 export backup_user="user"
-export backup_host="host"
 export backup_port="port"
 # Local folder (absolute path, with trailing slash)
 export local_folder="/local/folder/"
@@ -52,6 +51,11 @@ export exclude=".Trash*"
 export backup_reg_file=~/.backup_reg
 # Server test timeout (seconds)
 export nc_timeout=2
+
+# Information about the host IP and its encryption
+backup_host_ip_url="http://domain.com/path/to/ip/file"
+backup_host_ip_dec_pass="encryption_password"
+export backup_host=$(echo $(curl -s $backup_host_ip_url) | openssl enc -aes-256-cbc -a -d -salt -pass pass:$backup_host_ip_dec_pass)
 
 
 # If the register file does not exists or it is empty or the last line
