@@ -1,0 +1,42 @@
+#!/bin/bash
+
+#
+#  backup_data_update_host_ip
+#
+#  Copyright 2013 Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software
+#  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+#  MA 02110-1301, USA.
+#
+
+
+backup_host_ip_url="http://domain.com/"
+backup_host_ip_path="path/to/ip/file"
+backup_host_ip_dec_pass="encryption_password"
+ftp_host="ftp://ftp.domain.com"
+ftp_user="ftp_username"
+ftp_pass="ftp_userpass"
+
+current_ip=$(curl -s icanhazip.com | openssl enc -aes-256-cbc -a -salt -pass pass:$backup_host_ip_dec_pass)
+old_ip=$(curl -s $backup_host_ip_url)
+
+if [[ $current_ip != $old_ip ]]; then
+	mkdir -p /tmp/$(dirname $backup_host_ip_path)
+	tmpfile=/tmp/$backup_host_ip_path
+	echo -n $current_ip > $tmpfile
+	curl -s -T $tmpfile $ftp_host --user $ftp_user:$ftp_pass
+fi
+
+exit
