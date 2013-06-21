@@ -32,6 +32,16 @@
 #
 
 
+# Check internet connection for 5 minutes, each 5 seconds
+for (( i=0; i<60; i++ )); do
+	if [[ $(ping -c 1 google.com 2> /dev/null) != "" ]]; then
+		break
+	else
+		sleep 5
+	fi
+done
+
+
 # Backup period
 export period_weeks=1
 export period_days=0
