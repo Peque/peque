@@ -31,6 +31,11 @@ for (( i=0; i<60; i++ )); do
 	fi
 done
 
+# Check if we are in the correct network
+if [[ $(command that should generate output if we are in the correct network) == "" ]]; then
+	exit
+done
+
 
 backup_host_ip_url="http://domain.com/"
 backup_host_ip_path="path/to/ip/file"
