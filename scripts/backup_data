@@ -88,8 +88,6 @@ if [ $date_diff -lt $min_diff ]; then
 	exit 0
 fi
 
-sleep 30
-
 gnome-terminal -x sh -c '
 
 # Ask the user for confirmation before starting the backup
