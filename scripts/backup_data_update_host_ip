@@ -34,7 +34,7 @@ done
 # Check if we are in the correct network
 if [[ $(command that should generate output if we are in the correct network) == "" ]]; then
 	exit
-done
+fi
 
 
 backup_host_ip_url="http://domain.com/"
