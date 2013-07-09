@@ -1,0 +1,6 @@
+
+Instructions for Fedora users:
+
+  # yum install texlive texlive-babel texlive-listings texlive-geometry texlive-framed texlive-multirow
+  $ pdflatex Git\ documentation.tex
+
