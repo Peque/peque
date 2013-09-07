@@ -1,0 +1,52 @@
+
+\documentclass[a4paper,10pt,twoside,onecolumn]{book}
+
+% TODO: explain each package included!
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}         % The Latin Modern fonts are enhanced versions of the Computer Modern fonts.
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage[]{tocbibind}     % Adding LoF, LoT and ToC itself to ToC.
+\usepackage{lipsum}          % Write "Lorem ipsum..." placeholder text (filler text)
+
+\graphicspath{{./images/}}
+
+\begin{document}
+
+\pagestyle{empty}
+
+\input{content/titlepage.tex}
+\cleardoublepage
+
+\pagestyle{plain}
+\pagenumbering{roman}
+
+\tableofcontents
+\cleardoublepage
+
+\listoffigures
+\cleardoublepage
+
+\listoftables
+\cleardoublepage
+
+\pagestyle{headings}
+\pagenumbering{arabic}
+
+\part{First part}
+
+\chapter{First chapter}
+\input{content/01.tex}
+
+\chapter{Second chapter}
+\input{content/02.tex}
+
+\part{Second part}
+
+\chapter{Third chapter}
+\input{content/03.tex}
+
+\end{document}
+
