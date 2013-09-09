@@ -101,6 +101,20 @@ if [[ $a != "Y" && $a != "y" ]]; then
 	exit 0
 fi
 
+# Testing local share
+echo "Testing local share availability..."
+while [[ $(ls $local_folder 2> /dev/null) == "" ]]; do
+	echo "Please, mount your local share before continue!"
+	echo -n "Do you want to retry? (y/n): "
+	read a
+	if [[ $a != "Y" && $a != "y" ]]; then
+		echo "0">> $backup_reg_file
+		echo "Aborted!"
+		read a
+		exit 0
+	fi
+done
+
 # Testing and mounting the remote share
 echo "Testing remote share availability..."
 while [[ $(nc $backup_host $backup_port -i $nc_timeout -w $nc_timeout 2>/dev/null) == "" ]]; do
