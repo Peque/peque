@@ -1,0 +1,31 @@
+
+The following instructions may help you veriifying your QSTK installation on Fedora:
+
+
+1 - Install required packages:
+
+  $ sudo yum install unzip blas blas-devel lapack lapack-devel numpy scipy gcc-c++ python-matplotlib ipython python-pandas sympy pytz python-dateutil python-qt4 python-nose python python-cvxopt python-devel python-setuptools python-pip
+
+
+2 - Install QSTK and other python extensions (--user installs it in your user directory):
+
+  $ sudo pip-python install scikit-learn scikits.statsmodels qstk
+
+
+3 - Verify installation:
+
+  $ wget https://spark-public.s3.amazonaws.com/compinvesting1/QSTK-Setups/Examples.zip
+  $ unzip Examples.zip
+  $ cd Examples
+  $ python Validation.py
+
+
+Hope this helps!
+
+
+References:
+
+  https://piazza.com/class/hinh62c9pjm17g?cid=78
+  https://gist.github.com/pmembrey/5088667
+  http://wiki.quantsoftware.org/index.php?title=QSToolKit_Installation_Guide_Windows
+
