@@ -1,10 +1,12 @@
 
+import numpy as np
 import pandas as pd
 import datetime as dt
 import matplotlib.pyplot as plt
 
 import QSTK.qstkutil.qsdateutil as du
 import QSTK.qstkutil.DataAccess as da
+import QSTK.qstkutil.tsutil as tsu
 
 #
 # Command line arguments (TODO)
@@ -91,10 +93,32 @@ d_data = dict(zip(['close'], ldf_data))
 close_data = d_data['close'].values
 close_data *= 1000000/close_data[0]
 
+#
+# Calculate sharpe ratio for our portfolio and the benchmark
+#
+wealth_history_vector = np.asarray(wealth_history)
+wealth_history_copy = wealth_history_vector.copy()
+tsu.returnize0(wealth_history_copy)
+portfolio_avg_daily_ret = np.mean(wealth_history_copy)
+portfolio_std_dev = np.std(wealth_history_copy)
+portfolio_sharpe = np.sqrt(252) * portfolio_avg_daily_ret / portfolio_std_dev
+
+close_data_copy = close_data.copy()
+tsu.returnize0(close_data_copy)
+benchmark_avg_daily_ret = np.mean(close_data_copy)
+benchmark_std_dev = np.std(close_data_copy)
+benchmark_sharpe = np.sqrt(252) * benchmark_avg_daily_ret / benchmark_std_dev
+
 print "Data Range : " + str(startdate) + " to " + str(enddate)
 print "Using " + benchmark + " as benchmark..."
 print "Total return (portfolio): " + str(wealth_history[len(wealth_history) - 1] / initial_wealth)
-print "Total return (benchmark): " + str(close_data[len(close_data) - 1] / initial_wealth)
+print "Total return (benchmark): " + str(close_data[-1] / initial_wealth)
+print "Portfolio daily return: " + str(portfolio_avg_daily_ret)
+print "Benchmark daily return: " + str(benchmark_avg_daily_ret)
+print "Portfolio standard deviation: " + str(portfolio_std_dev)
+print "Benchmark standard deviation: " + str(benchmark_std_dev)
+print "Portfolio Sharpe ratio: " + str(portfolio_sharpe)
+print "Benchmark Sharpe ratio: " + str(benchmark_sharpe)
 
 #
 # Plot benchmark
