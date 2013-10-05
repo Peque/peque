@@ -91,7 +91,7 @@ for i in range(len(ldt_timestamps)):
 ldf_data = c_dataobj.get_data(ldt_timestamps, [benchmark], ['close'])
 d_data = dict(zip(['close'], ldf_data))
 close_data = d_data['close'].values
-close_data *= 1000000/close_data[0]
+close_data *= initial_wealth/close_data[0]
 
 #
 # Calculate sharpe ratio for our portfolio and the benchmark
