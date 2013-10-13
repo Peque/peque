@@ -60,16 +60,18 @@ outcome2 <- subset(outcome, outcome$State %in% x)
 # Get the 30-day death medians, sorted (lowest to highest)
 medians <- sort(tapply(outcome2[, 11], outcome2$State, median, na.rm = TRUE))
 
-# Change axis labels orientation and size
-par(las = 2, cex.axis = 0.8, mfrow = c(1, 1))
+# Set axis ticks orientation and size
+par(las = 1, cex.axis = 0.8, mfrow = c(1, 1))
 
 # Print the graphics, sort the boxes using factor() function
 boxplot(outcome2[, 11] ~ factor(outcome2$State, levels = names(medians)),
         main = 'Heart Attack 30-day Death Rate by State',
-        ylab = '30-day Death Rate')
+        ylab = '30-day Death Rate',
+        xaxt = 'n')
 
-# TODO: Alter the x-axis tick labels so that they include the number of
-# hospitals in that state in parentheses. For example, the label for the
-# state of Connecticut would be CT (32). You will need the axis function
-# and when you call the boxplot function you will want to set the option
-# xaxt to be “n”.
+# Get the number of hospitals for each state
+nhospitals = subset(table(outcome$State), table(outcome$State) > 20)
+# Reorder the data according to the medians
+nhospitals = nhospitals[names(medians)]
+# Display x-axis tick labels
+axis(1, at = 1:length(names(medians)), labels = paste(names(medians), as.vector(nhospitals)), las = 2, cex.axis = 0.8)
