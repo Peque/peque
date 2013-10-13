@@ -1,4 +1,4 @@
-setwd('./ProgAssignment3-data')
+setwd('./')
 
 
 #
@@ -75,3 +75,34 @@ nhospitals = subset(table(outcome$State), table(outcome$State) > 20)
 nhospitals = nhospitals[names(medians)]
 # Display x-axis tick labels
 axis(1, at = 1:length(names(medians)), labels = paste(names(medians), as.vector(nhospitals)), las = 2, cex.axis = 0.8)
+
+
+#
+# PART 4
+#
+
+hospital <- read.csv("hospital-data.csv", colClasses = "character")
+outcome.hospital <- merge(outcome, hospital, by = "Provider.Number")
+
+death <- as.numeric(outcome.hospital[, 11])
+npatient <- as.numeric(outcome.hospital[, 15])
+owner <- factor(outcome.hospital$Hospital.Ownership)
+
+library(lattice)
+
+# Plot death vs. npatient conditioned on owner
+xyplot(death ~ npatient | owner,
+       main = 'Heart Attack 30-day Death Rate by Ownership',
+       xlab = 'Number of Patients Seen',
+       ylab = '30-day Death Rate',
+       panel = function(x, y, ...) {
+			     panel.xyplot(x, y, ...)
+			     panel.lmline(x, y)
+       })
+
+
+#
+# PART 5, 6, 7
+#
+
+source("http://spark-public.s3.amazonaws.com/compdata/scripts/submitscript.R")
