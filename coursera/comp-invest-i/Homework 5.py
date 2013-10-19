@@ -91,3 +91,4 @@ for s_sym in ls_symbols:
 # Output the data
 pd.set_option('display.max_rows', len(df))
 print df
+pd.reset_option('display.max_rows')
