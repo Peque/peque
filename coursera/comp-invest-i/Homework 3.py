@@ -55,6 +55,12 @@ ldt_timestamps = du.getNYSEdays(startdate, enddate, dt.timedelta(hours=16))
 c_dataobj = da.DataAccess('Yahoo')
 ldf_data = c_dataobj.get_data(ldt_timestamps, symbols, ['close'])
 d_data = dict(zip(['close'], ldf_data))
+
+# Fill NAN values
+d_data['close'] = d_data['close'].fillna(method='ffill')
+d_data['close'] = d_data['close'].fillna(method='bfill')
+d_data['close'] = d_data['close'].fillna(1.0)
+
 close_data = d_data['close'].values
 close_dataframe = pd.DataFrame(close_data, range(len(close_data)), symbols)
 
