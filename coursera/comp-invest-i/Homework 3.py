@@ -130,9 +130,11 @@ print "Benchmark Sharpe ratio: " + str(benchmark_sharpe)
 # Plot benchmark
 #
 plt.clf()
+plt.setp(plt.xticks()[1], rotation=30)
 plt.plot(ldt_timestamps, wealth_history)
 plt.plot(ldt_timestamps, close_data)
 plt.legend(['Portfolio', '$SPX'])
-plt.ylabel('Adjusted Close')
+plt.ylabel('Fund Value')
 plt.xlabel('Date')
+plt.subplots_adjust(left=0.15, right=0.95, top=0.95, bottom=0.15)
 plt.savefig('Homework 3 - adjustedclose.pdf', format='pdf')
