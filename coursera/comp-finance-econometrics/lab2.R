@@ -73,7 +73,7 @@ qnorm(0.05, mu_R, sigma_R) * W0
 # Ex. 06
 ##########
 
-# Now look at the continuously compounded monthly return r
+# Let the r denote the continuously compounded monthly return
 mu_r = 0.04
 sigma_r = 0.09
 # Initial wealth W0 = $100,000
@@ -115,8 +115,8 @@ rC = log(1 + RC)
 DA = 0.1
 # Simple total return
 RA_total = (PA[2] + DA - PA[1]) / PA[1]
-# Dividend yield
-DY = DA/PA[2]
+# Dividend yield: RA_total = simple_return + dividend_yield
+DY = DA/PA[1]
 
 
 ##########
