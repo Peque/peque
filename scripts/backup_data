@@ -24,11 +24,8 @@
 
 
 #
-# description:
-#   Put this in ~/.bash_profile:
-#
-# usage:
-#   $ <path_to_backup_file>/backup_data &
+# Put this in ~/.bash_profile:
+#   source ~/.backup_data &
 #
 
 
