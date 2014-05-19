@@ -7,6 +7,14 @@ set colorcolumn=80
 " Autowrite changes
 set autowrite
 
+" Highlight trailing spaces
+highlight ExtraWhitespace ctermbg=lightgreen guibg=lightgreen
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
 " Playing around with tabs
 exec "set <A-1>=\e1"
 exec "set <A-2>=\e2"
