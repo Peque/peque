@@ -33,8 +33,15 @@ map <A-w> :tabclose<CR>
 command Make execute "!make"
 map <F9> :Make<CR>
 
+" Run
+autocmd FileType python
+	\ map <F5> :!python %<CR>
+autocmd FileType r
+	\ map <F5> :!Rscript %<CR>
+
 " Escape
 ino jk <esc>
 cno jk <c-c>
 ino kj <esc>
 cno kj <c-c>
+
