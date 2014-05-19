@@ -2,7 +2,7 @@
 set ignorecase
 
 " Highlight column 80
-set colorcolumn = 80
+set colorcolumn=80
 
 " Autowrite changes
 set autowrite
