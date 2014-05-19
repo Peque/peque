@@ -1,8 +1,12 @@
 " By default, ignore case while searching
 set ignorecase
 
-" Highlight column 80
-set colorcolumn=80
+" Highlight area @ column 80+
+let &colorcolumn=join(range(81,999),",")
+highlight ColorColumn ctermbg=235 guibg=#2c2d27
+
+" Use background theme
+set background=dark
 
 " Autowrite changes
 set autowrite
