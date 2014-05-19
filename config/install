@@ -1,0 +1,12 @@
+#!/bin/bash
+
+DIR="$(cd "$(dirname "$0")" && pwd)"
+
+# Vim
+rm -f ~/.vimrc
+ln -s $DIR/vimrc ~/.vimrc
+
+# Terminator
+rm -f ~/.config/terminator/config
+ln -s $DIR/terminator ~/.config/terminator/config
+

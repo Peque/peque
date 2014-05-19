@@ -1,0 +1,29 @@
+[global_config]
+  window_state = maximise
+  handle_size = 1
+  borderless = True
+  scrollbar_position = hidden
+  background_image = None
+  use_system_font = False
+  font = Monospace 11
+  title_transmit_fg_color = "#BBBBBB"
+  title_inactive_fg_color = "#444444"
+  title_transmit_bg_color = "#222222"
+  title_inactive_bg_color = "#111111"
+  enabled_plugins = ,
+[keybindings]
+[profiles]
+  [[default]]
+    cursor_blink = False
+    icon_bell = False
+    allow_bold = False
+[layouts]
+  [[default]]
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+      profile = default
+    [[[window0]]]
+      type = Window
+      parent = ""
+[plugins]
