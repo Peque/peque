@@ -10,3 +10,7 @@ ln -s $DIR/vimrc ~/.vimrc
 rm -f ~/.config/terminator/config
 ln -s $DIR/terminator ~/.config/terminator/config
 
+# IPython
+rm -f ~/.ipython/profile_default/ipython_config.py
+ln -s $DIR/ipython_config.py ~/.ipython/profile_default/ipython_config.py
+
