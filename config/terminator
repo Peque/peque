@@ -1,22 +1,17 @@
 [global_config]
-  window_state = maximise
-  handle_size = 1
   enabled_plugins = ,
-  title_transmit_fg_color = "#BBBBBB"
-  title_inactive_fg_color = "#444444"
+  handle_size = 1
   borderless = True
-  title_transmit_bg_color = "#222222"
-  title_inactive_bg_color = "#111111"
 [keybindings]
 [profiles]
   [[default]]
-    scrollbar_position = hidden
+    scrollbar_position = disabled
     use_system_font = False
-    scrollback_lines = 2048
+    scrollback_lines = 4096
     background_image = None
-    cursor_blink = False
     scroll_on_output = False
     icon_bell = False
+    show_titlebar = False
     font = Monospace 11
     allow_bold = False
 [layouts]
@@ -24,43 +19,46 @@
     [[[child1]]]
       type = Terminal
       parent = window0
-      profile = default
     [[[window0]]]
       type = Window
       parent = ""
   [[python]]
     [[[child0]]]
+      fullscreen = False
+      maximised = True
+      parent = ""
       position = 0:27
       type = Window
       order = 0
-      parent = ""
-      size = 1920, 1053
+      size = 1920, 1014
     [[[child1]]]
-      position = 700
+      position = 743
       type = HPaned
       order = 0
       parent = child0
+      ratio = 0.4
     [[[child3]]]
-      position = 206
+      position = 268
       type = VPaned
       order = 1
       parent = child1
-    [[[vim]]]
+      ratio = 0.25
+    [[[terminal2]]]
       profile = default
-      command = vim; /bin/bash
-      type = Terminal
-      order = 0
       parent = child1
-    [[[git]]]
-      profile = default
-      command = git status; /bin/bash
+      command = ""
       type = Terminal
       order = 0
-      parent = child3
-    [[[ipython]]]
+    [[[terminal5]]]
       profile = default
-      command = ipython --pylab; /bin/bash
       type = Terminal
       order = 1
       parent = child3
+      command = ipython; bash
+    [[[terminal4]]]
+      profile = default
+      type = Terminal
+      order = 0
+      parent = child3
+      command = git status; bash
 [plugins]
