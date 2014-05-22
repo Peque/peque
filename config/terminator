@@ -1,21 +1,23 @@
 [global_config]
   window_state = maximise
   handle_size = 1
-  borderless = True
-  scrollbar_position = hidden
-  background_image = None
-  use_system_font = False
-  font = Monospace 11
+  enabled_plugins = ,
   title_transmit_fg_color = "#BBBBBB"
   title_inactive_fg_color = "#444444"
+  borderless = True
   title_transmit_bg_color = "#222222"
   title_inactive_bg_color = "#111111"
-  enabled_plugins = ,
 [keybindings]
 [profiles]
   [[default]]
+    scrollbar_position = hidden
+    use_system_font = False
+    scrollback_lines = 2048
+    background_image = None
     cursor_blink = False
+    scroll_on_output = False
     icon_bell = False
+    font = Monospace 11
     allow_bold = False
 [layouts]
   [[default]]
@@ -26,4 +28,39 @@
     [[[window0]]]
       type = Window
       parent = ""
+  [[python]]
+    [[[child0]]]
+      position = 0:27
+      type = Window
+      order = 0
+      parent = ""
+      size = 1920, 1053
+    [[[child1]]]
+      position = 700
+      type = HPaned
+      order = 0
+      parent = child0
+    [[[child3]]]
+      position = 206
+      type = VPaned
+      order = 1
+      parent = child1
+    [[[vim]]]
+      profile = default
+      command = vim; /bin/bash
+      type = Terminal
+      order = 0
+      parent = child1
+    [[[git]]]
+      profile = default
+      command = git status; /bin/bash
+      type = Terminal
+      order = 0
+      parent = child3
+    [[[ipython]]]
+      profile = default
+      command = ipython --pylab; /bin/bash
+      type = Terminal
+      order = 1
+      parent = child3
 [plugins]
