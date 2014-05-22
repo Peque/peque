@@ -5,7 +5,7 @@
 [keybindings]
 [profiles]
   [[default]]
-    scrollbar_position = disabled
+    scrollbar_position = hidden
     use_system_font = False
     scrollback_lines = 4096
     background_image = None
