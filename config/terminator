@@ -54,7 +54,7 @@
       type = Terminal
       order = 1
       parent = child3
-      command = ipython; bash
+      command = ipython --pylab; bash
     [[[terminal4]]]
       profile = default
       type = Terminal
