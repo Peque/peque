@@ -61,4 +61,43 @@
       order = 0
       parent = child3
       command = git status; bash
+  [[octave]]
+    [[[child0]]]
+      fullscreen = False
+      maximised = True
+      parent = ""
+      position = 0:27
+      type = Window
+      order = 0
+      size = 1920, 1014
+    [[[child1]]]
+      position = 743
+      type = HPaned
+      order = 0
+      parent = child0
+      ratio = 0.4
+    [[[child3]]]
+      position = 268
+      type = VPaned
+      order = 1
+      parent = child1
+      ratio = 0.25
+    [[[terminal2]]]
+      profile = default
+      parent = child1
+      command = ""
+      type = Terminal
+      order = 0
+    [[[terminal5]]]
+      profile = default
+      type = Terminal
+      order = 1
+      parent = child3
+      command = octave; bash
+    [[[terminal4]]]
+      profile = default
+      type = Terminal
+      order = 0
+      parent = child3
+      command = git status; bash
 [plugins]
