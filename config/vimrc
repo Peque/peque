@@ -1,18 +1,21 @@
 " By default, ignore case while searching
 set ignorecase
 
+" Autowrite changes
+set autowrite
+
 " Highlight area @ column 80+
-let &colorcolumn=join(range(81,999),",")
-highlight ColorColumn ctermbg=235 guibg=#2c2d27
+let &colorcolumn=join(range(81,84),",")
+highlight ColorColumn ctermbg=235
 
 " Use background theme
 set background=dark
 
-" Autowrite changes
-set autowrite
+" Highlight search terms
+hi Search cterm=bold ctermfg=white ctermbg=DarkGray
 
 " Highlight trailing spaces
-highlight ExtraWhitespace ctermbg=lightgreen guibg=lightgreen
+highlight ExtraWhitespace ctermbg=lightgreen
 match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
@@ -52,8 +55,16 @@ autocmd FileType r
 	\ map <F5> :!Rscript %<CR>
 
 " Escape
-ino jk <esc>
-cno jk <c-c>
-ino kj <esc>
-cno kj <c-c>
+ino jkl <esc>
+cno jkl <c-c>
+ino jlk <esc>
+cno jlk <c-c>
+ino kjl <esc>
+cno kjl <c-c>
+ino klj <esc>
+cno klj <c-c>
+ino ljk <esc>
+cno ljk <c-c>
+ino lkj <esc>
+cno lkj <c-c>
 
