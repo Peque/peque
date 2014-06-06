@@ -1,0 +1,53 @@
+#!/bin/bash
+
+#
+# This script finds missing files that are not in "<dest_dir>" while they exist
+# in "<orig_dir>", regardless of the relative location of the files in those
+# folders.
+#
+# The missing files will be listed at the end of the execution and they will
+# automatically be copied under a rescue folder "<dest_dir>/___RESCUE".
+#
+
+if [ $# -lt 2 ]; then
+	echo "Usage:"
+	echo "  checksumcompare <orig_dir> <dest_dir>\n"
+	exit
+fi
+
+# Auxiliary files
+rm -f ___orig
+rm -f ___dest
+
+# Finding files in origin and computing checksum
+find $1 -type f | while read FILE; do
+	echo $(md5sum "$FILE")>> ___orig
+done
+
+# Finding files in destiny and computing checksum
+find $2 -type f | while read FILE; do
+	echo $(md5sum "$FILE" | awk '{print $1}')>> ___dest
+done
+
+# Missing files
+MISSING_FILES=$(grep -Fvf ___dest ___orig)
+COUNT=$([ -n "$MISSING_FILES" ] && echo "$MISSING_FILES" | wc -l || echo 0)
+
+if [ $COUNT -gt 0 ]; then
+	RESCUE_FOLDER="$(dirname $2)/$(basename $2)/___RESCUE"
+	mkdir -p "$RESCUE_FOLDER"
+	echo "$MISSING_FILES" | while read FILE; do
+		echo "$FILE"
+		cp "${FILE#* }" "$RESCUE_FOLDER"
+	done
+	echo ""
+	echo "Rescued $COUNT files to \"$RESCUE_FOLDER\"."
+	echo "You may rerun the command to verify that there are no longer missing"
+	echo "files in \"$2\"."
+	echo ""
+else
+	echo ""
+	echo "There are no missing files in \"$2\"."
+	echo ""
+fi
+
