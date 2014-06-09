@@ -1,9 +1,6 @@
 " By default, ignore case while searching
 set ignorecase
 
-" Autowrite changes
-set autowrite
-
 " Highlight area @ column 80+
 let &colorcolumn=join(range(81,84),",")
 highlight ColorColumn ctermbg=235
@@ -43,6 +40,10 @@ map <A-9> :tabprevious<CR>
 map <A-0> :tabnext<CR>
 map <A-e> :tabedit 
 map <A-w> :tabclose<CR>
+
+" <A- >
+exec "set <A-s>=\es"
+map <A-s> :w<CR>
 
 " Make
 command Make execute "!make"
