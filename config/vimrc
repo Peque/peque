@@ -29,7 +29,6 @@ exec "set <A-6>=\e6"
 exec "set <A-9>=\e9"
 exec "set <A-0>=\e0"
 exec "set <A-e>=\ee"
-exec "set <A-w>=\ew"
 map <A-1> 1gt
 map <A-2> 2gt
 map <A-3> 3gt
@@ -39,11 +38,12 @@ map <A-6> 6gt
 map <A-9> :tabprevious<CR>
 map <A-0> :tabnext<CR>
 map <A-e> :tabedit 
-map <A-w> :tabclose<CR>
 
 " <A- >
-exec "set <A-s>=\es"
-map <A-s> :w<CR>
+exec "set <A-q>=\eq"
+exec "set <A-w>=\ew"
+map <A-q> :q<CR>
+map <A-w> :w<CR>
 
 " Make
 command Make execute "!make"
