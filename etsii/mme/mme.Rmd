@@ -44,7 +44,7 @@ A time series plot helps visualizing the demand evolution across the time period
 ```{r, cache = TRUE, fig.width = 10}
 # Dataframe and time series objects
 ts <- xts(df$demand, df$date)
-plot(ts, main = 'Energy demand', xlab = 'Date', ylab = 'Demand (GWh)')
+plot(ts, main = 'Energy demand evolution', xlab = 'Date', ylab = 'Demand (GWh)')
 ```
 
 A seasonal dependency of the demand can be easily spotted in the graphics, although there are other factors that may affect the results, such as the temperature, holidays, weekends, etc..
@@ -53,7 +53,7 @@ During weekends, the demand decreases considerably compared to the rest of the w
 
 ```{r, cache = TRUE}
 # Demand by day of the week
-ggplot(df, aes(day, demand)) + geom_boxplot()
+ggplot(df, aes(day, demand)) + geom_boxplot() + xlab('Day') + ylab('Demand (GWh)') + ggtitle('Demand per day of the week')
 ```
 
 During winter and summer the demand is clearly higher exept for, probably, vacation periods. Holydays are also easily spotted in the graphics, being the lowest peaks of demand.
@@ -94,6 +94,6 @@ The exact dates which are generating those errors are, indeed, holidays or the d
 head(strftime(dates[order(-abs_diff)], format = '%B %d'), 10)
 ```
 
-
+TODO: function to tag holidays (http://www.calendario-365.es/dias-festivos/2013.html)
 
 TODO: demand ~ temperature correlation.
