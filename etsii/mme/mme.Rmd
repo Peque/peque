@@ -1,0 +1,99 @@
+# Energy demand forecast
+
+## Synopsis
+
+The objective of this analysis is to develop a mathematical model for energy demand forecasting in Spain. The research is done using the R programming language and all the data and code needed to reproduce the study is provided within this document to ensure fully reproducible research.
+
+TODO: source code (Github). Author: contact, comments, feedback...
+
+The following extra packages have been used for the analysis:
+
+```{r, cache = TRUE, message = FALSE}
+library(xts)
+library(ggplot2)
+```
+
+## Exploratory data analysis
+
+The data for this study is publicity available in the internet. This data contains information about the daily energy demand (in GWh) between 2004 and 2012.
+
+```{r, cache = TRUE, fig.width = 10}
+# Downloading and loading data into memory
+dataurl <- 'https://gist.githubusercontent.com/Peque/3e43a8f35ce5e03c2645/raw/d28312ac0e49888a5079fcea188770acaf3aa4a2/mme.csv'
+tmp <- tempfile()
+download.file(dataurl, tmp, method = 'curl')
+df <- read.csv(tmp)
+unlink(tmp)
+```
+
+For later use, the dataframe is formatted and completed with extra information gotten from the raw data.
+
+```{r, cache = TRUE}
+# Convert date strings to POSIX dates
+df$date <- strptime(df$date, format = '%d-%m-%y')
+# Day of the week
+df$day <- as.factor(strftime(df$date, format = '%A'))
+# Day of the year
+df$yearday <- as.factor(strftime(df$date, format = '%m%d'))
+# Final structure for the study
+str(df)
+```
+
+A time series plot helps visualizing the demand evolution across the time period.
+
+```{r, cache = TRUE, fig.width = 10}
+# Dataframe and time series objects
+ts <- xts(df$demand, df$date)
+plot(ts, main = 'Energy demand', xlab = 'Date', ylab = 'Demand (GWh)')
+```
+
+A seasonal dependency of the demand can be easily spotted in the graphics, although there are other factors that may affect the results, such as the temperature, holidays, weekends, etc..
+
+During weekends, the demand decreases considerably compared to the rest of the week days.
+
+```{r, cache = TRUE}
+# Demand by day of the week
+ggplot(df, aes(day, demand)) + geom_boxplot()
+```
+
+During winter and summer the demand is clearly higher exept for, probably, vacation periods. Holydays are also easily spotted in the graphics, being the lowest peaks of demand.
+
+```{r, fig.width = 10}
+# Aggregating demand by day of the year (average)
+avg_demand_per_yearday <- aggregate(demand ~ yearday, df, 'mean')
+
+# Computing the smooth curve for the time series. Data is replicated before computing the curve in order to achieve continuity
+smooth_yearday <- rbind(avg_demand_per_yearday, avg_demand_per_yearday, avg_demand_per_yearday, avg_demand_per_yearday, avg_demand_per_yearday)
+smooth_yearday <- lowess(smooth_yearday$demand, f = 1 / 45)
+l <- length(avg_demand_per_yearday$demand)
+l0 <- 2 * l + 1
+l1 <- 3 * l
+smooth_yearday <- smooth_yearday$y[l0:l1]
+
+# Plotting the result
+par(mfrow = c(1, 1))
+# Setting year to 2000 to allow existence of 29th February
+dates <- as.Date(paste(levels(df$yearday), '2000'), format = '%m%d%Y')
+plot(dates, avg_demand_per_yearday$demand, type = 'l', main = 'Average daily demand', xlab = 'Date', ylab = 'Demand (GWh)')
+lines(dates, smooth_yearday, col = 'blue', lwd = 2)
+```
+
+The graphics bellow show the atypical errors. Notice how the biggest errors are all negative.
+
+```{r, fig.width = 10}
+par(mfrow = c(1, 2))
+diff <- avg_demand_per_yearday$demand - smooth_yearday
+abs_diff <- abs(diff)
+barplot(diff[order(-abs_diff)], main = 'Smoothing error', ylab = 'Error')
+boxplot(diff, main = 'Smoothing error', ylab = 'Error')
+```
+
+The exact dates which are generating those errors are, indeed, holidays or the day just before holidays (as is the case for the 25th November and 31th Devember).
+
+```{r}
+head(strftime(dates[order(-abs_diff)], format = '%B %d'), 10)
+```
+
+
+
+TODO: demand ~ temperature correlation.
