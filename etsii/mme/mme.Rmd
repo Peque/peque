@@ -97,3 +97,15 @@ head(strftime(dates[order(-abs_diff)], format = '%B %d'), 10)
 TODO: function to tag holidays (http://www.calendario-365.es/dias-festivos/2013.html)
 
 TODO: demand ~ temperature correlation.
+
+The autocorrelation function shows a highly autocorrelated seasonal non-stationary process with, as expected, yearly and weekly cicles. The ACF alone, however, tells us little about the orders of dependence for ARMA or AR processes. The PACF is better for AR models, and also shows the weekly and yearly seasons, although the correlation is lost faster with the lag.
+
+```{r, fig.width = 10, fig.height = 10}
+par(mfrow = c(2, 2))
+acf(df$demand, 100, main = 'Autocorrelation')
+acf(df$demand, 1500, main = 'Autocorrelation')
+pacf(df$demand, 100, main = 'Partial autocorrelation')
+pacf(df$demand, 1500, main = 'Partial autocorrelation')
+```
+
+## Arima model
