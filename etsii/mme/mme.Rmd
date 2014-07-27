@@ -11,6 +11,7 @@ The following extra packages have been used for the analysis:
 ```{r, cache = TRUE, message = FALSE}
 library(xts)
 library(ggplot2)
+library(forecast)
 ```
 
 ## Exploratory data analysis
@@ -109,3 +110,25 @@ pacf(df$demand, 1500, main = 'Partial autocorrelation')
 ```
 
 ## Arima model
+
+Decomposition of the weekly seasonal time series.
+
+```{r, fig.width = 10, fig.height = 10}
+wts <- ts(ts, frequency = 7)
+dec_wts <- decompose(wts)
+plot(dec_wts)
+# Demand minus week seasonal
+df$demand_mws <- df$demand - dec_wts$season
+```
+
+Decomposition of the yearly seasonal time series. 29th February days are excluded for frequency matching.
+
+```{r, fig.width = 10, fig.height = 10}
+yts <- ts(subset(df, yearday != '0229')$demand_mws,
+          frequency = 365, start = c(2004, 01))
+dec_yts <- decompose(yts)
+plot(dec_yts)
+aux <- which(df$yearday != '0229')
+df$demand_mwys[aux] <- df$demand[aux] - dec_yts$season
+```
+
