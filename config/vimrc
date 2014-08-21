@@ -1,9 +1,15 @@
+
+" General settings
+syntax on
+filetype on
+filetype plugin indent on
+
 " By default, ignore case while searching
 set ignorecase
 
-" Highlight area @ column 80+
-let &colorcolumn=join(range(81,84),",")
-highlight ColorColumn ctermbg=235
+" Indentation
+set autoindent
+set smarttab
 
 " Use background theme
 set background=dark
@@ -39,7 +45,7 @@ map <A-9> :tabprevious<CR>
 map <A-0> :tabnext<CR>
 map <A-e> :tabedit 
 
-" <A- >
+" Write and quit commands
 exec "set <A-q>=\eq"
 exec "set <A-w>=\ew"
 map <A-q> :q<CR>
@@ -48,12 +54,6 @@ map <A-w> :w<CR>
 " Make
 command Make execute "!make"
 map <F9> :Make<CR>
-
-" Run
-autocmd FileType python
-	\ map <F5> :!python %<CR>
-autocmd FileType r
-	\ map <F5> :!Rscript %<CR>
 
 " Escape
 ino jkl <esc>

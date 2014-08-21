@@ -4,7 +4,9 @@ DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # Vim
 rm -f ~/.vimrc
+rm -rf ~/.vim
 ln -s $DIR/vimrc ~/.vimrc
+ln -s $DIR/vim ~/.vim
 
 # Terminator
 rm -f ~/.config/terminator/config
