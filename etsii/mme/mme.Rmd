@@ -40,12 +40,22 @@ df$yearday <- as.factor(strftime(df$date, format = '%m%d'))
 str(df)
 ```
 
+The data set is divided to create a test set:
+
+```{r}
+df_test <- subset(df, date >= strptime('01-01-2012', format = '%d-%m-%Y'))
+df <- subset(df, date < strptime('01-01-2012', format = '%d-%m-%Y'))
+ts <- ts(df$demand, frequency = 1, start = c(2004, 01))
+ts_test <- ts(df$demand, frequency = 1, start = c(2012, 01))
+```
+
+
 A time series plot helps visualizing the demand evolution across the time period.
 
 ```{r, cache = TRUE, fig.width = 10}
 # Dataframe and time series objects
-ts <- xts(df$demand, df$date)
-plot(ts, main = 'Energy demand evolution', xlab = 'Date', ylab = 'Demand (GWh)')
+demandts <- xts(df$demand, df$date)
+plot(demandts, main = 'Energy demand evolution', xlab = 'Date', ylab = 'Demand (GWh)')
 ```
 
 A seasonal dependency of the demand can be easily spotted in the graphics, although there are other factors that may affect the results, such as the temperature, holidays, weekends, etc..
@@ -109,26 +119,106 @@ pacf(df$demand, 100, main = 'Partial autocorrelation')
 pacf(df$demand, 1500, main = 'Partial autocorrelation')
 ```
 
-## Arima model
+## Further analysis
 
 Decomposition of the weekly seasonal time series.
 
 ```{r, fig.width = 10, fig.height = 10}
-wts <- ts(ts, frequency = 7)
+wts <- ts(ts, frequency = 7, start = c(2004, 01))
 dec_wts <- decompose(wts)
 plot(dec_wts)
 # Demand minus week seasonal
 df$demand_mws <- df$demand - dec_wts$season
 ```
 
-Decomposition of the yearly seasonal time series. 29th February days are excluded for frequency matching.
+Decomposition of the yearly seasonal time series. 29th February days are excluded for frequency matching. The time series is formed out of the original observation minus the weekly seasonal data.
 
 ```{r, fig.width = 10, fig.height = 10}
 yts <- ts(subset(df, yearday != '0229')$demand_mws,
           frequency = 365, start = c(2004, 01))
 dec_yts <- decompose(yts)
 plot(dec_yts)
-aux <- which(df$yearday != '0229')
-df$demand_mwys[aux] <- df$demand[aux] - dec_yts$season
+days365 <- which(df$yearday != '0229')
+february29ths <- which(df$yearday == '0229')
+df$demand_mwys[days365] <- df$demand_mws[days365] - dec_yts$season
+# Fill values on February 29th
+df$demand_mwys[february29ths] <- df$demand_mws[february29ths]
 ```
 
+A new time series is formed out of the original observation minus the weekly and the yearly seasonal data:
+
+```{r, cache = TRUE, fig.width = 10}
+par(mfrow = c(1, 1))
+ts_mwys <- ts(df$demand_mwys, frequency = 1, start = c(2004, 01))
+demandts_mwys <- xts(df$demand_mwys, df$date)
+plot(demandts_mwys, main = 'Energy demand minus seasonal data', xlab = 'Date', ylab = 'Demand (GWh)')
+```
+
+Plotting the average daily demand of the demand minus the seasonal data shows a new error rate much lower than the one seen before:
+
+```{r, fig.width = 10}
+# Aggregating demand by day of the year (average)
+avg_demand_mwys_per_yearday <- aggregate(demand_mwys ~ yearday, df, 'mean')
+
+# Computing the smooth curve for the time series. Data is replicated before computing the curve in order to achieve continuity
+smooth_yearday <- rbind(avg_demand_mwys_per_yearday, avg_demand_mwys_per_yearday, avg_demand_mwys_per_yearday, avg_demand_mwys_per_yearday, avg_demand_mwys_per_yearday)
+smooth_yearday <- lowess(smooth_yearday$demand_mwys, f = 1 / 45)
+l <- length(avg_demand_mwys_per_yearday$demand_mwys)
+l0 <- 2 * l + 1
+l1 <- 3 * l
+smooth_yearday <- smooth_yearday$y[l0:l1]
+
+# Plotting the result
+par(mfrow = c(1, 1))
+# Setting year to 2000 to allow existence of 29th February
+dates <- as.Date(paste(levels(df$yearday), '2000'), format = '%m%d%Y')
+plot(dates, avg_demand_mwys_per_yearday$demand_mwys, type = 'l', main = 'Average daily demand', xlab = 'Date', ylab = 'Demand (GWh)')
+lines(dates, smooth_yearday, col = 'blue', lwd = 2)
+```
+
+New errors:
+
+```{r, fig.width = 10}
+par(mfrow = c(1, 2))
+diff <- avg_demand_mwys_per_yearday$demand_mwys - smooth_yearday
+abs_diff <- abs(diff)
+barplot(diff[order(-abs_diff)], main = 'Smoothing error', ylab = 'Error')
+boxplot(diff, main = 'Smoothing error', ylab = 'Error')
+```
+
+Now there are other dates which repeately generate the highest errors:
+
+```{r}
+head(strftime(dates[order(-abs_diff)], format = '%B %d'), 10)
+```
+
+Those dates may be taken into account when forecasting the demand in order to reduce the forecast error.
+
+The new ACF and PACF are as follow now:
+
+```{r, fig.width = 10, fig.height = 5}
+par(mfrow = c(1, 2))
+acf(df$demand_mwys, 100, main = 'Autocorrelation')
+pacf(df$demand_mwys, 100, main = 'Partial autocorrelation')
+```
+
+## ARIMA models and forecast
+
+### Time series of the demand minus yearly and weekly seasonal data
+
+Although the order for $ARIMA(p,d,q)$ can be considered from ACF and PACF, in R language there is a function to find order $(p,d,q)$ automatically:
+
+```{r}
+arima_mwys <- auto.arima(ts_mwys)
+predict(arima_mwys, n.ahead = 10)
+```
+
+
+### Raw time series of the demand
+
+```{r}
+arima <- auto.arima(ts)
+predict(arima, n.ahead = 10)
+```
+
+## TODO: ARMA, AR, MA models and forecast?
