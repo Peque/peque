@@ -8,7 +8,7 @@ TODO: source code (Github). Author: contact, comments, feedback...
 
 The following extra packages have been used for the analysis:
 
-```{r, cache = TRUE, message = FALSE}
+```{r, message = FALSE}
 library(xts)
 library(ggplot2)
 library(forecast)
@@ -45,8 +45,7 @@ The data set is divided to create a test set:
 ```{r}
 df_test <- subset(df, date >= strptime('01-01-2012', format = '%d-%m-%Y'))
 df <- subset(df, date < strptime('01-01-2012', format = '%d-%m-%Y'))
-ts <- ts(df$demand, frequency = 1, start = c(2004, 01))
-ts_test <- ts(df$demand, frequency = 1, start = c(2012, 01))
+ts <- ts(df$demand, frequency = 1)
 ```
 
 
@@ -89,7 +88,7 @@ plot(dates, avg_demand_per_yearday$demand, type = 'l', main = 'Average daily dem
 lines(dates, smooth_yearday, col = 'blue', lwd = 2)
 ```
 
-The graphics bellow show the atypical errors. Notice how the biggest errors are all negative.
+The graphics bellow show the errors. Notice how the biggest errors are all negative.
 
 ```{r, fig.width = 10}
 par(mfrow = c(1, 2))
@@ -124,23 +123,22 @@ pacf(df$demand, 1500, main = 'Partial autocorrelation')
 Decomposition of the weekly seasonal time series.
 
 ```{r, fig.width = 10, fig.height = 10}
-wts <- ts(ts, frequency = 7, start = c(2004, 01))
+wts <- ts(ts, frequency = 7)
 dec_wts <- decompose(wts)
 plot(dec_wts)
 # Demand minus week seasonal
-df$demand_mws <- df$demand - dec_wts$season
+df$demand_mws <- df$demand - as.numeric(dec_wts$season)
 ```
 
 Decomposition of the yearly seasonal time series. 29th February days are excluded for frequency matching. The time series is formed out of the original observation minus the weekly seasonal data.
 
 ```{r, fig.width = 10, fig.height = 10}
-yts <- ts(subset(df, yearday != '0229')$demand_mws,
-          frequency = 365, start = c(2004, 01))
+yts <- ts(subset(df, yearday != '0229')$demand_mws, frequency = 365)
 dec_yts <- decompose(yts)
 plot(dec_yts)
 days365 <- which(df$yearday != '0229')
 february29ths <- which(df$yearday == '0229')
-df$demand_mwys[days365] <- df$demand_mws[days365] - dec_yts$season
+df$demand_mwys[days365] <- df$demand_mws[days365] - as.numeric(dec_yts$season)
 # Fill values on February 29th
 df$demand_mwys[february29ths] <- df$demand_mws[february29ths]
 ```
@@ -149,7 +147,7 @@ A new time series is formed out of the original observation minus the weekly and
 
 ```{r, cache = TRUE, fig.width = 10}
 par(mfrow = c(1, 1))
-ts_mwys <- ts(df$demand_mwys, frequency = 1, start = c(2004, 01))
+ts_mwys <- ts(df$demand_mwys, frequency = 1)
 demandts_mwys <- xts(df$demand_mwys, df$date)
 plot(demandts_mwys, main = 'Energy demand minus seasonal data', xlab = 'Date', ylab = 'Demand (GWh)')
 ```
@@ -210,7 +208,41 @@ Although the order for $ARIMA(p,d,q)$ can be considered from ACF and PACF, in R 
 
 ```{r}
 arima_mwys <- auto.arima(ts_mwys)
-predict(arima_mwys, n.ahead = 10)
+arima_mwys
+```
+
+Two dataframes are created containing the yearly and weekly seasonal data:
+
+```{r}
+auxdf <- df[!duplicated(df$yearday), ]
+year_season <- auxdf$demand_mws - auxdf$demand_mwys
+names(year_season) <- auxdf$yearday
+head(year_season)
+
+auxdf <- df[!duplicated(df$day), ]
+week_season <- auxdf$demand - auxdf$demand_mws
+names(week_season) <- auxdf$day
+head(week_season)
+```
+
+Then the error is calculated:
+
+```{r}
+auxts <- ts_mwys
+errs <- c()
+pred <- c()
+for (i in 1:nrow(df_test)) {
+  s <- year_season[df_test$yearday[i]] + week_season[df_test$day[i]]
+  p <- as.numeric(predict(arima_mwys, newdata = auxts, n.ahead = 1)$pred) + s
+  pred <- c(pred, p)
+  errs <- c(errs, df_test$demand[i] - p)
+  auxts <- ts(c(auxts, df_test$demand[i]), frequency = 1)
+}
+par(mfrow = c(1, 1))
+plot(1:366, errs, type = 'l')
+plot(pred, type = 'l', col = 'red')
+lines(df_test$demand)
+mean(errs)
 ```
 
 
@@ -218,7 +250,22 @@ predict(arima_mwys, n.ahead = 10)
 
 ```{r}
 arima <- auto.arima(ts)
-predict(arima, n.ahead = 10)
+arima
 ```
 
-## TODO: ARMA, AR, MA models and forecast?
+```{r}
+auxts <- ts
+errs <- c()
+pred <- c()
+for (i in 1:nrow(df_test)) {
+  p <- as.numeric(predict(arima, newdata = auxts, n.ahead = 1)$pred)
+  pred <- c(pred, p)
+  errs <- c(errs, df_test$demand[i] - p)
+  auxts <- ts(c(auxts, df_test$demand[i]), frequency = 7)
+}
+par(mfrow = c(1, 1))
+plot(1:366, errs, type = 'l')
+plot(pred, type = 'l', col = 'red')
+lines(df_test$demand)
+mean(errs)
+```
