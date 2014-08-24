@@ -200,69 +200,22 @@ acf(df$demand_mwys, 100, main = 'Autocorrelation')
 pacf(df$demand_mwys, 100, main = 'Partial autocorrelation')
 ```
 
-## ARIMA models and forecast
-
-### Time series of the demand minus yearly and weekly seasonal data
-
-Although the order for $ARIMA(p,d,q)$ can be considered from ACF and PACF, in R language there is a function to find order $(p,d,q)$ automatically:
-
-```{r}
-arima_mwys <- auto.arima(ts_mwys)
-arima_mwys
-```
-
-Two dataframes are created containing the yearly and weekly seasonal data:
-
-```{r}
-auxdf <- df[!duplicated(df$yearday), ]
-year_season <- auxdf$demand_mws - auxdf$demand_mwys
-names(year_season) <- auxdf$yearday
-head(year_season)
-
-auxdf <- df[!duplicated(df$day), ]
-week_season <- auxdf$demand - auxdf$demand_mws
-names(week_season) <- auxdf$day
-head(week_season)
-```
-
-Then the error is calculated:
-
-```{r}
-auxts <- ts_mwys
-auxmodel <- arima_mwys
-errs <- c()
-pred <- c()
-for (i in 1:nrow(df_test)) {
-  s <- year_season[df_test$yearday[i]] + week_season[df_test$day[i]]
-  p <- as.numeric(predict(auxmodel, newdata = auxts, n.ahead = 1)$pred) + s
-  pred <- c(pred, p)
-  errs <- c(errs, df_test$demand[i] - p)
-  auxts <- ts(c(auxts, df_test$demand[i]), frequency = 1)
-  auxmodel <- Arima(auxts, model = auxmodel)
-}
-par(mfrow = c(1, 1))
-plot(errs, type = 'l', main = 'Error in the forecast')
-plot(pred, type = 'l', main = 'Real vs. forecast', col = 'red')
-lines(df_test$demand)
-legend('topright', c('Real', 'Forecast'), lty = 1, col = c('black', 'red'))
-mean(abs(errs))
-```
-
-
-### Raw time series of the demand
+## ARIMA model
 
 https://www.otexts.org/fpp/8/7
 
-```{r}
-model <- Arima(ts, c(2, 1, 2), list(order = c(1, 1, 1), period = 7))
+```{r, cache = TRUE, fig.width = 10}
+model <- Arima(ts, order = c(2, 1, 2), list(order = c(1, 1, 1), period = 7))
 auxts <- ts
 auxmodel <- model
 errs <- c()
 pred <- c()
+perc <- c()
 for (i in 1:nrow(df_test)) {
   p <- as.numeric(predict(auxmodel, newdata = auxts, n.ahead = 1)$pred)
   pred <- c(pred, p)
   errs <- c(errs, df_test$demand[i] - p)
+  perc <- c(perc, (df_test$demand[i] - p) / df_test$demand[i])
   auxts <- ts(c(auxts, df_test$demand[i]), frequency = 7)
   auxmodel <- Arima(auxts, model = auxmodel)
 }
@@ -271,5 +224,17 @@ plot(errs, type = 'l', main = 'Error in the forecast')
 plot(pred, type = 'l', main = 'Real vs. forecast', col = 'red')
 lines(df_test$demand)
 legend('topright', c('Real', 'Forecast'), lty = 1, col = c('black', 'red'))
+```
+
+Mean error can be easily calculated:
+
+```{r}
 mean(abs(errs))
+mean(abs(perc))
+```
+
+## Forecast
+
+```{r, fig.width = 10}
+plot(forecast(Arima(tail(ts, 200), model = model)))
 ```
