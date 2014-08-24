@@ -229,43 +229,43 @@ Then the error is calculated:
 
 ```{r}
 auxts <- ts_mwys
+auxmodel <- arima_mwys
 errs <- c()
 pred <- c()
 for (i in 1:nrow(df_test)) {
   s <- year_season[df_test$yearday[i]] + week_season[df_test$day[i]]
-  p <- as.numeric(predict(arima_mwys, newdata = auxts, n.ahead = 1)$pred) + s
+  p <- as.numeric(predict(auxmodel, newdata = auxts, n.ahead = 1)$pred) + s
   pred <- c(pred, p)
   errs <- c(errs, df_test$demand[i] - p)
   auxts <- ts(c(auxts, df_test$demand[i]), frequency = 1)
+  auxmodel <- Arima(auxts, model = auxmodel)
 }
 par(mfrow = c(1, 1))
 plot(1:366, errs, type = 'l')
 plot(pred, type = 'l', col = 'red')
 lines(df_test$demand)
-mean(errs)
+mean(abs(errs))
 ```
 
 
 ### Raw time series of the demand
 
 ```{r}
-arima <- auto.arima(ts)
-arima
-```
-
-```{r}
+arima <- arima(ts, c(2, 1, 2), list(order = c(1, 1, 1), period = 7))
 auxts <- ts
+auxmodel <- arima
 errs <- c()
 pred <- c()
 for (i in 1:nrow(df_test)) {
-  p <- as.numeric(predict(arima, newdata = auxts, n.ahead = 1)$pred)
+  p <- as.numeric(predict(auxmodel, newdata = auxts, n.ahead = 1)$pred)
   pred <- c(pred, p)
   errs <- c(errs, df_test$demand[i] - p)
   auxts <- ts(c(auxts, df_test$demand[i]), frequency = 7)
+  auxmodel <- Arima(auxts, model = auxmodel)
 }
 par(mfrow = c(1, 1))
 plot(1:366, errs, type = 'l')
 plot(pred, type = 'l', col = 'red')
 lines(df_test$demand)
-mean(errs)
+mean(abs(errs))
 ```
