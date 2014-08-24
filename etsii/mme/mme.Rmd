@@ -241,19 +241,22 @@ for (i in 1:nrow(df_test)) {
   auxmodel <- Arima(auxts, model = auxmodel)
 }
 par(mfrow = c(1, 1))
-plot(1:366, errs, type = 'l')
-plot(pred, type = 'l', col = 'red')
+plot(errs, type = 'l', main = 'Error in the forecast')
+plot(pred, type = 'l', main = 'Real vs. forecast', col = 'red')
 lines(df_test$demand)
+legend('topright', c('Real', 'Forecast'), lty = 1, col = c('black', 'red'))
 mean(abs(errs))
 ```
 
 
 ### Raw time series of the demand
 
+https://www.otexts.org/fpp/8/7
+
 ```{r}
-arima <- arima(ts, c(2, 1, 2), list(order = c(1, 1, 1), period = 7))
+model <- Arima(ts, c(2, 1, 2), list(order = c(1, 1, 1), period = 7))
 auxts <- ts
-auxmodel <- arima
+auxmodel <- model
 errs <- c()
 pred <- c()
 for (i in 1:nrow(df_test)) {
@@ -264,8 +267,9 @@ for (i in 1:nrow(df_test)) {
   auxmodel <- Arima(auxts, model = auxmodel)
 }
 par(mfrow = c(1, 1))
-plot(1:366, errs, type = 'l')
-plot(pred, type = 'l', col = 'red')
+plot(errs, type = 'l', main = 'Error in the forecast')
+plot(pred, type = 'l', main = 'Real vs. forecast', col = 'red')
 lines(df_test$demand)
+legend('topright', c('Real', 'Forecast'), lty = 1, col = c('black', 'red'))
 mean(abs(errs))
 ```
