@@ -61,7 +61,7 @@ A seasonal dependency of the demand can be easily spotted in the graphics, altho
 
 During weekends, the demand decreases considerably compared to the rest of the week days.
 
-```{r, cache = TRUE}
+```{r, cache = TRUE, fig.width = 10}
 # Demand by day of the week
 ggplot(df, aes(day, demand)) + geom_boxplot() + xlab('Day') + ylab('Demand (GWh)') + ggtitle('Demand per day of the week')
 ```
