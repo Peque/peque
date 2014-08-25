@@ -9,6 +9,6 @@ set tabstop=4
 map <F5> :!python %<CR>
 
 " Highlight area @ column 79+
-let &colorcolumn=join(range(73,79),",")
+let &colorcolumn=join(range(80,84),",")
 highlight ColorColumn ctermbg=235
 
