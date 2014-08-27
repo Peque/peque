@@ -214,8 +214,8 @@ perc <- c()
 for (i in 1:nrow(df_test)) {
   p <- as.numeric(predict(auxmodel, newdata = auxts, n.ahead = 1)$pred)
   pred <- c(pred, p)
-  errs <- c(errs, df_test$demand[i] - p)
-  perc <- c(perc, (df_test$demand[i] - p) / df_test$demand[i])
+  errs <- c(errs, p - df_test$demand[i])
+  perc <- c(perc, (p - df_test$demand[i]) / df_test$demand[i])
   auxts <- ts(c(auxts, df_test$demand[i]), frequency = 7)
   auxmodel <- Arima(auxts, model = auxmodel)
 }
@@ -232,6 +232,80 @@ Mean error can be easily calculated:
 mean(abs(errs))
 mean(abs(perc))
 ```
+
+As it was shown before, some special days present less demand than others:
+
+```{r, cache = TRUE, fig.width = 10}
+specialday <- function(day) {
+  correction = 0
+  # January 01
+  if (format(day, '%m%d') == '0101')
+    correction = -100
+  # December 25
+  if (format(day, '%m%d') == '1225')
+    correction = -100
+  # May 01
+  if (format(day, '%m%d') == '0501')
+    correction = -100
+  # January 06
+  if (format(day, '%m%d') == '0106')
+    correction = -100
+  # August 15
+  if (format(day, '%m%d') == '0815')
+    correction = -100
+  # December 31
+  if (format(day, '%m%d') == '1231')
+    correction = -100
+  # November 01
+  if (format(day, '%m%d') == '1101')
+    correction = -100
+  # December 08
+  if (format(day, '%m%d') == '1208')
+    correction = -100
+  # October 12
+  if (format(day, '%m%d') == '1012')
+    correction = -100
+  # December 24
+  if (format(day, '%m%d') == '1224')
+    correction = -100
+  # On Sunday, do not apply correction
+  if (as.factor(strftime(day, format = '%A')) == 'Sunday')
+    return(0)
+  return(correction)
+}
+
+model <- Arima(ts, order = c(2, 1, 2), list(order = c(1, 1, 1), period = 7))
+auxts <- ts
+auxmodel <- model
+errs <- c()
+pred <- c()
+perc <- c()
+for (i in 1:nrow(df_test)) {
+  p <- as.numeric(predict(auxmodel, newdata = auxts, n.ahead = 1)$pred)
+  correction = specialday(df_test$date[i])
+  pred <- c(pred, p + correction)
+  errs <- c(errs, p + correction - df_test$demand[i])
+  perc <- c(perc, (p + correction - df_test$demand[i]) / df_test$demand[i])
+  if (!correction)
+    auxts <- ts(c(auxts, df_test$demand[i]), frequency = 7)
+  else
+    auxts <- ts(c(auxts, p), frequency = 7)
+  auxmodel <- Arima(auxts, model = auxmodel)
+}
+par(mfrow = c(1, 1))
+plot(errs, type = 'l', main = 'Error in the forecast')
+plot(pred, type = 'l', main = 'Real vs. forecast', col = 'red')
+lines(df_test$demand)
+legend('topright', c('Real', 'Forecast'), lty = 1, col = c('black', 'red'))
+```
+
+Mean error can be easily calculated:
+
+```{r}
+mean(abs(errs))
+mean(abs(perc))
+```
+
 
 ## Forecast
 
