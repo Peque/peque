@@ -2,9 +2,22 @@
 
 ## Synopsis
 
-The objective of this analysis is to develop a mathematical model for energy demand forecasting in Spain. The research is done using the R programming language and all the data and code needed to reproduce the study is provided within this document to ensure fully reproducible research.
+The objective of this analysis is to develop a mathematical model for energy demand forecasting in Spain. The model should be able to predict tomorrow's demand having data of the daily demand the days before. The research is done using the R programming language and all the data and code needed to reproduce the study is provided within this document to ensure fully reproducible research.
 
-TODO: source code (Github). Author: contact, comments, feedback...
+The data is available here:
+
+```{r, cache = TRUE}
+dataurl <- 'https://gist.githubusercontent.com/Peque/3e43a8f35ce5e03c2645/raw/d28312ac0e49888a5079fcea188770acaf3aa4a2/mme.csv'
+```
+
+It is a CSV file with values of the daily energy demand (in GWh) between 2004 and 2012. This data has been divided in two sets:
+
+* A set to create the model, containing the data between 20014 and 2010.
+* A set to calculate the forecasting error, with the data of 2011 and 2012.
+
+The source code of this $Rmd$ file is available on Github:
+
+https://github.com/Peque/peque/blob/master/etsii/mme/mme.Rmd
 
 The following extra packages have been used for the analysis:
 
@@ -16,18 +29,17 @@ library(forecast)
 
 ## Exploratory data analysis
 
-The data for this study is publicity available in the internet. This data contains information about the daily energy demand (in GWh) between 2004 and 2012.
+Downloading the data:
 
 ```{r, cache = TRUE, fig.width = 10}
 # Downloading and loading data into memory
-dataurl <- 'https://gist.githubusercontent.com/Peque/3e43a8f35ce5e03c2645/raw/d28312ac0e49888a5079fcea188770acaf3aa4a2/mme.csv'
 tmp <- tempfile()
 download.file(dataurl, tmp, method = 'curl')
 df <- read.csv(tmp)
 unlink(tmp)
 ```
 
-For later use, the dataframe is formatted and completed with extra information gotten from the raw data.
+For later use, the dataframe is formatted and completed with extra information gotten from the raw data. Dates are converted to POSIX format and new columns are added containing information about the day of the week and the day of the year.
 
 ```{r, cache = TRUE}
 # Convert date strings to POSIX dates
@@ -43,11 +55,10 @@ str(df)
 The data set is divided to create a test set:
 
 ```{r}
-df_test <- subset(df, date >= strptime('01-01-2012', format = '%d-%m-%Y'))
-df <- subset(df, date < strptime('01-01-2012', format = '%d-%m-%Y'))
+df_test <- subset(df, date >= strptime('01-01-2011', format = '%d-%m-%Y'))
+df <- subset(df, date < strptime('01-01-2011', format = '%d-%m-%Y'))
 ts <- ts(df$demand, frequency = 1)
 ```
-
 
 A time series plot helps visualizing the demand evolution across the time period.
 
@@ -103,10 +114,6 @@ The exact dates which are generating those errors are, indeed, holidays or the d
 ```{r}
 head(strftime(dates[order(-abs_diff)], format = '%B %d'), 10)
 ```
-
-TODO: function to tag holidays (http://www.calendario-365.es/dias-festivos/2013.html)
-
-TODO: demand ~ temperature correlation.
 
 The autocorrelation function shows a highly autocorrelated seasonal non-stationary process with, as expected, yearly and weekly cicles. The ACF alone, however, tells us little about the orders of dependence for ARMA or AR processes. The PACF is better for AR models, and also shows the weekly and yearly seasons, although the correlation is lost faster with the lag.
 
@@ -184,14 +191,6 @@ barplot(diff[order(-abs_diff)], main = 'Smoothing error', ylab = 'Error')
 boxplot(diff, main = 'Smoothing error', ylab = 'Error')
 ```
 
-Now there are other dates which repeately generate the highest errors:
-
-```{r}
-head(strftime(dates[order(-abs_diff)], format = '%B %d'), 10)
-```
-
-Those dates may be taken into account when forecasting the demand in order to reduce the forecast error.
-
 The new ACF and PACF are as follow now:
 
 ```{r, fig.width = 10, fig.height = 5}
@@ -200,12 +199,17 @@ acf(df$demand_mwys, 100, main = 'Autocorrelation')
 pacf(df$demand_mwys, 100, main = 'Partial autocorrelation')
 ```
 
-## ARIMA model
+## SARIMA model
 
-https://www.otexts.org/fpp/8/7
+The initial ARIMA parameters have been found using the R $auto.arima()$ function. The differencing parameter $d$ is selected using the KPSS test. If the null hypothesis of stationarity is accepted when the KPSS is applied to the original time series, then $d = 0$. Otherwise, the series is differenced until the KPSS accepts the null hypothesis. After that, $p$ and $q$ are selected using either AIC or BIC. The SARIMA model has been created using those ARIMA parameters.
+
+```{r, cache = TRUE}
+model <- Arima(ts, order = c(2, 1, 2), list(order = c(1, 1, 1), period = 7))
+```
+
+Forecasting error can be calculated iterating through the test data frame:
 
 ```{r, cache = TRUE, fig.width = 10}
-model <- Arima(ts, order = c(2, 1, 2), list(order = c(1, 1, 1), period = 7))
 auxts <- ts
 auxmodel <- model
 errs <- c()
@@ -224,50 +228,21 @@ plot(errs, type = 'l', main = 'Error in the forecast')
 plot(pred, type = 'l', main = 'Real vs. forecast', col = 'red')
 lines(df_test$demand)
 legend('topright', c('Real', 'Forecast'), lty = 1, col = c('black', 'red'))
+abserr <- mean(abs(errs))
+percerr <- mean(abs(perc)) * 100
 ```
 
-Mean error can be easily calculated:
+The mean error across the test data frame is `r abserr` GWh (**`r percerr`%**).
 
-```{r}
-mean(abs(errs))
-mean(abs(perc))
-```
-
-As it was shown before, some special days present less demand than others:
+As it was shown before, some special days present less demand than others. Those days me be taken into account in order to reduce the error:
 
 ```{r, cache = TRUE, fig.width = 10}
 specialday <- function(day) {
   correction = 0
-  # January 01
-  if (format(day, '%m%d') == '0101')
-    correction = -100
-  # December 25
-  if (format(day, '%m%d') == '1225')
-    correction = -100
-  # May 01
-  if (format(day, '%m%d') == '0501')
-    correction = -100
-  # January 06
-  if (format(day, '%m%d') == '0106')
-    correction = -100
-  # August 15
-  if (format(day, '%m%d') == '0815')
-    correction = -100
-  # December 31
-  if (format(day, '%m%d') == '1231')
-    correction = -100
-  # November 01
-  if (format(day, '%m%d') == '1101')
-    correction = -100
-  # December 08
-  if (format(day, '%m%d') == '1208')
-    correction = -100
-  # October 12
-  if (format(day, '%m%d') == '1012')
-    correction = -100
-  # December 24
-  if (format(day, '%m%d') == '1224')
-    correction = -100
+  if (format(day, '%m%d') %in% c('0101', '0501', '0106', '0815', '1012', '1101', '1206', '1208', '1224', '1225', '1226', '1231'))
+      correction = -100
+  else if (format(day, '%m%d') %in% c('0319'))
+    correction = -50
   # On Sunday, do not apply correction
   if (as.factor(strftime(day, format = '%A')) == 'Sunday')
     return(0)
@@ -297,18 +272,22 @@ plot(errs, type = 'l', main = 'Error in the forecast')
 plot(pred, type = 'l', main = 'Real vs. forecast', col = 'red')
 lines(df_test$demand)
 legend('topright', c('Real', 'Forecast'), lty = 1, col = c('black', 'red'))
+abserr <- mean(abs(errs))
+percerr <- mean(abs(perc)) * 100
 ```
 
-Mean error can be easily calculated:
-
-```{r}
-mean(abs(errs))
-mean(abs(perc))
-```
-
+The new mean error across the test data frame is `r abserr` GWh (**`r percerr`%**).
 
 ## Forecast
+
+An example of the model's forecast capabilities:
 
 ```{r, fig.width = 10}
 plot(forecast(Arima(tail(ts, 200), model = model)))
 ```
+
+## References
+
+- R. H. Shumway, D. S. Stoffer. *Time Series Analysis and Its Applications*. 2010.
+- R. J. Hyndman. *Forecasting: principles and practice*. 2013.
+- P. S. P. Cowpertwait, A. V. Metcalfe. *Introductory Time Series with R*. 2009.
