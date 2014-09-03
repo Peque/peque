@@ -1,52 +1,178 @@
 
-\documentclass[a4paper,10pt,twoside,onecolumn]{book}
+\documentclass[a4paper,10pt,twoside,onecolumn]{report}
 
-% TODO: explain each package included!
+% Packages needed
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{lmodern}         % The Latin Modern fonts are enhanced versions of the Computer Modern fonts.
+\usepackage{lmodern}         % Latin Modern fonts
 \usepackage[english]{babel}
 \usepackage{graphicx}
 \usepackage{geometry}
-\usepackage[]{tocbibind}     % Adding LoF, LoT and ToC itself to ToC.
-\usepackage{lipsum}          % Write "Lorem ipsum..." placeholder text (filler text)
+\usepackage[]{tocbibind}     % Adding LoF, LoT and ToC itself to ToC
+\usepackage{lipsum}          % Write "Lorem ipsum..." placeholder text
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{textcomp}        % Allow the use of upquote = true in \lstset
+\usepackage{wrapfig}         % Wrap text around graphics (i.e. tip environment)
+\usepackage{bookmark}
+\usepackage{caption}
+\usepackage{subcaption}
 
-\graphicspath{{./images/}}
+% Captions
+\usepackage{caption}
+\captionsetup
+{
+  margin = 30pt,
+  skip = 10pt,
+  justification = centering,
+  labelfont = bf,
+  textfont = it,
+  font = small
+}
+
+% Custom colors
+\definecolor{lightgray}{gray}{0.95}
+\definecolor{orange}{rgb}{1,0.5,0}
+
+% Code listings
+\usepackage{listings}
+\lstset
+{
+  basicstyle = \small\ttfamily,
+  escapeinside = {<@}{@>},
+  numbers = left,
+  upquote = true,
+%  frame = shadowbox,
+%  frame = tRBl,
+%  rulesepcolor = \color{lightgray},
+  frame = single,
+  columns = fullflexible,
+  showstringspaces = false,
+  tabsize = 8,
+  keepspaces = true,
+  rulecolor = \color{gray},
+  commentstyle=\color{gray}\itshape,
+  keywordstyle=\color{blue}\bfseries,
+  backgroundcolor=\color{lightgray},
+  stringstyle=\color{orange},
+  numberstyle = \tiny,
+  breaklines = true,
+  postbreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\color{gray}\hookrightarrow\space}},
+  caption = \lstname,
+  literate = {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+}
+
+\usepackage{hyperref}
+\hypersetup
+{
+  colorlinks = false,      % No link color
+  linkbordercolor = gray,  % Gray link border
+  urlbordercolor = gray,   % Gray URL border
+  pdfborderstyle = {/S/U/W 0.5},
+}
+
+% Glossaries
+\usepackage[acronym,toc]{glossaries}
+\makeglossaries
+\input{content/glossary.tex}
+
+% Euro symbol
+\usepackage[gen]{eurosym}
+\DeclareUnicodeCharacter{20AC}{\euro{}}
+
+% Graphics path configuration
+\graphicspath
+{
+  {./images/}
+% {/any/other/absolute/or/relative/path/}
+}
+
+\newenvironment{tip}
+{
+  \vspace{+10pt}
+  \begin{it}
+  \noindent
+  \begin{minipage}{\linewidth}
+  \rightskip=1cm
+  \leftskip=1cm
+  \setlength\intextsep{0pt}
+  \begin{wrapfigure}[1]{l}[2cm]{0cm}
+    \hspace{-1.5cm}
+    \includegraphics[width=1.5cm]{tip}
+  \end{wrapfigure}
+}
+{
+  {}
+  \end{minipage}
+  \end{it}
+  \vspace{+10pt}
+}
+
+\newcommand{\cquote}[2]
+{
+  \begin{flushright}
+    \begin{minipage}{0.6\linewidth}
+      \raggedleft
+      \small
+      {
+        ``\textit{#1}'' \\
+        \vspace{5pt}
+        \textit{\textbf{--- #2}}
+      }
+    \end{minipage}
+  \end{flushright}
+}
 
 \begin{document}
 
+% Set empty style (no numbering)
 \pagestyle{empty}
 
-\input{content/titlepage.tex}
-\cleardoublepage
+% Title page
+\input{content/title.tex}
 
+% Set plain style and roman page numbering
 \pagestyle{plain}
 \pagenumbering{roman}
 
+% Table of contents, list of figures and list of tables
 \tableofcontents
-\cleardoublepage
-
 \listoffigures
-\cleardoublepage
-
 \listoftables
+\lstlistoflistings
 \cleardoublepage
 
+% Set headings style and arabic page numbering
 \pagestyle{headings}
 \pagenumbering{arabic}
 
-\part{First part}
+\part{Styles}
 
-\chapter{First chapter}
-\input{content/01.tex}
+\chapter{Basic styles}
+\input{content/basic-styles.tex}
 
-\chapter{Second chapter}
-\input{content/02.tex}
+\chapter{More styles}
+\input{content/more-styles.tex}
 
-\part{Second part}
+\part{Foo}
 
-\chapter{Third chapter}
-\input{content/03.tex}
+\chapter{Asdf}
+\input{content/asdf.tex}
+
+\bookmarksetup{startatroot}    % Avoid nesting appendix in \part
+\addtocontents{toc}{\bigskip}  % Create bigger sepparator before the appendix in the TOC
+\appendix
+
+%\setglossarystyle{altlisthypergroup}
+\printglossary[type=\acronymtype,title=Abbreviations]
+\printglossary[title=Nomenclature]
+
+\bibliography{content/bibliography}
+\bibliographystyle{plain}
+
+\chapter{Notes}
+\input{content/notes.tex}
 
 \end{document}
 
