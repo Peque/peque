@@ -55,6 +55,9 @@ map <A-w> :w<CR>
 command Make execute "!make"
 map <F9> :Make<CR>
 
+" Paste
+set pastetoggle=<F10>
+
 " Escape
 ino jkl <esc>
 cno jkl <c-c>
