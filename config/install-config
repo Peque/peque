@@ -2,6 +2,10 @@
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
+# User dirs
+rm -f ~/.config/user-dirs.dirs
+ln -s $DIR/user-dirs.dirs ~/.config/user-dirs.dirs
+
 # Vim
 rm -f ~/.vimrc
 rm -rf ~/.vim
