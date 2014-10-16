@@ -7,7 +7,7 @@ The objective of this analysis is to develop a mathematical model for energy dem
 The data is available here:
 
 ```{r, cache = TRUE}
-dataurl <- 'https://gist.githubusercontent.com/Peque/3e43a8f35ce5e03c2645/raw/d28312ac0e49888a5079fcea188770acaf3aa4a2/mme.csv'
+dataurl <- 'https://gist.githubusercontent.com/Peque/715e91350f0e68e3342f/raw/d28312ac0e49888a5079fcea188770acaf3aa4a2/mme.csv'
 ```
 
 It is a CSV file with values of the daily energy demand (in GWh) between 2004 and 2012. This data has been divided in two sets:
