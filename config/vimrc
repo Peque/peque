@@ -45,6 +45,14 @@ map <A-9> :tabprevious<CR>
 map <A-0> :tabnext<CR>
 map <A-e> :tabedit 
 
+" Playing around with windows
+map <C-j> <C-W><C-j>
+map <C-k> <C-W><C-k>
+map <C-l> <C-W><C-l>
+map <C-h> <C-W><C-h>
+map <C-n> :split<CR>
+map <C-m> :vsplit<CR>
+
 " Write and quit commands
 exec "set <A-q>=\eq"
 exec "set <A-w>=\ew"
@@ -67,8 +75,4 @@ ino kjl <esc>
 cno kjl <c-c>
 ino klj <esc>
 cno klj <c-c>
-ino ljk <esc>
-cno ljk <c-c>
-ino lkj <esc>
-cno lkj <c-c>
 
