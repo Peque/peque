@@ -12,3 +12,6 @@ map <F5> :!Rscript %<CR>
 let &colorcolumn=join(range(80,84),",")
 highlight ColorColumn ctermbg=235
 
+" Autoremove trailing spaces
+autocmd BufWritePre * :%s/\s\+$//e
+
