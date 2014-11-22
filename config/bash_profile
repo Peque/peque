@@ -1,0 +1,25 @@
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
+
+# Backup script
+(source ~/.backup_data &) > /dev/null 2>&1
+
+export PATH=$PATH:$HOME/.local/bin:$HOME/bin
+export PYTHONPATH='$PYTHONPATH:/media/Media/Development/wopr/src/python/:/media/Media/Development/pyqtgraph/'
+
+primusrun() {
+    # Option "Coolbits" "8" must be set in the Device Section of /etc/bumblebee/xorg.conf.nvidia
+    local GPUOffset=-100
+    local MemOffset=-100
+    ({
+        $(which primusrun) nvidia-settings -c :8 \
+        -a [gpu:0]/GPUGraphicsClockOffset[2]=$GPUOffset \
+        -a [gpu:0]/GPUMemoryTransferRateOffset[2]=$MemOffset
+    } 2>/dev/null & )
+    $(which primusrun) $@
+}
+

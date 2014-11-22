@@ -2,6 +2,10 @@
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
+# Bash profile
+rm -f ~/.bash_profile
+ln -s $DIR/bash_profile ~/.bash_profile
+
 # User dirs
 rm -f ~/.config/user-dirs.dirs
 ln -s $DIR/user-dirs.dirs ~/.config/user-dirs.dirs
