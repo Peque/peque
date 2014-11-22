@@ -23,3 +23,15 @@ fi' > $LAUNCHER
 chmod +x $LAUNCHER
 mv $LAUNCHER /usr/bin
 
+# /usr/bin/ucprimusrun
+LAUNCHER="/tmp/ucprimusrun"
+echo -e '#/bin/bash
+($(which primusrun) nvidia-settings -c :8 \
+-a [gpu:0]/GPUGraphicsClockOffset[2]=-150 \
+-a [gpu:0]/GPUMemoryTransferRateOffset[2]=-300 \
+2> /dev/null &)
+$(which primusrun) $@
+' > $LAUNCHER
+chmod +x $LAUNCHER
+mv $LAUNCHER /usr/bin
+
