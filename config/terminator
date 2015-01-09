@@ -39,29 +39,41 @@
       parent = child0
       ratio = 0.4
     [[[child3]]]
-      position = 268
+      position = 350
       type = VPaned
       order = 1
       parent = child1
-      ratio = 0.25
-    [[[terminal2]]]
+      ratio = 0.33
+    [[[child5]]]
+      position = 350
+      type = VPaned
+      order = 1
+      parent = child3
+      ratio = 0.5
+    [[[terminal1]]]
       profile = default
       parent = child1
       command = ""
       type = Terminal
       order = 0
-    [[[terminal5]]]
-      profile = default
-      type = Terminal
-      order = 1
-      parent = child3
-      command = ipython --pylab; bash
-    [[[terminal4]]]
+    [[[terminal2]]]
       profile = default
       type = Terminal
       order = 0
       parent = child3
       command = git status; bash
+    [[[terminal3]]]
+      profile = default
+      type = Terminal
+      order = 0
+      parent = child5
+      command = git status; bash
+    [[[terminal4]]]
+      profile = default
+      type = Terminal
+      order = 1
+      parent = child5
+      command = ipython --pylab; bash
   [[R]]
     [[[child0]]]
       fullscreen = False
