@@ -43,7 +43,7 @@
       type = VPaned
       order = 1
       parent = child1
-      ratio = 0.33
+      ratio = 0.4
     [[[child5]]]
       position = 350
       type = VPaned
@@ -67,7 +67,6 @@
       type = Terminal
       order = 0
       parent = child5
-      command = git status; bash
     [[[terminal4]]]
       profile = default
       type = Terminal
