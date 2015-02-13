@@ -18,7 +18,6 @@ ln -s $DIR/bash_profile ~/.bash_profile
 # Vim
 rm -f ~/.vimrc
 rm -rf ~/.vim
-mkdir ~/.vim
 ln -s $DIR/vimrc ~/.vimrc
 ln -s $DIR/vim ~/.vim
 
