@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$(id -u)" == "0" ]; then
+	echo "This script must not be run as root" 1>&2
+	exit 1
+fi
+
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # Bash profile
@@ -7,20 +12,23 @@ rm -f ~/.bash_profile
 ln -s $DIR/bash_profile ~/.bash_profile
 
 # User dirs
-rm -f ~/.config/user-dirs.dirs
-ln -s $DIR/user-dirs.dirs ~/.config/user-dirs.dirs
+#rm -f ~/.config/user-dirs.dirs
+#ln -s $DIR/user-dirs.dirs ~/.config/user-dirs.dirs
 
 # Vim
 rm -f ~/.vimrc
 rm -rf ~/.vim
+mkdir ~/.vim
 ln -s $DIR/vimrc ~/.vimrc
 ln -s $DIR/vim ~/.vim
 
 # Terminator
 rm -f ~/.config/terminator/config
+mkdir -p ~/.config/terminator
 ln -s $DIR/terminator ~/.config/terminator/config
 
 # IPython
 rm -f ~/.ipython/profile_default/ipython_config.py
+mkdir -p ~/.ipython/profile_default
 ln -s $DIR/ipython_config.py ~/.ipython/profile_default/ipython_config.py
 

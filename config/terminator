@@ -2,50 +2,94 @@
   enabled_plugins = ,
   handle_size = 1
   borderless = True
+  window_state = maximise
 [keybindings]
 [profiles]
   [[default]]
     scrollbar_position = hidden
     use_system_font = False
-    scrollback_lines = 4096
+    scrollback_lines = 100000
     background_image = None
     scroll_on_output = False
     icon_bell = False
     show_titlebar = False
     font = Monospace 11
     allow_bold = False
-    scrollback_infinite = True
 [layouts]
-  [[default]]
-    [[[child1]]]
-      type = Terminal
-      parent = window0
-    [[[window0]]]
-      type = Window
-      parent = ""
-  [[python]]
+  [[octave]]
     [[[child0]]]
-      fullscreen = False
-      maximised = True
       parent = ""
-      position = 0:27
       type = Window
       order = 0
-      size = 1920, 1014
     [[[child1]]]
-      position = 743
       type = HPaned
       order = 0
       parent = child0
       ratio = 0.4
     [[[child3]]]
-      position = 350
+      type = VPaned
+      order = 1
+      parent = child1
+      ratio = 0.25
+    [[[terminal2]]]
+      profile = default
+      parent = child1
+      command = ""
+      type = Terminal
+      order = 0
+    [[[terminal5]]]
+      profile = default
+      type = Terminal
+      order = 1
+      parent = child3
+      command = octave; bash
+    [[[terminal4]]]
+      profile = default
+      type = Terminal
+      order = 0
+      parent = child3
+      command = git status; bash
+  [[test]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+      order = 0
+    [[child1]]
+      type = HPaned
+      order = 0
+      parent = window0
+      ratio = 0.4
+    [[terminal0]]
+      parent = child1
+      type = Terminal
+      order = 0
+    [[terminal1]]
+      parent = child1
+      type = Terminal
+      order = 1
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+  [[python]]
+    [[[child0]]]
+      parent = ""
+      type = Window
+      order = 0
+    [[[child1]]]
+      type = HPaned
+      order = 0
+      parent = child0
+      ratio = 0.4
+    [[[child3]]]
       type = VPaned
       order = 1
       parent = child1
       ratio = 0.4
     [[[child5]]]
-      position = 350
       type = VPaned
       order = 1
       parent = child3
@@ -81,15 +125,12 @@
       position = 0:27
       type = Window
       order = 0
-      size = 1920, 1014
     [[[child1]]]
-      position = 743
       type = HPaned
       order = 0
       parent = child0
       ratio = 0.4
     [[[child3]]]
-      position = 268
       type = VPaned
       order = 1
       parent = child1
@@ -114,46 +155,37 @@
       command = git status; bash
   [[split]]
     [[[child0]]]
-      fullscreen = False
-      maximised = True
       parent = ""
       last_active_window = True
       position = 0:27
       type = Window
       order = 0
-      size = 1920, 1053
     [[[child1]]]
-      position = 960
       type = HPaned
       order = 0
       parent = child0
       ratio = 0.5
     [[[child2]]]
-      position = 526
       type = VPaned
       order = 0
       parent = child1
       ratio = 0.5
     [[[child11]]]
-      position = 263
       type = VPaned
       order = 1
       parent = child7
       ratio = 0.5
     [[[child4]]]
-      position = 263
       type = VPaned
       order = 1
       parent = child2
       ratio = 0.5
     [[[child7]]]
-      position = 526
       type = VPaned
       order = 1
       parent = child1
       ratio = 0.5
     [[[child8]]]
-      position = 479
       type = HPaned
       order = 0
       parent = child7
@@ -193,43 +225,4 @@
       type = Terminal
       order = 0
       parent = child8
-  [[octave]]
-    [[[child0]]]
-      fullscreen = False
-      maximised = True
-      parent = ""
-      position = 0:27
-      type = Window
-      order = 0
-      size = 1920, 1014
-    [[[child1]]]
-      position = 743
-      type = HPaned
-      order = 0
-      parent = child0
-      ratio = 0.4
-    [[[child3]]]
-      position = 268
-      type = VPaned
-      order = 1
-      parent = child1
-      ratio = 0.25
-    [[[terminal2]]]
-      profile = default
-      parent = child1
-      command = ""
-      type = Terminal
-      order = 0
-    [[[terminal5]]]
-      profile = default
-      type = Terminal
-      order = 1
-      parent = child3
-      command = octave; bash
-    [[[terminal4]]]
-      profile = default
-      type = Terminal
-      order = 0
-      parent = child3
-      command = git status; bash
 [plugins]

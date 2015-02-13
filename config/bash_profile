@@ -9,5 +9,7 @@ fi
 (source ~/.backup_data &) > /dev/null 2>&1
 
 export PATH=$PATH:$HOME/.local/bin:$HOME/bin
-export PYTHONPATH='$PYTHONPATH:/media/Media/Development/wopr/src/python/:/media/Media/Development/pyqtgraph/'
+export PYTHONPATH='$PYTHONPATH:/media/src/wopr/src/python/:/media/src/pyqtgraph/:/media/src/vispy/:/media/src/xwopr/'
+
+xinput set-prop "USB OPTICAL MOUSE" "Device Accel Constant Deceleration" 2.5
 

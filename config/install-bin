@@ -9,15 +9,15 @@ fi
 LAUNCHER="/tmp/workmode"
 echo -e '#/bin/bash
 # Exit if no external monitor is connected
-if [ -n "$(xrandr | grep DP-0 | grep disconnected)" ]; then
+if [ -n "$(xrandr | grep DP1 | grep disconnected)" ]; then
 	exit
 fi
 # Turn on/off the secondary display
-if [ -n "$(xrandr | grep LVDS-0 | grep +)" ]; then
-    xrandr --output LVDS-0 --off
+if [ -n "$(xrandr | grep LVDS1 | grep +)" ]; then
+    xrandr --output LVDS1 --off
     gsettings set org.gnome.desktop.session idle-delay 300
 else
-    xrandr --output DP-0 --primary --pos 0x0 --output LVDS-0 --auto --pos 1920x700
+    xrandr --output DP1 --primary --pos 0x0 --output LVDS1 --auto --pos 1920x700
     gsettings set org.gnome.desktop.session idle-delay 0
 fi' > $LAUNCHER
 chmod +x $LAUNCHER
@@ -30,7 +30,7 @@ echo -e '#/bin/bash
 -a [gpu:0]/GPUGraphicsClockOffset[2]=-150 \
 -a [gpu:0]/GPUMemoryTransferRateOffset[2]=-300 \
 2> /dev/null &)
-$(which primusrun) $@
+$(which primusrun) $@ -c :8
 ' > $LAUNCHER
 chmod +x $LAUNCHER
 mv $LAUNCHER /usr/bin
