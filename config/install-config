@@ -7,6 +7,9 @@ fi
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
+# Increase screencast max length in seconds (CTRL + ALT + MAYUS + R)
+gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 3600
+
 # Bash profile
 rm -f ~/.bash_profile
 ln -s $DIR/bash_profile ~/.bash_profile
