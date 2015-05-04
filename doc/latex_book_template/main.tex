@@ -1,5 +1,5 @@
 
-\documentclass[a4paper,10pt,twoside,onecolumn]{report}
+\documentclass[a4paper,10pt,onecolumn]{book}
 
 % Packages needed
 \usepackage[T1]{fontenc}
@@ -18,6 +18,40 @@
 \usepackage{bookmark}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{etoolbox}
+\usepackage{pgfgantt}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{enumitem}
+\usepackage{emptypage}
+
+\pdfminorversion=4      % Avoid some problems with bad PDF readers
+\usepackage{parskip}
+\geometry{margin=2.5cm}
+
+% Headers and footers
+\usepackage{fancyhdr}
+\fancyhf{}
+\fancyhead[LE]{\textit{\leftmark}}
+\fancyhead[RO]{\textit{\rightmark}}
+\fancyfoot[LE,RO]{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+% <<<<< Tweaks for the University
+
+\usepackage{tabularx}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes,positioning,shadows,trees}
+\tikzset{
+  basic/.style  = {draw, text width=2cm, drop shadow, font=\sffamily, rectangle},
+  root/.style   = {basic, rounded corners=2pt, thin, align=center, fill=white},
+  level 2/.style = {basic, rounded corners=6pt, thin,align=center, fill=gray!30, text width=8em},
+  level 3/.style = {basic, thin, align=left, fill=white, text width=7em}
+}
 
 % Captions
 \usepackage{caption}
@@ -75,7 +109,12 @@
 % Glossaries
 \usepackage[acronym,toc]{glossaries}
 \makeglossaries
-\input{content/glossary.tex}
+\loadglsentries[main]{content/glossary.tex}
+
+% No numbering in parts (redefining \part setting "empty" page style)
+\makeatletter
+\patchcmd{\part}{\thispagestyle{plain}}{\thispagestyle{empty}}
+\makeatother
 
 % Euro symbol
 \usepackage[gen]{eurosym}
@@ -85,7 +124,9 @@
 \graphicspath
 {
   {./images/}
-% {/any/other/absolute/or/relative/path/}
+  {../src/R/images/}
+  {../src/python/images/}
+  {../src/octave/images/}
 }
 
 \newenvironment{tip}
@@ -124,6 +165,11 @@
   \end{flushright}
 }
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{document}
 
 % Set empty style (no numbering)
@@ -131,10 +177,25 @@
 
 % Title page
 \input{content/title.tex}
+\cleardoublepage
+
+% Dedicated to
+\pagenumbering{gobble}
+\chapter*{}
+\input{content/dedicatedto.tex}
+\cleardoublepage
 
 % Set plain style and roman page numbering
 \pagestyle{plain}
 \pagenumbering{roman}
+
+% Executive Summary
+\chapter*{Executive Summary}
+\input{content/executive-summary.tex}
+
+% Acknowledgements
+\chapter*{Acknowledgements}
+\input{content/acknowledgements.tex}
 
 % Table of contents, list of figures and list of tables
 \tableofcontents
@@ -145,26 +206,30 @@
 
 % Set headings style and arabic page numbering
 \pagestyle{headings}
+\pagestyle{fancy}
 \pagenumbering{arabic}
 
 \part{Styles}
 
 \chapter{Basic styles}
+\label{chapter:basic-styles}
 \input{content/basic-styles.tex}
 
 \chapter{More styles}
+\label{chapter:more-styles}
 \input{content/more-styles.tex}
 
 \part{Foo}
 
-\chapter{Asdf}
-\input{content/asdf.tex}
+\chapter{Lipsum}
+\label{chapter:lipsum}
+\input{content/lipsum.tex}
 
 \bookmarksetup{startatroot}    % Avoid nesting appendix in \part
 \addtocontents{toc}{\bigskip}  % Create bigger sepparator before the appendix in the TOC
 \appendix
 
-%\setglossarystyle{altlisthypergroup}
+\setglossarystyle{list}
 \printglossary[type=\acronymtype,title=Abbreviations]
 \printglossary[title=Nomenclature]
 
@@ -172,6 +237,7 @@
 \bibliographystyle{plain}
 
 \chapter{Notes}
+\label{chapter:notes}
 \input{content/notes.tex}
 
 \end{document}

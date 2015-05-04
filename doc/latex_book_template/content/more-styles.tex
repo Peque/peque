@@ -1,5 +1,147 @@
 
-\cquote{I often compare open source to science. To where science took this whole notion of developing ideas in the open and improving on other peoples' ideas and making it into what science is today and the incredible advances that we have had.}{Linus Torvalds}
+\cquote{Another quote....}{By Somebody}
 
-\section{\LaTeX\ is simple}
+\section{Project planning}
+
+\lipsum[1]
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  level 1/.style={sibling distance=38mm},
+  edge from parent/.style={->,draw},
+  >=latex]
+
+% root of the the initial tree, level 1
+\node[root] {Work breakdown structure}
+% The first level, as children of the initial tree
+  child {node[level 2] (c1) {Item 0}}
+  child {node[level 2] (c2) {Item 1}}
+  child {node[level 2] (c3) {Item 2}}
+  child {node[level 2] (c4) {Item 3}};
+
+% The second level, relatively positioned nodes
+\begin{scope}[every node/.style={level 3}]
+\node [below of = c1, xshift=20pt] (c11) {Subitem 0};
+\node [below of = c11] (c12) {Subitem 1};
+\node [below of = c12] (c13) {Subitem 2};
+\node [below of = c13] (c14) {Subitem 3};
+
+\node [below of = c2, xshift=20pt] (c21) {Subitem 0};
+\node [below of = c21] (c22) {Subitem 1};
+\node [below of = c22] (c23) {Subitem 2};
+\node [below of = c23] (c24) {Subitem 3};
+
+\node [below of = c3, xshift=20pt] (c31) {Subitem 0};
+\node [below of = c31] (c32) {Subitem 1};
+\node [below of = c32] (c33) {Subitem 2};
+\node [below of = c33] (c34) {Subitem 3};
+
+\node [below of = c4, xshift=20pt] (c41) {Subitem 0};
+\node [below of = c41] (c42) {Subitem 1};
+\node [below of = c42] (c43) {Subitem 2};
+\end{scope}
+
+% lines from each level 1 node to every one of its "children"
+\foreach \value in {1,...,4}
+  \draw[->] (c1.195) |- (c1\value.west);
+
+\foreach \value in {1,...,4}
+  \draw[->] (c2.195) |- (c2\value.west);
+
+\foreach \value in {1,...,4}
+  \draw[->] (c3.195) |- (c3\value.west);
+
+\foreach \value in {1,...,3}
+  \draw[->] (c4.195) |- (c4\value.west);
+\end{tikzpicture}
+
+\caption{Work breakdown structure.}
+\label{work-breakdown-structure}
+\end{figure}
+
+\lipsum[1]
+
+\begin{figure}[htbp]
+\centering
+\begin{ganttchart}[hgrid,
+                   vgrid,
+		   x unit=1cm,
+		   bar height=0.4,
+		   y unit chart=0.8cm,
+		   bar/.style={fill=gray!50,
+                               draw=black},
+                   incomplete/.style={fill=white}]{1}{12}
+
+  \gantttitle{2014}{9}
+  \gantttitle{2015}{3} \\
+  \gantttitlelist{4,...,12}{1}
+  \gantttitlelist{1,...,3}{1} \\
+
+  \ganttbar{L0}{1}{12} \\
+
+  % Strategies
+  \ganttgroup{Group S}{1}{12} \\
+  \ganttbar[name=S1]{S1}{1}{2} \\
+  \ganttbar[name=S2]{S2}{3}{6} \\
+  \ganttbar[name=S3]{S3}{10}{12} \\
+
+  % Wopr
+  \ganttgroup{Group W}{3}{12} \\
+  \ganttbar[name=W1]{W1}{3}{8} \\
+  \ganttbar[name=W2]{W2}{4}{4} \\
+  \ganttbar[name=W3]{W3}{5}{10} \\
+  \ganttbar[name=W4]{W4}{5}{6} \\
+  \ganttmilestone[name=M1]{Milestone W 0.1}{6} \ganttnewline
+  \ganttbar[name=W5]{W5}{9}{9} \\
+  \ganttmilestone[name=M2]{Milestone W 0.2}{9} \ganttnewline
+
+  % XWopr
+  \ganttgroup{Group X}{7}{12} \\
+  \ganttbar[name=X1]{X1}{7}{7} \\
+  \ganttbar[name=X2]{X2}{8}{10} \\
+  \ganttbar[name=X3]{X3}{9}{9} \\
+  \ganttmilestone[name=M3]{Milestone X 0.1}{9} \ganttnewline
+
+  \ganttlink{S1}{S2}
+  \ganttlink{S2}{S3}
+
+  \ganttlink[link mid=.5]{W2}{W3}
+  \ganttlink[link mid=.25]{W2}{W4}
+  \ganttlink{W4}{M1}
+  \ganttlink[link type=dr]{W3}{W5}
+  \ganttlink{W5}{M2}
+
+  \ganttlink{M1}{X1}
+  \ganttlink{X1}{X2}
+  \ganttlink[link type=dr]{X2}{X3}
+  \ganttlink{X3}{M3}
+
+  \ganttlink[link mid=.8]{M2}{S3}
+  \ganttlink[link mid=.876]{M3}{S3}
+
+\end{ganttchart}
+\caption{Gantt diagram of the project.}
+\label{gantt-diagram}
+\end{figure}
+
+\lipsum
+
+\begin{table}[htbp]
+  \caption{Project expenses.}
+  \label{project-expenses}
+  \centering
+  \begin{tabularx}{0.8\linewidth}{@{}LSSS@{}}
+    \toprule[1.5pt]\toprule
+    & \multicolumn{3}{c}{\textbf{Expenses}} \\
+    \cmidrule(r){2-4}
+    \textbf{Concept} & \textbf{Units} & \textbf{Price (€)} & \textbf{Subtotal (€)}\\
+    \midrule
+    Concept 0 & 9 & 1100 & 9900 \\
+    Concept 1 & 3 & 2200 & 6600 \\
+    \midrule
+    \textbf{Total (€)} & & & 16500 \\
+    \bottomrule\bottomrule[1.5pt]
+  \end{tabularx}
+\end{table}
 

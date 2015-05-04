@@ -20,3 +20,140 @@ The first formal definition of free software was published by FSF in February 19
   \item The freedom to improve the program, and release your improvements (and modified versions in general) to the public, so that the whole community benefits.
 \end{itemize}
 
+The first formal definition of free software was published by FSF in February 1986. That definition, written by Richard Stallman, is still maintained today and states that software is free software if people who receive a copy of the software have the following four freedoms.
+
+\begin{enumerate}[label=(\alph*)]
+  \item The freedom to run the program for any purpose.
+  \item The freedom to study how the program works, and change it to make it do what you wish.
+  \item The freedom to redistribute copies so you can help your neighbor.
+  \item The freedom to improve the program, and release your improvements (and modified versions in general) to the public, so that the whole community benefits.
+\end{enumerate}
+
+The first formal definition of free software was published by FSF in February 1986. That definition, written by Richard Stallman, is still maintained today and states that software is free software if people who receive a copy of the software have the following four freedoms.
+
+\begin{enumerate}
+  \item The freedom to run the program for any purpose.
+  \item The freedom to study how the program works, and change it to make it do what you wish.
+  \item The freedom to redistribute copies so you can help your neighbor.
+  \item The freedom to improve the program, and release your improvements (and modified versions in general) to the public, so that the whole community benefits.
+\end{enumerate}
+
+\lipsum[1]
+
+\begin{description}
+  \item[First item] \hfill \\
+    \lipsum[2]
+  \item[Second item] \hfill \\
+    \lipsum[2]
+\end{description}
+
+\lipsum[1]
+
+\begin{description}[style=multiline,leftmargin=1.0cm]
+  \item[A0]
+    A description list with short descriptions.
+  \item[A1]
+    A description list with short descriptions.
+  \item[A2]
+    A description list with short descriptions.
+  \item[A3]
+    A description list with short descriptions.
+\end{description}
+
+\lipsum
+
+\section{Figures, tables and code}
+
+\subsection{Figures}
+
+\lipsum[1]
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{stackexchange-r-vs-python}
+  \caption{Comparison of the number of questions found in StackExchange for R, Python and some of the main Python scientific libraries in the last years.}
+  \label{stackex-rpython}
+\end{figure}
+
+\lipsum[1]
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.9\textwidth]{tip}
+    \caption{Subfigure 0.}
+    \label{resampling-00}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.9\textwidth]{tip}
+    \caption{Subfigure 1.}
+    \label{resampling-01}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.9\textwidth]{tip}
+    \caption{Subfigure 2.}
+    \label{resampling-02}
+  \end{subfigure}
+  \caption{Figure caption for all the four subfigures.}
+  \label{resampling}
+\end{figure}
+
+\lipsum[1]
+
+\subsection{Tables}
+
+\lipsum[1]
+
+\begin{table}[htbp]
+  \caption{A table centering numbers at their decimal sepparator.}
+  \label{table-example}
+  \centering
+  \begin{tabularx}{0.8\linewidth}{@{}LSS@{}}
+    \toprule[1.5pt]\toprule
+    & \multicolumn{2}{c}{\textbf{Count}} \\
+    \cmidrule(r){2-3}
+    \textbf{Module} & \textbf{Type 0} & \textbf{Type 1} \\
+    \midrule
+     Item 0 & 15.0 & 200.02 \\ Item 1 & 2.04 & 20.4 \\ Item 2 & 158 & 1308.1 \\
+    \midrule
+    \textbf{All} & 175.04 & 1528.52 \\
+    \bottomrule\bottomrule[1.5pt]
+  \end{tabularx}
+\end{table}
+
+\lipsum[1]
+
+\begin{table}[htbp]
+  \caption{Another table for goals.}
+  \label{another-table-example}
+  \centering
+  \begin{tabularx}{0.4\linewidth}{@{}Lc@{}}
+    \toprule[1.5pt]\toprule
+    \textbf{Goal} & \textbf{Achieved}\\
+    \midrule
+    Goal 0 & \checkmark \\
+    Goal 1 & \checkmark \\
+    Goal 2 & \checkmark \\
+    \bottomrule\bottomrule[1.5pt]
+  \end{tabularx}
+\end{table}
+
+\subsection{Code}
+
+\lipsum[1]
+
+\begin{lstlisting}[caption=Getting data about Python and R questions in StackExchange, label=stackexchange-r-python, language=SQL]
+SELECT *, count(*) AS count FROM (
+	SELECT DATEADD(MONTH, DATEDIFF(MONTH, 0, CreationDate), 0) AS [month],
+	       t.TagName AS [tag]
+	FROM Posts p
+		JOIN PostTags pt ON pt.PostId = p.Id
+		JOIN Tags t ON t.Id = pt.TagId
+	WHERE t.tagName IN ('python', 'r', 'scipy', 'numpy', 'pandas', 'matplotlib')
+) AS X
+GROUP BY [tag], month
+ORDER BY [tag], month
+\end{lstlisting}
+
+\lipsum[1]
+
