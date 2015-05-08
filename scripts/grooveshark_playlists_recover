@@ -1,0 +1,34 @@
+#!/bin/bash
+
+USERNAME="peque"
+BK_DIR="./groovebackup_$USERNAME"
+
+COOKIE=".hidden_cookie_groovebackup"
+
+curl -s -c $COOKIE http://groovebackup.com
+LOGIN="http://groovebackup.com/loginWithName.php"
+AUX=$(curl -s -c $COOKIE -L -b $COOKIE -d "usernameOrEmail=$USERNAME" $LOGIN)
+AUX=$(echo "$AUX" | sed -e "s/</\n</g" | grep -e "^<a href=\"/exportPlaylist")
+PLAYLISTS=$(echo "$AUX" | sed -e "s/^.*href=\"\(.*\)\" title.*>\(.*\)$/\1,\2/g")
+
+if [ -z "$PLAYLISTS" ]; then
+	echo 'No playlists found for "$USERNAME"!'
+	exit 0
+fi
+
+mkdir -p $BK_DIR
+
+OLD_IFS=$IFS
+IFS=$'\n'
+
+for P in $(echo "$PLAYLISTS"); do
+	URL="http://groovebackup.com${P%%,*}"
+	FILE="$BK_DIR/${P#*,}.csv"
+	echo "Downloading $URL to $FILE ..."
+	curl -s -L -b $COOKIE $URL > $FILE
+done
+
+IFS=$OLD_IFS
+
+rm -f $COOKIE
+
