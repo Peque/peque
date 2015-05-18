@@ -1,6 +1,12 @@
 #!/bin/bash
 
-USERNAME="peque"
+if [ -z "$1" ]; then
+	echo "No username provided!"
+	echo "Usage: $0 username"
+	exit 0
+fi
+
+USERNAME="$1"
 BK_DIR="./groovebackup_$USERNAME"
 
 COOKIE=".hidden_cookie_groovebackup"
@@ -12,7 +18,7 @@ AUX=$(echo "$AUX" | sed -e "s/</\n</g" | grep -e "^<a href=\"/exportPlaylist")
 PLAYLISTS=$(echo "$AUX" | sed -e "s/^.*href=\"\(.*\)\" title.*>\(.*\)$/\1,\2/g")
 
 if [ -z "$PLAYLISTS" ]; then
-	echo 'No playlists found for "$USERNAME"!'
+	echo "No playlists found for \"$USERNAME\"!"
 	exit 0
 fi
 
