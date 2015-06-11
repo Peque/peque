@@ -116,7 +116,7 @@
       type = Terminal
       order = 1
       parent = child5
-      command = ipython --pylab; bash
+      command = ipython; bash
   [[R]]
     [[[child0]]]
       fullscreen = False
