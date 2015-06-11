@@ -59,12 +59,12 @@ map <F9> :Make<CR>
 set pastetoggle=<F10>
 
 " Escape
-ino jkl <esc>
-cno jkl <c-c>
-ino jlk <esc>
-cno jlk <c-c>
-ino kjl <esc>
-cno kjl <c-c>
-ino klj <esc>
-cno klj <c-c>
+"ino jkl <esc>
+"cno jkl <c-c>
+"ino jlk <esc>
+"cno jlk <c-c>
+"ino kjl <esc>
+"cno kjl <c-c>
+"ino klj <esc>
+"cno klj <c-c>
 
