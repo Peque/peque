@@ -1,6 +1,7 @@
 
 " General settings
 syntax on
+color ron
 filetype on
 filetype plugin indent on
 
@@ -14,8 +15,19 @@ set smarttab
 " Use background theme
 set background=dark
 
-" Highlight search terms
-hi Search cterm=bold ctermfg=white ctermbg=DarkGray
+" Cursor line
+set cursorline
+
+" Italics
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
+
+" Highlighting
+hi cursorline cterm=none ctermfg=none ctermbg=235
+hi search cterm=bold ctermfg=white ctermbg=DarkGray
+hi comment cterm=italic ctermfg=67
+hi todo cterm=italic,bold ctermfg=red ctermbg=none
+hi fixme cterm=italic,bold ctermfg=white ctermbg=none
 
 " Playing around with tabs
 exec "set <A-1>=\e1"
