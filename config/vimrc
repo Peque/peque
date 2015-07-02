@@ -1,7 +1,6 @@
 
 " General settings
 syntax on
-color ron
 filetype on
 filetype plugin indent on
 
@@ -29,26 +28,6 @@ hi comment cterm=italic ctermfg=67
 hi todo cterm=italic,bold ctermfg=red ctermbg=none
 hi fixme cterm=italic,bold ctermfg=white ctermbg=none
 
-" Playing around with tabs
-exec "set <A-1>=\e1"
-exec "set <A-2>=\e2"
-exec "set <A-3>=\e3"
-exec "set <A-4>=\e4"
-exec "set <A-5>=\e5"
-exec "set <A-6>=\e6"
-exec "set <A-9>=\e9"
-exec "set <A-0>=\e0"
-exec "set <A-e>=\ee"
-map <A-1> 1gt
-map <A-2> 2gt
-map <A-3> 3gt
-map <A-4> 4gt
-map <A-5> 5gt
-map <A-6> 6gt
-map <A-9> :tabprevious<CR>
-map <A-0> :tabnext<CR>
-map <A-e> :tabedit 
-
 " Playing around with windows
 map <C-j> <C-W><C-j>
 map <C-k> <C-W><C-k>
@@ -57,11 +36,28 @@ map <C-h> <C-W><C-h>
 map <C-n> :split<CR>
 map <C-m> :vsplit<CR>
 
+" Playing around with tabs
+nnoremap <Esc>1 1gt
+nnoremap <Esc>2 2gt
+nnoremap <Esc>3 3gt
+nnoremap <Esc>4 4gt
+nnoremap <Esc>9 :tabprevious<CR> 
+nnoremap <Esc>0 :tabnext<CR> 
+nnoremap <Esc>e :tabedit 
+
+" [Alt + m] will exit insert mode, clear any command and clear searcf highlight
+inoremap <Esc>m <Esc>
+cnoremap <Esc>m <C-c>
+nnoremap <Esc>m :nohlsearch<CR><Esc>
+
+" [Alt + j/k] will jump faster and centered
+nnoremap <Esc>j 2jzz
+nnoremap <Esc>k 2kzz
+
 " Write and quit commands
-exec "set <A-q>=\eq"
-exec "set <A-w>=\ew"
-map <A-q> :q<CR>
-map <A-w> :w<CR>
+inoremap <Esc>w <Esc>:write<CR><Esc>
+nnoremap <Esc>w :write<CR><Esc>
+nnoremap <Esc>q :quit<CR><Esc>
 
 " Make
 command Make execute "!make"
@@ -69,14 +65,4 @@ map <F9> :Make<CR>
 
 " Paste
 set pastetoggle=<F10>
-
-" Escape
-"ino jkl <esc>
-"cno jkl <c-c>
-"ino jlk <esc>
-"cno jlk <c-c>
-"ino kjl <esc>
-"cno kjl <c-c>
-"ino klj <esc>
-"cno klj <c-c>
 
