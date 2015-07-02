@@ -6,7 +6,7 @@ if [ -z "$1" ]; then
 	exit 0
 fi
 
-USERNAME="$1"
+USERNAME="${1,,}"
 BK_DIR="./groovebackup_$USERNAME"
 
 COOKIE=".hidden_cookie_groovebackup"
