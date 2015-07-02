@@ -50,7 +50,7 @@ nnoremap <Esc>e :tabedit
 " [Alt + m] will exit insert mode, clear any command and clear searcf highlight
 inoremap <Esc>m <Esc>
 cnoremap <Esc>m <C-c>
-nnoremap <Esc>m :nohlsearch<CR><Esc>
+nnoremap <silent> <Esc>m :nohlsearch<CR><Esc>
 
 " [Alt + j/k] will jump faster and centered
 nnoremap <Esc>j 2jzz
