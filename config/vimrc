@@ -41,6 +41,8 @@ nnoremap <Esc>1 1gt
 nnoremap <Esc>2 2gt
 nnoremap <Esc>3 3gt
 nnoremap <Esc>4 4gt
+nnoremap <Esc>7 :execute "tabmove" tabpagenr() - 2<CR> 
+nnoremap <Esc>8 :execute "tabmove" tabpagenr()<CR> 
 nnoremap <Esc>9 :tabprevious<CR> 
 nnoremap <Esc>0 :tabnext<CR> 
 nnoremap <Esc>e :tabedit 
