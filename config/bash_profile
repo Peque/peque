@@ -8,8 +8,10 @@ fi
 # Backup script
 (source ~/.backup_data &) > /dev/null 2>&1
 
+source /usr/bin/virtualenvwrapper.sh
+
 export PATH=$PATH:$HOME/.local/bin:$HOME/bin
-export PYTHONPATH='$PYTHONPATH:/media/src/wopr/src/python/:/media/src/pyqtgraph/:/media/src/vispy/:/media/src/xwopr/'
+export PYTHONPATH='$PYTHONPATH:/media/src/wopr/src/python/:/media/src/pyqtgraph/:/media/src/xwopr/'
 
 xinput set-prop "USB OPTICAL MOUSE" "Device Accel Constant Deceleration" 2.5
 
