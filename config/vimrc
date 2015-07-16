@@ -56,6 +56,9 @@ nnoremap <silent> <Esc>m :nohlsearch<CR><Esc>
 nnoremap <Esc>j 2jzz
 nnoremap <Esc>k 2kzz
 
+" Next search
+nnoremap <Esc>n nzz
+
 " Write and quit commands
 inoremap <Esc>w <Esc>:write<CR><Esc>
 nnoremap <Esc>w :write<CR><Esc>
