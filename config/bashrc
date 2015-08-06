@@ -6,4 +6,4 @@ if [ -f /etc/bashrc ]; then
 fi
 
 source /usr/bin/virtualenvwrapper.sh
-
+export PATH=/media/bin:$PATH
