@@ -38,3 +38,6 @@ rm -f ~/.ipython/profile_default/ipython_config.py
 mkdir -p ~/.ipython/profile_default
 ln -s $DIR/ipython_config.py ~/.ipython/profile_default/ipython_config.py
 
+# Shotwell
+rm -rf ~/.shotwell
+ln -s /data/Shotwell/shotwell/ ~/.shotwell
