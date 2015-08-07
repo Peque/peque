@@ -39,5 +39,9 @@ mkdir -p ~/.ipython/profile_default
 ln -s $DIR/ipython_config.py ~/.ipython/profile_default/ipython_config.py
 
 # Shotwell
-rm -rf ~/.shotwell
-ln -s /data/Shotwell/shotwell/ ~/.shotwell
+rm -rf ~/.local/share/shotwell/data
+rm -rf ~/.cache/shotwell/thumbs
+mkdir -p ~/.local/share/shotwell
+mkdir -p ~/.cache/shotwell
+ln -s /data/Shotwell/.data/ ~/.local/share/shotwell/data
+ln -s /data/Shotwell/.thumbs/ ~/.cache/shotwell/thumbs
