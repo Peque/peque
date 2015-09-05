@@ -1,0 +1,48 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+	echo "No input file provided!"
+	echo "Usage: $0 MARKDOWN_FILE"
+	exit 0
+fi
+
+ROOT=$(pwd)
+TMP="$ROOT/.pandoc_tmp"
+INPUT="$ROOT/$1"
+OUTPUT="$TMP/index.html"
+REVEALJS="https://github.com/hakimel/reveal.js/archive/3.1.0.tar.gz"
+
+function generate {
+	pandoc \
+		-t revealjs \
+		-V theme=black \
+		-s $INPUT \
+		-o $OUTPUT
+	sed -i "s@reveal\.js/@@g" $OUTPUT
+}
+
+# Download and initialize reveal.js
+if [ ! -d $TMP ]; then
+	mkdir -p $TMP
+	curl -L --output $TMP/reveal.js.tar.gz -O $REVEALJS
+	tar -xf $TMP/reveal.js.tar.gz -C $TMP --strip-components=1
+	rm $TMP/reveal.js.tar.gz
+	cd $TMP
+	npm install
+fi
+
+# Generate initial output file
+generate
+
+# Serve
+cd $TMP
+grunt serve &
+
+# Watch for changes in the markdown file and regenerate output
+while true; do
+	CHANGE=$(inotifywait -e close_write,moved_to,create $ROOT)
+	CHANGE=${CHANGE#$ROOT/ * }
+	if [ "$CHANGE" = "$1" ]; then
+		generate
+	fi
+done
