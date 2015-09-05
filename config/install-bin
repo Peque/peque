@@ -5,33 +5,4 @@ if [ "$(id -u)" != "0" ]; then
 	exit 1
 fi
 
-# /usr/bin/workmode
-LAUNCHER="/tmp/workmode"
-echo -e '#/bin/bash
-# Exit if no external monitor is connected
-if [ -n "$(xrandr | grep DP1 | grep disconnected)" ]; then
-	exit
-fi
-# Turn on/off the secondary display
-if [ -n "$(xrandr | grep LVDS1 | grep +)" ]; then
-    xrandr --output LVDS1 --off
-    gsettings set org.gnome.desktop.session idle-delay 300
-else
-    xrandr --output DP1 --primary --pos 0x0 --output LVDS1 --auto --pos 1920x700
-    gsettings set org.gnome.desktop.session idle-delay 0
-fi' > $LAUNCHER
-chmod +x $LAUNCHER
-mv $LAUNCHER /usr/bin
-
-# /usr/bin/ucprimusrun
-LAUNCHER="/tmp/ucprimusrun"
-echo -e '#/bin/bash
-($(which primusrun) nvidia-settings -c :8 \
--a [gpu:0]/GPUGraphicsClockOffset[2]=-80 \
--a [gpu:0]/GPUMemoryTransferRateOffset[2]=-150 \
-2> /dev/null &)
-$(which primusrun) $@ -c :8
-' > $LAUNCHER
-chmod +x $LAUNCHER
-mv $LAUNCHER /usr/bin
-
+cp -R $(dirname "$0")/../bin/. /usr/bin
