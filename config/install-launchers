@@ -21,7 +21,7 @@ Type=Application
 Terminal=false
 Icon=/usr/share/icons/hicolor/scalable/apps/python-terminator.svg
 Name=Wopr
-Exec=terminator -g $CONF -l python --working-directory=$WD
+Exec=terminator -g $CONF -l ${NAME,,} --working-directory=$WD
 Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"
 
 # Create osBrain launcher
@@ -33,5 +33,5 @@ Type=Application
 Terminal=false
 Icon=/usr/share/icons/hicolor/scalable/apps/python-terminator.svg
 Name=osBrain
-Exec=terminator -g $CONF -l python --working-directory=$WD
+Exec=terminator -g $CONF -l ${NAME,,} --working-directory=$WD
 Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"

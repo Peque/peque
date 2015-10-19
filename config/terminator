@@ -1,72 +1,26 @@
 [global_config]
   enabled_plugins = ,
-  handle_size = 1
-  borderless = True
   window_state = maximise
+  borderless = True
+  handle_size = 1
+  suppress_multiple_term_dialog = True
 [keybindings]
 [profiles]
   [[default]]
     scrollbar_position = hidden
-    use_system_font = False
-    scrollback_lines = 100000
     background_image = None
+    scrollback_lines = 100000
+    use_system_font = False
     scroll_on_output = False
     icon_bell = False
     show_titlebar = False
     font = Monospace 11
-    allow_bold = False
 [layouts]
-  [[octave]]
-    [[[child0]]]
-      parent = ""
-      type = Window
-      order = 0
-    [[[child1]]]
-      type = HPaned
-      order = 0
-      parent = child0
-      ratio = 0.4
-    [[[child3]]]
-      type = VPaned
-      order = 1
-      parent = child1
-      ratio = 0.25
-    [[[terminal2]]]
-      profile = default
-      parent = child1
-      command = ""
-      type = Terminal
-      order = 0
-    [[[terminal5]]]
-      profile = default
-      type = Terminal
-      order = 1
-      parent = child3
-      command = octave; bash
-    [[[terminal4]]]
-      profile = default
-      type = Terminal
-      order = 0
-      parent = child3
-      command = git status; bash
-  [[test]]
-    [[[window0]]]
-      type = Window
-      parent = ""
-      order = 0
-    [[child1]]
-      type = HPaned
-      order = 0
-      parent = window0
-      ratio = 0.4
-    [[terminal0]]
-      parent = child1
-      type = Terminal
-      order = 0
-    [[terminal1]]
-      parent = child1
-      type = Terminal
-      order = 1
+  [[child1]]
+    type = HPaned
+    order = 0
+    parent = window0
+    ratio = 0.4
   [[default]]
     [[[window0]]]
       type = Window
@@ -117,6 +71,14 @@
       order = 1
       parent = child5
       command = ipython; bash
+  [[terminal1]]
+    parent = child1
+    type = Terminal
+    order = 1
+  [[terminal0]]
+    parent = child1
+    type = Terminal
+    order = 0
   [[R]]
     [[[child0]]]
       fullscreen = False
@@ -225,4 +187,130 @@
       type = Terminal
       order = 0
       parent = child8
+  [[octave]]
+    [[[child0]]]
+      parent = ""
+      type = Window
+      order = 0
+    [[[child1]]]
+      type = HPaned
+      order = 0
+      parent = child0
+      ratio = 0.4
+    [[[child3]]]
+      type = VPaned
+      order = 1
+      parent = child1
+      ratio = 0.25
+    [[[terminal2]]]
+      profile = default
+      parent = child1
+      command = ""
+      type = Terminal
+      order = 0
+    [[[terminal5]]]
+      profile = default
+      type = Terminal
+      order = 1
+      parent = child3
+      command = octave; bash
+    [[[terminal4]]]
+      profile = default
+      type = Terminal
+      order = 0
+      parent = child3
+      command = git status; bash
+  [[test]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+      order = 0
+  [[wopr]]
+    [[[child0]]]
+      parent = ""
+      type = Window
+      order = 0
+    [[[child1]]]
+      type = HPaned
+      order = 0
+      parent = child0
+      ratio = 0.4
+    [[[child3]]]
+      type = VPaned
+      order = 1
+      parent = child1
+      ratio = 0.4
+    [[[child5]]]
+      type = VPaned
+      order = 1
+      parent = child3
+      ratio = 0.5
+    [[[terminal1]]]
+      profile = default
+      parent = child1
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon wopr; unset PROMPT_COMMAND"') -i"
+      type = Terminal
+      order = 0
+    [[[terminal2]]]
+      profile = default
+      type = Terminal
+      order = 0
+      parent = child3
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon wopr; git status; unset PROMPT_COMMAND"') -i"
+    [[[terminal3]]]
+      profile = default
+      type = Terminal
+      order = 0
+      parent = child5
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon wopr; unset PROMPT_COMMAND"') -i"
+    [[[terminal4]]]
+      profile = default
+      type = Terminal
+      order = 1
+      parent = child5
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon wopr; ipython; unset PROMPT_COMMAND"') -i"
+  [[osbrain]]
+    [[[child0]]]
+      parent = ""
+      type = Window
+      order = 0
+    [[[child1]]]
+      type = HPaned
+      order = 0
+      parent = child0
+      ratio = 0.4
+    [[[child3]]]
+      type = VPaned
+      order = 1
+      parent = child1
+      ratio = 0.4
+    [[[child5]]]
+      type = VPaned
+      order = 1
+      parent = child3
+      ratio = 0.5
+    [[[terminal1]]]
+      profile = default
+      parent = child1
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="source activate osbrain; unset PROMPT_COMMAND"') -i"
+      type = Terminal
+      order = 0
+    [[[terminal2]]]
+      profile = default
+      type = Terminal
+      order = 0
+      parent = child3
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="source activate osbrain; git status; unset PROMPT_COMMAND"') -i"
+    [[[terminal3]]]
+      profile = default
+      type = Terminal
+      order = 0
+      parent = child5
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="source activate osbrain; unset PROMPT_COMMAND"') -i"
+    [[[terminal4]]]
+      profile = default
+      type = Terminal
+      order = 1
+      parent = child5
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="source activate osbrain; ipython; unset PROMPT_COMMAND"') -i"
 [plugins]
