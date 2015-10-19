@@ -1,0 +1,37 @@
+#!/bin/bash
+
+if [ "$(id -u)" != "0" ]; then
+	echo "This script must be run as root" 1>&2
+	exit 1
+fi
+
+cd $(dirname "$0")
+
+ROOTDIR=$(pwd)
+
+# Copy icons
+cp $ROOTDIR/icons/* /usr/share/icons/hicolor/scalable/apps/
+
+# Create Wopr launcher
+NAME='Wopr'
+CONF="$ROOTDIR/terminator"
+WD="/media/src/wopr/src/python"
+echo "[Desktop Entry]
+Type=Application
+Terminal=false
+Icon=/usr/share/icons/hicolor/scalable/apps/python-terminator.svg
+Name=Wopr
+Exec=terminator -g $CONF -l python --working-directory=$WD
+Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"
+
+# Create osBrain launcher
+NAME='osBrain'
+CONF="$ROOTDIR/terminator"
+WD="/media/src/osbrain"
+echo "[Desktop Entry]
+Type=Application
+Terminal=false
+Icon=/usr/share/icons/hicolor/scalable/apps/python-terminator.svg
+Name=osBrain
+Exec=terminator -g $CONF -l python --working-directory=$WD
+Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"
