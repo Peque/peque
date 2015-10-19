@@ -1,4 +1,3 @@
-
 " Indentation
 set shiftwidth=8
 set softtabstop=8
@@ -10,4 +9,3 @@ highlight ColorColumn ctermbg=235
 
 " Autoremove trailing spaces
 autocmd BufWritePre * :%s/\s\+$//e
-
