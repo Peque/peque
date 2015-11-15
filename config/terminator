@@ -292,7 +292,7 @@
     [[[terminal1]]]
       profile = default
       parent = child1
-      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="source activate osbrain; unset PROMPT_COMMAND"') -i"
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon osbrain; unset PROMPT_COMMAND"') -i"
       type = Terminal
       order = 0
     [[[terminal2]]]
@@ -300,17 +300,17 @@
       type = Terminal
       order = 0
       parent = child3
-      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="source activate osbrain; git status; unset PROMPT_COMMAND"') -i"
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon osbrain; git status; unset PROMPT_COMMAND"') -i"
     [[[terminal3]]]
       profile = default
       type = Terminal
       order = 0
       parent = child5
-      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="source activate osbrain; unset PROMPT_COMMAND"') -i"
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon osbrain; unset PROMPT_COMMAND"') -i"
     [[[terminal4]]]
       profile = default
       type = Terminal
       order = 1
       parent = child5
-      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="source activate osbrain; ipython; unset PROMPT_COMMAND"') -i"
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon osbrain; ipython; unset PROMPT_COMMAND"') -i"
 [plugins]
