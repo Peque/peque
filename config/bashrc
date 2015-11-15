@@ -5,5 +5,17 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-source /usr/bin/virtualenvwrapper.sh
+# Conda virtual environment functions
+workon() {
+	source activate $1
+}
+deactivate() {
+	source deactivate
+}
+
+# Custom /bin
 export PATH=/media/bin:$PATH
+
+# Conda
+#export PATH="$(conda info --root)/bin:$PATH"
+export PATH="~/.miniconda3/bin:$PATH"
