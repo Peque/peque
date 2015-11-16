@@ -313,4 +313,48 @@
       order = 1
       parent = child5
       command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon osbrain; ipython; unset PROMPT_COMMAND"') -i"
+  [[robinvol]]
+    [[[child0]]]
+      parent = ""
+      type = Window
+      order = 0
+    [[[child1]]]
+      type = HPaned
+      order = 0
+      parent = child0
+      ratio = 0.4
+    [[[child3]]]
+      type = VPaned
+      order = 1
+      parent = child1
+      ratio = 0.4
+    [[[child5]]]
+      type = VPaned
+      order = 1
+      parent = child3
+      ratio = 0.5
+    [[[terminal1]]]
+      profile = default
+      parent = child1
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon robinvol; unset PROMPT_COMMAND"') -i"
+      type = Terminal
+      order = 0
+    [[[terminal2]]]
+      profile = default
+      type = Terminal
+      order = 0
+      parent = child3
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon robinvol; git status; unset PROMPT_COMMAND"') -i"
+    [[[terminal3]]]
+      profile = default
+      type = Terminal
+      order = 0
+      parent = child5
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon robinvol; unset PROMPT_COMMAND"') -i"
+    [[[terminal4]]]
+      profile = default
+      type = Terminal
+      order = 1
+      parent = child5
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon robinvol; ipython; unset PROMPT_COMMAND"') -i"
 [plugins]

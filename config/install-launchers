@@ -20,7 +20,7 @@ echo "[Desktop Entry]
 Type=Application
 Terminal=false
 Icon=/usr/share/icons/hicolor/scalable/apps/python-terminator.svg
-Name=Wopr
+Name=$NAME
 Exec=terminator -g $CONF -l ${NAME,,} --working-directory=$WD
 Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"
 
@@ -32,6 +32,18 @@ echo "[Desktop Entry]
 Type=Application
 Terminal=false
 Icon=/usr/share/icons/hicolor/scalable/apps/python-terminator.svg
-Name=osBrain
+Name=$NAME
+Exec=terminator -g $CONF -l ${NAME,,} --working-directory=$WD
+Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"
+
+# Create RobinVOL launcher
+NAME='RobinVOL'
+CONF="$ROOTDIR/terminator"
+WD="/media/src/robinvol"
+echo "[Desktop Entry]
+Type=Application
+Terminal=false
+Icon=/usr/share/icons/hicolor/scalable/apps/python-terminator.svg
+Name=$NAME
 Exec=terminator -g $CONF -l ${NAME,,} --working-directory=$WD
 Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"
