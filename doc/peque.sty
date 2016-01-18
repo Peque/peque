@@ -1,0 +1,129 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{peque}[2015/01/18 v0.1]
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{lmodern}         % Latin Modern fonts
+\RequirePackage{wrapfig}         % For tip environment
+\RequirePackage{textcomp}        % Allow the use of upquote = true in \lstset
+\RequirePackage{xcolor}          % \definecolor
+\RequirePackage{etoolbox}        % \patchcmd
+
+\pdfminorversion=4      % Avoid some problems with bad PDF readers
+
+% Tips
+\newenvironment{tip}
+{
+  \vspace{+10pt}
+  \begin{it}
+  \noindent
+  \begin{minipage}{\linewidth}
+  \rightskip=1cm
+  \leftskip=1cm
+  \setlength\intextsep{0pt}
+  \begin{wrapfigure}[1]{l}[2cm]{0cm}
+    \hspace{-1.5cm}
+    \includegraphics[width=1.5cm]{tip}
+  \end{wrapfigure}
+}
+{
+  {}
+  \end{minipage}
+  \end{it}
+  \vspace{+10pt}
+}
+
+% Captions
+\usepackage{caption}
+\usepackage{subcaption}
+\captionsetup
+{
+  margin = 30pt,
+  skip = 10pt,
+  justification = centering,
+  labelfont = bf,
+  textfont = it,
+  font = small
+}
+
+% Custom colors
+\definecolor{lightgray}{gray}{0.95}
+\definecolor{orange}{rgb}{1,0.5,0}
+
+% Code listings
+\usepackage{listings}
+\lstset
+{
+  basicstyle = \small\ttfamily,
+  escapeinside = {<@}{@>},
+  numbers = left,
+  upquote = true,
+%  frame = shadowbox,
+%  frame = tRBl,
+%  rulesepcolor = \color{lightgray},
+  frame = single,
+  columns = fullflexible,
+  showstringspaces = false,
+  tabsize = 8,
+  keepspaces = true,
+  rulecolor = \color{gray},
+  commentstyle=\color{gray}\itshape,
+  keywordstyle=\color{blue}\bfseries,
+  backgroundcolor=\color{lightgray},
+  stringstyle=\color{orange},
+  numberstyle = \tiny,
+  breaklines = true,
+  postbreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\color{gray}\hookrightarrow\space}},
+  caption = \lstname,
+  literate = {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+}
+
+% Chapter quotes
+\newcommand{\cquote}[2]
+{
+  \begin{flushright}
+    \begin{minipage}{0.6\linewidth}
+      \raggedleft
+      \small
+      {
+        ``\textit{#1}'' \\
+        \vspace{5pt}
+        \textit{\textbf{--- #2}}
+      }
+    \end{minipage}
+  \end{flushright}
+}
+
+% Euro symbol
+\usepackage[gen]{eurosym}
+\DeclareUnicodeCharacter{20AC}{\euro{}}
+
+% Tables
+\usepackage{tabularx}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+
+% Links
+\usepackage{hyperref}
+\hypersetup
+{
+  colorlinks = false,      % No link color
+  linkbordercolor = gray,  % Gray link border
+  urlbordercolor = gray,   % Gray URL border
+  pdfborderstyle = {/S/U/W 0.5},
+}
+
+% Graphics path configuration
+\graphicspath
+{
+  {./images/}
+  {./img/}
+}
+
+% No numbering in parts (redefining \part setting "empty" page style)
+\makeatletter
+\patchcmd{\part}{\thispagestyle{plain}}{\thispagestyle{empty}}
+\makeatother
+
+\endinput

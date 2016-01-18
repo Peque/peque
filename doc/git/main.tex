@@ -22,46 +22,19 @@
 
 \documentclass[a4paper,10pt]{article}
 
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{lmodern}
 \usepackage[english]{babel}
 \usepackage{graphicx}
-\usepackage{picins}
 \usepackage{listings}
 \usepackage{geometry}
 \usepackage{framed}
 \usepackage{multirow}
+\usepackage{peque}
 
 \graphicspath{{./images/}}
 
 \newcommand{\projectname}{cookie-libs}
 \newcommand{\projectgitrepo}{git://cookie-libs.git.sourceforge.net/gitroot/cookie-libs/cookie-libs}
 \newcommand{\projectsshgitrepo}{ssh://USERNAME@cookie-libs.git.sourceforge.net/gitroot/cookie-libs/cookie-libs}
-
-% TODO: fix image positioning. Perhaps a good solution is to use labels
-%       and refer to them instead of depending on the exact figure
-%       position.
-
-% TODO: fix the tip environment for large or multiple paragraphs.
-\newenvironment{tip}
-  {
-    \vspace{+10pt}
-    \parpic[l][lt]
-      {
-        \hspace{-30pt}
-        \includegraphics[width=1.5cm]{tip}
-      }
-    \begin{it}
-    \noindent
-    \rightskip 1cm
-  }
-  {
-    {}
-
-    \end{it}
-    \vspace{+10pt}
-  }
 
 % TODO: Implicit verbatim environment in terminal environment.
 \newenvironment{terminal}
@@ -287,7 +260,7 @@ The command \texttt{git init} initializes an empty Git repository in
 \texttt{git-test} folder. That will allow you to perform many other Git
 operations in the future, when some changes are made within the project.
 
-Now, lets create a file named \texttt{test-file.txt}, with one text
+Now, let us create a file named \texttt{test-file.txt}, with one text
 line:
 
 \begin{terminal}
@@ -335,7 +308,7 @@ nothing to commit (working directory clean)
 \end{verbatim}
 \end{terminal}
 
-Lets say we make a change to the \texttt{text-file.txt}. Lets delete the
+Let us say we make a change to the \texttt{text-file.txt}. Let us delete the
 line we wrote and write a new one.
 
 \begin{terminal}
@@ -363,11 +336,11 @@ no changes added to commit (use "git add" and/or "git commit -a")
 We can see \texttt{text-file.txt} has been modified. As Git is
 suggesting, we've got two options to perform: add the changes for a
 later commit (\texttt{git add text-file.txt}) or discard those changes
-(\texttt{git checkout -{}- text-file.txt}). But before continuing, lets
+(\texttt{git checkout -{}- text-file.txt}). But before continuing, let us
 introduce a new tool: \texttt{gitk}.
 
 \texttt{gitk} is a graphical interface that will allow us to easily
-checkout the project's history and also the local changes we make. Lets
+checkout the project's history and also the local changes we make. Let us
 see how it looks like.
 
 \begin{terminal}
@@ -422,7 +395,7 @@ $ git add test-file.txt
 \end{verbatim}
 \end{terminal}
 
-Lets see what happened.
+Let us see what happened.
 
 \begin{terminal}
 \begin{verbatim}
@@ -497,7 +470,7 @@ own safety!
 
 \subsection{Branching}
 
-Now that we know how to make commits, lets get into branching. You can
+Now that we know how to make commits, let us get into branching. You can
 easily change between branches using
 \texttt{git checkout <branch\_name>}
 but, you'll need to add the \texttt{-b} option if the branch doesn't
@@ -527,7 +500,7 @@ are currently in. If we want to see the full tree, we need to use the
 using that option whenever we need to use the \texttt{gitk} tool.
 \end{tip}
 
-So, lets add a new line to our \texttt{test-file.txt} and commit the
+So, let us add a new line to our \texttt{test-file.txt} and commit the
 changes:
 
 \begin{terminal}
@@ -552,7 +525,7 @@ commit we made hasn't affect the \texttt{master} branch.
 \end{figure}
 
 But, what happens if a new commit is made in the \texttt{master}
-branch? Lets change to it and make a new commit from there:
+branch? Let us change to it and make a new commit from there:
 
 \begin{terminal}
 \begin{verbatim}
@@ -581,7 +554,7 @@ Now the \texttt{master} branch is ahead in the history tree.
   \caption{New commit in \texttt{master} branch}
 \end{figure}
 
-Lets say we finished making changes in \texttt{newbr} branch. Now, we
+Let us say we finished making changes in \texttt{newbr} branch. Now, we
 would like to merge the changes we made with the master branch (we
 need to do that from the branch we want to merge the changes to: in
 this case from \texttt{master}).
@@ -601,7 +574,7 @@ same sources you are working on in your branch. In our example, the
 second line of the file was modified in both branches, and Git doesn't
 know which one should it take.
 
-Lets see what Git says about this status:
+Let us see what Git says about this status:
 
 \begin{terminal}
 \begin{verbatim}
@@ -640,7 +613,7 @@ blue, which are over the \texttt{newbr} tag, represent changes in the
 \texttt{newbr} branch. What we need to do is to open the file and
 remove those lines we don't want to keep there.
 
-Lets say we want to keep the changes we made in the \texttt{newbr}
+Let us say we want to keep the changes we made in the \texttt{newbr}
 branch. We need to delete the line in red (which corresponds to the
 line added from the \texttt{master} branch) and also the delimiter
 lines that Git added to the file to separate the conflicting lines.

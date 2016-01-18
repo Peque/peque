@@ -2,9 +2,6 @@
 \documentclass[a4paper,10pt,onecolumn]{book}
 
 % Packages needed
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{lmodern}         % Latin Modern fonts
 \usepackage[english]{babel}
 \usepackage{graphicx}
 \usepackage{geometry}
@@ -12,20 +9,14 @@
 \usepackage{lipsum}          % Write "Lorem ipsum..." placeholder text
 \usepackage{mathtools}
 \usepackage{amssymb}
-\usepackage{xcolor}
-\usepackage{textcomp}        % Allow the use of upquote = true in \lstset
-\usepackage{wrapfig}         % Wrap text around graphics (i.e. tip environment)
 \usepackage{bookmark}
-\usepackage{caption}
-\usepackage{subcaption}
-\usepackage{etoolbox}
 \usepackage{pgfgantt}
 \usepackage{booktabs}
 \usepackage{siunitx}
 \usepackage{enumitem}
 \usepackage{emptypage}
+\usepackage{peque}
 
-\pdfminorversion=4      % Avoid some problems with bad PDF readers
 \usepackage{parskip}
 \geometry{margin=2.5cm}
 
@@ -39,11 +30,6 @@
 \renewcommand{\footrulewidth}{0.5pt}
 % <<<<< Tweaks for the University
 
-\usepackage{tabularx}
-\newcolumntype{L}{>{\raggedright\arraybackslash}X}
-\newcolumntype{C}{>{\centering\arraybackslash}X}
-\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
-
 \usepackage{tikz}
 \usetikzlibrary{arrows,shapes,positioning,shadows,trees}
 \tikzset{
@@ -53,72 +39,10 @@
   level 3/.style = {basic, thin, align=left, fill=white, text width=7em}
 }
 
-% Captions
-\usepackage{caption}
-\captionsetup
-{
-  margin = 30pt,
-  skip = 10pt,
-  justification = centering,
-  labelfont = bf,
-  textfont = it,
-  font = small
-}
-
-% Custom colors
-\definecolor{lightgray}{gray}{0.95}
-\definecolor{orange}{rgb}{1,0.5,0}
-
-% Code listings
-\usepackage{listings}
-\lstset
-{
-  basicstyle = \small\ttfamily,
-  escapeinside = {<@}{@>},
-  numbers = left,
-  upquote = true,
-%  frame = shadowbox,
-%  frame = tRBl,
-%  rulesepcolor = \color{lightgray},
-  frame = single,
-  columns = fullflexible,
-  showstringspaces = false,
-  tabsize = 8,
-  keepspaces = true,
-  rulecolor = \color{gray},
-  commentstyle=\color{gray}\itshape,
-  keywordstyle=\color{blue}\bfseries,
-  backgroundcolor=\color{lightgray},
-  stringstyle=\color{orange},
-  numberstyle = \tiny,
-  breaklines = true,
-  postbreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\color{gray}\hookrightarrow\space}},
-  caption = \lstname,
-  literate = {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
-}
-
-\usepackage{hyperref}
-\hypersetup
-{
-  colorlinks = false,      % No link color
-  linkbordercolor = gray,  % Gray link border
-  urlbordercolor = gray,   % Gray URL border
-  pdfborderstyle = {/S/U/W 0.5},
-}
-
 % Glossaries
 \usepackage[acronym,toc]{glossaries}
 \makeglossaries
 \loadglsentries[main]{content/glossary.tex}
-
-% No numbering in parts (redefining \part setting "empty" page style)
-\makeatletter
-\patchcmd{\part}{\thispagestyle{plain}}{\thispagestyle{empty}}
-\makeatother
-
-% Euro symbol
-\usepackage[gen]{eurosym}
-\DeclareUnicodeCharacter{20AC}{\euro{}}
 
 % Graphics path configuration
 \graphicspath
@@ -127,42 +51,6 @@
   {../src/R/images/}
   {../src/python/images/}
   {../src/octave/images/}
-}
-
-\newenvironment{tip}
-{
-  \vspace{+10pt}
-  \begin{it}
-  \noindent
-  \begin{minipage}{\linewidth}
-  \rightskip=1cm
-  \leftskip=1cm
-  \setlength\intextsep{0pt}
-  \begin{wrapfigure}[1]{l}[2cm]{0cm}
-    \hspace{-1.5cm}
-    \includegraphics[width=1.5cm]{tip}
-  \end{wrapfigure}
-}
-{
-  {}
-  \end{minipage}
-  \end{it}
-  \vspace{+10pt}
-}
-
-\newcommand{\cquote}[2]
-{
-  \begin{flushright}
-    \begin{minipage}{0.6\linewidth}
-      \raggedleft
-      \small
-      {
-        ``\textit{#1}'' \\
-        \vspace{5pt}
-        \textit{\textbf{--- #2}}
-      }
-    \end{minipage}
-  \end{flushright}
 }
 
 
