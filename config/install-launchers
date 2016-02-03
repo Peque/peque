@@ -36,7 +36,19 @@ Name=$NAME
 Exec=terminator -g $CONF -l ${NAME,,} --working-directory=$WD
 Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"
 
-# Create osBrain markets launcher
+# Create osMarkets launcher
+NAME='osMarkets'
+CONF="$ROOTDIR/terminator"
+WD="/media/src/osmarkets"
+echo "[Desktop Entry]
+Type=Application
+Terminal=false
+Icon=/usr/share/icons/hicolor/scalable/apps/python-terminator.svg
+Name=$NAME
+Exec=terminator -g $CONF -l ${NAME,,} --working-directory=$WD
+Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"
+
+# Create RobinOS launcher
 NAME='RobinOS'
 CONF="$ROOTDIR/terminator"
 WD="/media/src/robinvol-osbrain"

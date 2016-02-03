@@ -19,3 +19,10 @@ export PATH=/media/bin:$PATH
 # Conda
 #export PATH="$(conda info --root)/bin:$PATH"
 export PATH="~/.miniconda3/bin:$PATH"
+
+# PYTHONPATH
+export PYTHONPATH="/media/src/osbrain/:$PYTHONPATH"
+export PYTHONPATH="/media/src/osmarkets/:$PYTHONPATH"
+export PYTHONPATH="/media/src/oandapy/:$PYTHONPATH"
+#export PYTHONPATH="/media/src/pyqtgraph/:$PYTHONPATH"
+export PYTHONPATH="$PYTHONPATH:/media/src/wopr/src/python/:/media/src/xwopr/"
