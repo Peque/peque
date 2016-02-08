@@ -91,6 +91,3 @@ nnoremap <A-q> :quit<CR><Esc>
 " Make
 command Make execute "!make"
 map <F9> :Make<CR>
-
-" Paste
-set pastetoggle=<F10>
