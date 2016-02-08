@@ -61,32 +61,32 @@ map <C-n> :split<CR>
 map <C-m> :vsplit<CR>
 
 " Playing around with tabs
-nnoremap <Esc>1 1gt
-nnoremap <Esc>2 2gt
-nnoremap <Esc>3 3gt
-nnoremap <Esc>4 4gt
-nnoremap <Esc>7 :tabmove -1<CR> 
-nnoremap <Esc>8 :tabmove +1<CR> 
-nnoremap <Esc>9 :tabprevious<CR> 
-nnoremap <Esc>0 :tabnext<CR> 
-nnoremap <Esc>e :tabedit 
+nnoremap <A-1>1 1gt
+nnoremap <A-2>2 2gt
+nnoremap <A-3>3 3gt
+nnoremap <A-4>4 4gt
+nnoremap <A-7>7 :tabmove -1<CR> 
+nnoremap <A-8>8 :tabmove +1<CR> 
+nnoremap <A-9>9 :tabprevious<CR> 
+nnoremap <A-0>0 :tabnext<CR> 
+nnoremap <A-e>e :tabedit 
 
 " [Alt + m] will exit insert mode, clear any command and clear searcf highlight
-inoremap <Esc>m <Esc>
-cnoremap <Esc>m <C-c>
-nnoremap <silent> <Esc>m :nohlsearch<CR> :sign unplace *<CR><Esc>
+inoremap <A-m> <Esc>
+cnoremap <A-m> <C-c>
+nnoremap <silent> <A-m> :nohlsearch<CR> :sign unplace *<CR><Esc>
 
 " [Alt + j/k] will jump faster and centered
-nnoremap <Esc>j 2jzz
-nnoremap <Esc>k 2kzz
+nnoremap <A-j> 2jzz
+nnoremap <A-k> 2kzz
 
 " Next search
-nnoremap <Esc>n nzz
+nnoremap <A-n> nzz
 
 " Write and quit commands
-inoremap <Esc>w <Esc>:write<CR><Esc>
-nnoremap <Esc>w :write<CR><Esc>
-nnoremap <Esc>q :quit<CR><Esc>
+inoremap <A-w> <Esc>:write<CR><Esc>
+nnoremap <A-w> :write<CR><Esc>
+nnoremap <A-q> :quit<CR><Esc>
 
 " Make
 command Make execute "!make"
