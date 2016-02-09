@@ -41,12 +41,16 @@ set background=dark
 " Cursor line
 set cursorline
 
+" Ruler
+set ruler
+
 " Italics
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
 
 " Highlighting
 hi cursorline cterm=none ctermfg=none ctermbg=235
+hi statusline cterm=none  ctermfg=none ctermbg=none
 hi search cterm=bold ctermfg=white ctermbg=DarkGray
 hi comment cterm=italic ctermfg=67
 hi todo cterm=italic,bold ctermfg=red ctermbg=none
@@ -61,15 +65,15 @@ map <C-n> :split<CR>
 map <C-m> :vsplit<CR>
 
 " Playing around with tabs
-nnoremap <A-1>1 1gt
-nnoremap <A-2>2 2gt
-nnoremap <A-3>3 3gt
-nnoremap <A-4>4 4gt
-nnoremap <A-7>7 :tabmove -1<CR> 
-nnoremap <A-8>8 :tabmove +1<CR> 
-nnoremap <A-9>9 :tabprevious<CR> 
-nnoremap <A-0>0 :tabnext<CR> 
-nnoremap <A-e>e :tabedit 
+nnoremap <A-1> 1gt
+nnoremap <A-2> 2gt
+nnoremap <A-3> 3gt
+nnoremap <A-4> 4gt
+nnoremap <A-7> :tabmove -1<CR> 
+nnoremap <A-8> :tabmove +1<CR> 
+nnoremap <A-9> :tabprevious<CR> 
+nnoremap <A-0> :tabnext<CR> 
+nnoremap <A-e> :tabedit 
 
 " [Alt + m] will exit insert mode, clear any command and clear searcf highlight
 inoremap <A-m> <Esc>
