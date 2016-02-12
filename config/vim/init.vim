@@ -22,6 +22,7 @@ let g:SuperTabCrMapping = 1
 
 " neomake
 nnoremap <A-c> :Neomake<CR>
+inoremap <A-c> <Esc>:Neomake<CR>
 
 " General settings
 syntax on
@@ -74,6 +75,15 @@ nnoremap <A-8> :tabmove +1<CR>
 nnoremap <A-9> :tabprevious<CR> 
 nnoremap <A-0> :tabnext<CR> 
 nnoremap <A-e> :tabedit 
+inoremap <A-1> <Esc>1gt
+inoremap <A-2> <Esc>2gt
+inoremap <A-3> <Esc>3gt
+inoremap <A-4> <Esc>4gt
+inoremap <A-7> <Esc>:tabmove -1<CR>
+inoremap <A-8> <Esc>:tabmove +1<CR>
+inoremap <A-9> <Esc>:tabprevious<CR>
+inoremap <A-0> <Esc>:tabnext<CR>
+inoremap <A-e> <Esc>:tabedit 
 
 " [Alt + m] will exit insert mode, clear any command and clear searcf highlight
 inoremap <A-m> <Esc>
@@ -83,14 +93,18 @@ nnoremap <silent> <A-m> :nohlsearch<CR> :sign unplace *<CR><Esc>
 " [Alt + j/k] will jump faster and centered
 nnoremap <A-j> 2jzz
 nnoremap <A-k> 2kzz
+inoremap <A-j> <Esc>2jzz
+inoremap <A-k> <Esc>2kzz
 
 " Next search
 nnoremap <A-n> nzz
+inoremap <A-n> <Esc>nzz
 
 " Write and quit commands
-inoremap <A-w> <Esc>:write<CR><Esc>
 nnoremap <A-w> :write<CR><Esc>
 nnoremap <A-q> :quit<CR><Esc>
+inoremap <A-w> <Esc>:write<CR><Esc>
+inoremap <A-q> <Esc>
 
 " Make
 command Make execute "!make"
