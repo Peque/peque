@@ -11,6 +11,8 @@ ORIGIN=$(dirname "$INPUT")
 DESTINATION="$HOME/.pandoc-watch"
 REVEALJS="https://github.com/hakimel/reveal.js/archive/3.2.0.tar.gz"
 REVEALJS_VERSION="$DESTINATION/.revealjs_version"
+# TODO: get as parameter
+THEME="white"
 
 function generate {
 	pandoc \
@@ -19,9 +21,11 @@ function generate {
 		--slide-level=2 \
 		-f markdown \
 		-t revealjs \
-		-V theme=black \
 		-o "$DESTINATION/index.html"
-	sed -i "s@reveal\.js/@@g" "$DESTINATION/index.html"
+	sed -i -e "s@reveal\.min\.css@reveal\.css@g" "$DESTINATION/index.html"
+	sed -i -e "s@reveal\.min\.js@reveal\.js@g" "$DESTINATION/index.html"
+	sed -i -e "s@reveal\.js/@@g" "$DESTINATION/index.html"
+	sed -i -e "/id=\"theme\"/s/\/[^\/]*\.css/\/$THEME\.css/g" "$DESTINATION/index.html"
 	cp -R "$ORIGIN/"* "$DESTINATION/"
 }
 
