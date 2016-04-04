@@ -7,35 +7,35 @@ if [ -z "$1" ]; then
 fi
 
 INPUT="$(pwd)/$1"
-ORIGIN=$(dirname $INPUT)
+ORIGIN=$(dirname "$INPUT")
 DESTINATION="$HOME/.pandoc-watch"
-REVEALJS="https://github.com/hakimel/reveal.js/archive/3.1.0.tar.gz"
+REVEALJS="https://github.com/hakimel/reveal.js/archive/3.2.0.tar.gz"
 REVEALJS_VERSION="$DESTINATION/.revealjs_version"
 
 function generate {
 	pandoc \
-		$INPUT \
+		"$INPUT" \
 		-s \
 		--slide-level=2 \
 		-f markdown \
 		-t revealjs \
 		-V theme=black \
-		-o $DESTINATION/index.html
-	sed -i "s@reveal\.js/@@g" $DESTINATION/index.html
-	cp -R $ORIGIN/* $DESTINATION/
+		-o "$DESTINATION/index.html"
+	sed -i "s@reveal\.js/@@g" "$DESTINATION/index.html"
+	cp -R "$ORIGIN/"* "$DESTINATION/"
 }
 
 # Download and initialize reveal.js
-if [ -z $(cat $REVEALJS_VERSION | grep $REVEALJS) ]; then
-	mkdir -p $DESTINATION
-	curl -L --output $DESTINATION/reveal.tar.gz -O $REVEALJS
-	tar -xf $DESTINATION/reveal.tar.gz -C $DESTINATION --strip-components=1
-	rm $DESTINATION/reveal.tar.gz
-	echo -n $REVEALJS> $REVEALJS_VERSION
+if [ -z $(cat "$REVEALJS_VERSION" | grep "$REVEALJS") ]; then
+	mkdir -p "$DESTINATION"
+	curl -L --output "$DESTINATION/reveal.tar.gz" -O "$REVEALJS"
+	tar -xf "$DESTINATION/reveal.tar.gz" -C "$DESTINATION" --strip-components=1
+	rm "$DESTINATION/reveal.tar.gz"
+	echo -n "$REVEALJS"> "$REVEALJS_VERSION"
 fi
 
 # Update node.js packages
-cd $DESTINATION
+cd "$DESTINATION"
 npm install
 
 # Generate initial HTML file
@@ -46,7 +46,7 @@ grunt serve &
 
 # Watch for changes in the markdown file and regenerate HTML
 while true; do
-	CHANGE=$(inotifywait -e close_write,moved_to,create $ORIGIN)
+	CHANGE=$(inotifywait -e close_write,moved_to,create "$ORIGIN")
 	CHANGE=${CHANGE#$ORIGIN/ * }
 	if [ "$CHANGE" = "$1" ]; then
 		generate
