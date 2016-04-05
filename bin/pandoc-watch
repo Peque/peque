@@ -12,7 +12,7 @@ DESTINATION="$HOME/.pandoc-watch"
 REVEALJS="https://github.com/hakimel/reveal.js/archive/3.2.0.tar.gz"
 REVEALJS_VERSION="$DESTINATION/.revealjs_version"
 # TODO: get as parameter
-THEME="white"
+THEME="custom"
 
 function generate {
 	pandoc \
