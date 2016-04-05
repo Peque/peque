@@ -26,7 +26,7 @@ function generate {
 	sed -i -e "s@reveal\.min\.js@reveal\.js@g" "$DESTINATION/index.html"
 	sed -i -e "s@reveal\.js/@@g" "$DESTINATION/index.html"
 	sed -i -e "/id=\"theme\"/s/\/[^\/]*\.css/\/$THEME\.css/g" "$DESTINATION/index.html"
-	cp -R "$ORIGIN/"* "$DESTINATION/"
+	rsync --exclude .git -av "$ORIGIN/" "$DESTINATION/"
 }
 
 # Download and initialize reveal.js
