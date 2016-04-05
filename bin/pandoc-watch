@@ -13,19 +13,22 @@ REVEALJS="https://github.com/hakimel/reveal.js/archive/3.2.0.tar.gz"
 REVEALJS_VERSION="$DESTINATION/.revealjs_version"
 # TODO: get as parameter
 THEME="custom"
+BACKGROUND="figures/background.svg"
 
 function generate {
+	INDEX="$DESTINATION/index.html"
 	pandoc \
 		"$INPUT" \
 		-s \
 		--slide-level=2 \
 		-f markdown \
 		-t revealjs \
-		-o "$DESTINATION/index.html"
-	sed -i -e "s@reveal\.min\.css@reveal\.css@g" "$DESTINATION/index.html"
-	sed -i -e "s@reveal\.min\.js@reveal\.js@g" "$DESTINATION/index.html"
-	sed -i -e "s@reveal\.js/@@g" "$DESTINATION/index.html"
-	sed -i -e "/id=\"theme\"/s/\/[^\/]*\.css/\/$THEME\.css/g" "$DESTINATION/index.html"
+		-o "$INDEX"
+	sed -i -e "s@reveal\.min\.css@reveal\.css@g" "$INDEX"
+	sed -i -e "s@reveal\.min\.js@reveal\.js@g" "$INDEX"
+	sed -i -e "s@reveal\.js/@@g" "$INDEX"
+	sed -i -e "/id=\"theme\"/s/\/[^\/]*\.css/\/$THEME\.css/g" "$INDEX"
+	sed -i -e "s@<section>@<section data-background=\"$BACKGROUND\">@g" "$INDEX"
 	rsync --exclude .git -av "$ORIGIN/" "$DESTINATION/"
 }
 
