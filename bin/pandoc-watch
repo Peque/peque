@@ -14,6 +14,7 @@ REVEALJS_VERSION="$DESTINATION/.revealjs_version"
 # TODO: get as parameter
 THEME="custom"
 BACKGROUND="figures/background.svg"
+WARMUP="figures/warmup.svg"
 
 function generate {
 	INDEX="$DESTINATION/index.html"
@@ -28,7 +29,14 @@ function generate {
 	sed -i -e "s@reveal\.min\.js@reveal\.js@g" "$INDEX"
 	sed -i -e "s@reveal\.js/@@g" "$INDEX"
 	sed -i -e "/id=\"theme\"/s/\/[^\/]*\.css/\/$THEME\.css/g" "$INDEX"
-	sed -i -e "s@<section>@<section data-background=\"$BACKGROUND\">@g" "$INDEX"
+	if [ -f $WARMUP ]; then
+		AUX="<section><img src=\"$WARMUP\" /></section>"
+		sed -i -e "/div class=\"slides\"/a $AUX" "$INDEX"
+	fi
+	if [ -f $BACKGROUND ]; then
+		AUX="data-background=\"$BACKGROUND\""
+		sed -i -e "s@<section>@<section $AUX>@g" "$INDEX"
+	fi
 	rsync --exclude .git -av "$ORIGIN/" "$DESTINATION/"
 }
 
