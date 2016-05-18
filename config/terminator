@@ -1,20 +1,23 @@
 [global_config]
-  enabled_plugins = ,
-  window_state = maximise
   borderless = True
+  enabled_plugins = ,
   handle_size = 1
   suppress_multiple_term_dialog = True
+  window_state = maximise
 [keybindings]
+  broadcast_all = <Primary><Alt>a
+  broadcast_group = <Primary><Alt>g
+  broadcast_off = <Primary><Alt>o
 [profiles]
   [[default]]
-    scrollbar_position = hidden
     background_image = None
-    scrollback_lines = 100000
-    use_system_font = False
-    scroll_on_output = False
-    icon_bell = False
-    show_titlebar = False
     font = Monospace 11
+    icon_bell = False
+    scroll_on_output = False
+    scrollback_lines = 100000
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False
 [layouts]
   [[child1]]
     type = HPaned
