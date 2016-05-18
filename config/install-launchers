@@ -15,7 +15,7 @@ cp $ROOTDIR/icons/* /usr/share/icons/hicolor/scalable/apps/
 # Create Wopr launcher
 NAME='Wopr'
 CONF="$ROOTDIR/terminator"
-WD="/media/src/wopr/src/python"
+WD="/src/wopr/src/python"
 echo "[Desktop Entry]
 Type=Application
 Terminal=false
@@ -27,7 +27,7 @@ Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"
 # Create osBrain launcher
 NAME='osBrain'
 CONF="$ROOTDIR/terminator"
-WD="/media/src/osbrain"
+WD="/src/osbrain"
 echo "[Desktop Entry]
 Type=Application
 Terminal=false
@@ -39,7 +39,7 @@ Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"
 # Create osMarkets launcher
 NAME='osMarkets'
 CONF="$ROOTDIR/terminator"
-WD="/media/src/osmarkets"
+WD="/src/osmarkets"
 echo "[Desktop Entry]
 Type=Application
 Terminal=false
@@ -51,7 +51,19 @@ Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"
 # Create RobinOS launcher
 NAME='RobinOS'
 CONF="$ROOTDIR/terminator"
-WD="/media/src/robinvol-osbrain"
+WD="/src/robinvol-osbrain"
+echo "[Desktop Entry]
+Type=Application
+Terminal=false
+Icon=/usr/share/icons/hicolor/scalable/apps/python-terminator.svg
+Name=$NAME
+Exec=terminator -g $CONF -l ${NAME,,} --working-directory=$WD
+Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"
+
+# Create PAnalysis launcher
+NAME='PAnalysis'
+CONF="$ROOTDIR/terminator"
+WD="/src/panalysis"
 echo "[Desktop Entry]
 Type=Application
 Terminal=false
@@ -63,7 +75,7 @@ Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"
 # Create RobinVOL launcher
 NAME='RobinVOL'
 CONF="$ROOTDIR/terminator"
-WD="/media/src/robinvol"
+WD="/src/robinvol"
 echo "[Desktop Entry]
 Type=Application
 Terminal=false
