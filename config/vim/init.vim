@@ -29,6 +29,9 @@ syntax on
 filetype on
 filetype plugin indent on
 
+" clipboard
+set clipboard+=unnamed
+
 " By default, ignore case while searching
 set ignorecase
 
