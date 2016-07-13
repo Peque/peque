@@ -9,14 +9,20 @@ fi
 INPUT="$(pwd)/$1"
 ORIGIN=$(dirname "$INPUT")
 DESTINATION="$HOME/.pandoc-watch"
-REVEALJS="https://github.com/hakimel/reveal.js/archive/3.2.0.tar.gz"
+REVEALJS="https://github.com/hakimel/reveal.js/archive/3.3.0.tar.gz"
 REVEALJS_VERSION="$DESTINATION/.revealjs_version"
 # TODO: get as parameter
 THEME="custom"
 BACKGROUND="figures/background.svg"
 WARMUP="figures/warmup.svg"
+LOGO="figures/logo.svg"
+HEADER="extra/header.html"
+FOOTER="extra/footer.html"
 
 function generate {
+	rsync --delete -av "$ORIGIN/extra/" "$DESTINATION/extra/"
+	rsync --delete -av "$ORIGIN/figures/" "$DESTINATION/figures/"
+	rsync --delete -av "$ORIGIN/figures/" "$DESTINATION/figures/"
 	INDEX="$DESTINATION/index.html"
 	pandoc \
 		"$INPUT" \
@@ -32,6 +38,21 @@ function generate {
 	if [ -f $WARMUP ]; then
 		AUX="<section><img src=\"$WARMUP\" /></section>"
 		sed -i -e "/div class=\"slides\"/a $AUX" "$INDEX"
+	fi
+	if [ -f $LOGO ]; then
+		AUX0="<div class=\"reveal\">"
+		AUX1="<div class='logo'><img src=\"$LOGO\" /></div>"
+		sed -i -e "s@$AUX0@$AUX0\n$AUX1@" "$INDEX"
+	fi
+	if [ -f $FOOTER ]; then
+		AUX0="<div class=\"reveal\">"
+		AUX1="<div class='footer'>$(cat $FOOTER)</div>"
+		sed -i -e "s@$AUX0@$AUX0\n$AUX1@" "$INDEX"
+	fi
+	if [ -f $HEADER ]; then
+		AUX0="<div class=\"reveal\">"
+		AUX1="<div class='header'>$(cat $HEADER)</div>"
+		sed -i -e "s@$AUX0@$AUX0\n$AUX1@" "$INDEX"
 	fi
 	if [ -f $BACKGROUND ]; then
 		AUX="data-background=\"$BACKGROUND\""
