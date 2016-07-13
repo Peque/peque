@@ -30,6 +30,9 @@ function generate {
 		--slide-level=2 \
 		-f markdown \
 		-t revealjs \
+		-V history="true" \
+		-V controls="true" \
+        	-V progress="true" \
 		-o "$INDEX"
 	sed -i -e "s@reveal\.min\.css@reveal\.css@g" "$INDEX"
 	sed -i -e "s@reveal\.min\.js@reveal\.js@g" "$INDEX"
