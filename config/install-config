@@ -12,6 +12,21 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length
 # Set idle delay to 0
 gsettings set org.gnome.desktop.session idle-delay 0
 
+# Gnome terminal configuration
+GSETTINGS_SCHEMA=org.gnome.Terminal.Legacy.Keybindings
+GSETTINGS_PATH=/org/gnome/terminal/legacy/keybindings/
+SCHEMA_PATH=$GSETTINGS_SCHEMA:$GSETTINGS_PATH
+gsettings set $SCHEMA_PATH switch-to-tab-1 '<Primary><Alt>1'
+gsettings set $SCHEMA_PATH switch-to-tab-2 '<Primary><Alt>2'
+gsettings set $SCHEMA_PATH switch-to-tab-3 '<Primary><Alt>3'
+gsettings set $SCHEMA_PATH switch-to-tab-4 '<Primary><Alt>4'
+gsettings set $SCHEMA_PATH switch-to-tab-5 '<Primary><Alt>5'
+gsettings set $SCHEMA_PATH switch-to-tab-6 '<Primary><Alt>6'
+gsettings set $SCHEMA_PATH move-tab-left '<Primary><Alt>7'
+gsettings set $SCHEMA_PATH move-tab-right '<Primary><Alt>8'
+gsettings set $SCHEMA_PATH prev-tab '<Primary><Alt>9'
+gsettings set $SCHEMA_PATH next-tab '<Primary><Alt>0'
+
 # .bash_profile
 rm -f ~/.bash_profile
 ln -s $DIR/bash_profile ~/.bash_profile
