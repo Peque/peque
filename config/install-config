@@ -26,6 +26,9 @@ gsettings set $SCHEMA_PATH move-tab-left '<Primary><Alt>7'
 gsettings set $SCHEMA_PATH move-tab-right '<Primary><Alt>8'
 gsettings set $SCHEMA_PATH prev-tab '<Primary><Alt>9'
 gsettings set $SCHEMA_PATH next-tab '<Primary><Alt>0'
+GSETTINGS_SCHEMA=org.gnome.Terminal.Legacy.Settings
+gsettings set $GSETTINGS_SCHEMA default-show-menubar false
+gsettings set $GSETTINGS_SCHEMA menu-accelerator-enabled false
 
 # .bash_profile
 rm -f ~/.bash_profile
