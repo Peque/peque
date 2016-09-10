@@ -38,6 +38,10 @@ ln -s $DIR/bash_profile ~/.bash_profile
 rm -f ~/.bashrc
 ln -s $DIR/bashrc ~/.bashrc
 
+# .gitconfig
+rm -f ~/.gitconfig
+ln -s $DIR/gitconfig ~/.gitconfig
+
 # User dirs
 #rm -f ~/.config/user-dirs.dirs
 #ln -s $DIR/user-dirs.dirs ~/.config/user-dirs.dirs

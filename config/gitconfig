@@ -1,0 +1,7 @@
+[core]
+	editor = nvim
+[push]
+	default = simple
+[user]
+	email = peque@neosit.es
+	name = Miguel Sánchez de León Peque
