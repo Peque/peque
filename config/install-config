@@ -69,5 +69,5 @@ rm -rf ~/.local/share/shotwell/data
 rm -rf ~/.cache/shotwell/thumbs
 mkdir -p ~/.local/share/shotwell
 mkdir -p ~/.cache/shotwell
-ln -s /data/Shotwell/.data/ ~/.local/share/shotwell/data
-ln -s /data/Shotwell/.thumbs/ ~/.cache/shotwell/thumbs
+ln -s /mnt/hdd_vg-media/.shotwell_data/ ~/.local/share/shotwell/data
+ln -s /mnt/hdd_vg-media/.shotwell_thumbs/ ~/.cache/shotwell/thumbs
