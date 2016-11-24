@@ -12,7 +12,8 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length
 # Set idle delay to 0
 gsettings set org.gnome.desktop.session idle-delay 0
 
-# Gnome terminal configuration
+# GNOME settings
+## Terminal
 GSETTINGS_SCHEMA=org.gnome.Terminal.Legacy.Keybindings
 GSETTINGS_PATH=/org/gnome/terminal/legacy/keybindings/
 SCHEMA_PATH=$GSETTINGS_SCHEMA:$GSETTINGS_PATH
@@ -29,6 +30,14 @@ gsettings set $SCHEMA_PATH next-tab '<Primary><Alt>0'
 GSETTINGS_SCHEMA=org.gnome.Terminal.Legacy.Settings
 gsettings set $GSETTINGS_SCHEMA default-show-menubar false
 gsettings set $GSETTINGS_SCHEMA menu-accelerator-enabled false
+## Region
+gsettings set org.gnome.system.locale region 'en_DK.UTF-8'
+## Clock
+gsettings set org.gnome.desktop.interface clock-format '24h'
+gsettings set org.gnome.desktop.interface clock-show-date true
+gsettings set org.gnome.desktop.interface clock-show-seconds false
+# Language
+gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'es'), ('xkb', 'us'), ('xkb', 'es+dvorak')]"
 
 # .bash_profile
 rm -f ~/.bash_profile
@@ -69,5 +78,5 @@ rm -rf ~/.local/share/shotwell/data
 rm -rf ~/.cache/shotwell/thumbs
 mkdir -p ~/.local/share/shotwell
 mkdir -p ~/.cache/shotwell
-ln -s /mnt/hdd_vg-media/.shotwell_data/ ~/.local/share/shotwell/data
-ln -s /mnt/hdd_vg-media/.shotwell_thumbs/ ~/.cache/shotwell/thumbs
+ln -s /mnt/album/.shotwell_data/ ~/.local/share/shotwell/data
+ln -s /mnt/album/.shotwell_thumbs/ ~/.cache/shotwell/thumbs
