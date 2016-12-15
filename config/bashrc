@@ -18,5 +18,8 @@ deactivate() {
 export PATH="~/.miniconda3/bin:$PATH"
 
 # PYTHONPATH
-export PYTHONPATH="/src/osmarkets/:$PYTHONPATH"
-export PYTHONPATH="/src/panalysis/:$PYTHONPATH"
+PYTHONPATH=""
+PYTHONPATH+="/src/osmarkets/"
+PYTHONPATH+=":/src/panalysis/"
+PYTHONPATH+=":/src/elliott/"
+export PYTHONPATH

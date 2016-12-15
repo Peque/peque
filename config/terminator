@@ -228,7 +228,7 @@
       type = Window
       parent = ""
       order = 0
-  [[wopr]]
+  [[elliott]]
     [[[child0]]]
       parent = ""
       type = Window
@@ -251,7 +251,7 @@
     [[[terminal1]]]
       profile = default
       parent = child1
-      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon wopr; unset PROMPT_COMMAND"') -i"
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon elliott; unset PROMPT_COMMAND"') -i"
       type = Terminal
       order = 0
     [[[terminal2]]]
@@ -259,19 +259,19 @@
       type = Terminal
       order = 0
       parent = child3
-      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon wopr; git status; unset PROMPT_COMMAND"') -i"
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon elliott; git status; unset PROMPT_COMMAND"') -i"
     [[[terminal3]]]
       profile = default
       type = Terminal
       order = 0
       parent = child5
-      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon wopr; unset PROMPT_COMMAND"') -i"
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon elliott; unset PROMPT_COMMAND"') -i"
     [[[terminal4]]]
       profile = default
       type = Terminal
       order = 1
       parent = child5
-      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon wopr; ipython; unset PROMPT_COMMAND"') -i"
+      command = "bash --rcfile <(cat ${HOME}/.bashrc; echo 'export PROMPT_COMMAND="workon elliott; ipython; unset PROMPT_COMMAND"') -i"
   [[robinos]]
     [[[child0]]]
       parent = ""

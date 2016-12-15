@@ -12,10 +12,10 @@ ROOTDIR=$(pwd)
 # Copy icons
 cp $ROOTDIR/icons/* /usr/share/icons/hicolor/scalable/apps/
 
-# Create Wopr launcher
-NAME='Wopr'
+# Create Elliott launcher
+NAME='Elliott'
 CONF="$ROOTDIR/terminator"
-WD="/src/wopr/src/python"
+WD="/src/elliott"
 echo "[Desktop Entry]
 Type=Application
 Terminal=false
