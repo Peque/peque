@@ -30,8 +30,6 @@
 \usepackage{multirow}
 \usepackage{peque}
 
-\graphicspath{{./images/}}
-
 \newcommand{\projectname}{cookie-libs}
 \newcommand{\projectgitrepo}{git://cookie-libs.git.sourceforge.net/gitroot/cookie-libs/cookie-libs}
 \newcommand{\projectsshgitrepo}{ssh://USERNAME@cookie-libs.git.sourceforge.net/gitroot/cookie-libs/cookie-libs}
@@ -102,8 +100,8 @@ associated with a time stamp and the person making the change.
 A distributed version control system allows developers to work on a
 project without needing to be connected to a common network.
 
-In centralized systems (such as the well known Subversion) there's a
-client-server approach, while in distributed systems there's a
+In centralized systems (such as the well known Subversion) there is a
+client-server approach, while in distributed systems there is a
 peer-to-peer approach. That means there are only working and full
 functional copies: common operations (such as commits, viewing history,
 and reverting changes) are fast, because there is no need to communicate
@@ -125,9 +123,9 @@ used, studied, and modified without restriction, and which can be copied
 and redistributed in modified or unmodified form (\textit{free} as in
 \textit{freedom}).} under the General Public License (GPL).
 
-It's probably the best version control system ever made as it has probed
+It is probably the best version control system ever made as it has probed
 to be amazingly fast (specially on POSIX-based systems) and versatile.
-It's the most used in new software projects and many older projects have
+It is the most used in new software projects and many older projects have
 started using it. Some important projects that are currently using Git
 are:
 Linux kernel,
@@ -154,81 +152,86 @@ and many, many more.
 
 \subsection{Git overview}
 
-Most projects have a main or master branch where most of the development
-occurs. Changes which will quickly add new functionality or fix bugs are
-made here.
+Most projects have a main or master branch where stable code is kept. Changes
+which will quickly add new functionality or fix bugs are made here (figure
+\ref{master-branch}).
 
-\begin{figure}[h]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.5]{branching-00}
   \end{center}
   \caption{Development in master branch}
+  \label{master-branch}
 \end{figure}
 
-Whenever you want to start developing a bigger new feature or code
-refactoring, you'd better not be in the master branch, as the first
-changes will probably introduce some errors to the master branch, where
-others may be coding at that time. If you break the project's
-functionality in the main branch, you'll stop other developers from
-doing their job.
+Whenever you want to start developing a bigger new feature or code refactoring,
+you should better not be in the master branch, as the first changes will
+probably introduce some errors to the master branch, where others may be coding
+at that time. If you break the project's functionality in the main branch, you
+will stop other developers from doing their job.
 
-The best thing you can do is to create a new branch. That way, you'll
-have all the advantages of the version control system, but your changes
-wont affect (for now) other developers. You may want to share this
-branch with other developers (uploading it to the server) or keep it
-locally until the job is done.
+The best thing you can do is to create a new branch (figure
+\ref{create-new-branch}). That way, you will have all the advantages of the
+version control system, but your changes wont affect , at least for now, other
+developers. You may want to share this branch with other developers (uploading
+it to the server) or keep it locally until the job is done.
 
-\begin{figure}[h]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.5]{branching-01}
   \end{center}
   \caption{Creating a new branch}
+  \label{create-new-branch}
 \end{figure}
 
 Once you are in the new branch, you can start making changes just as in
-the master branch.
+the master branch (figure \ref{development-in-your-own-branch}).
 
-\begin{figure}[h]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.5]{branching-02}
   \end{center}
   \caption{Development in your own branch}
+  \label{development-in-your-own-branch}
 \end{figure}
 
 Notice that while you are working on your branch, development may occur
-simultaneously in the master branch. But don't worry, because those
-changes wont affect your branch either.
+simultaneously in the master branch, or in any other branch (figure
+\ref{simultaneous-development}). But do not worry, because those changes wont
+affect your branch either.
 
-\begin{figure}[h]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.5]{branching-03}
   \end{center}
   \caption{Simultaneous development}
+  \label{simultaneous-development}
 \end{figure}
 
-Once you are done with your branch, you'll only need to merge those
-changes with the master branch.
+Once you are done with your branch, you will only need to merge those
+changes with the master branch (figure \ref{merging-changes}).
 
-\begin{figure}[h]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.5]{branching-04}
   \end{center}
   \caption{Merging changes}
+  \label{merging-changes}
 \end{figure}
 
 \subsection{Git interface}
 
-Although there might be some GUIs for Git, we'll be using the
-command-line interface which, once you get used to it, will bring you
-the way to reach the best results.
+Although there might be some GUIs for Git, we will be using the command-line
+interface which, once you get used to it, will bring you the way to reach the
+best results.
 
-Every command you'll use will start with the word \texttt{git}, followed
+Every command you will use will start with the word \texttt{git}, followed
 by the task you want to perform. Some examples are:
 \texttt{git status},
 \texttt{git add <filename>},
 \texttt{git commit -m 'Changes you made'}...
 
-We'll be learning more about this commands soon, but first, why don't we
+We will be learning more about this commands soon, but first, why do not we
 check out an example?
 
 \section{A Git example}
@@ -241,7 +244,7 @@ Fedora, installing Git would be as easy as:
 
 \begin{terminal}
 \begin{verbatim}
-$ su -c 'yum install -y git gitk'
+$ sudo dnf install -y git gitk
 \end{verbatim}
 \end{terminal}
 
@@ -278,22 +281,22 @@ $ git commit -m 'Initial commit'
 \end{verbatim}
 \end{terminal}
 
-We'll use the \texttt{git add} command whenever we want to confirm
+We will use the \texttt{git add} command whenever we want to confirm
 changes for a commit. In this case, we are adding the whole current
 folder '\texttt{.}', which is \texttt{git-test}. After adding the
-changes we made, we'll make the commit to create the next revision.
+changes we made, we will make the commit to create the next revision.
 A commit is essentially giving a description to the changes we added.
 The option \texttt{-m} will let us easily add a short description to
 the commit. The description must be written after the \texttt{-m} option
 and between simple quotes.
 
 \begin{tip}
-You may ommit the \texttt{-m} option but, doing so, you'll enter a
+You may ommit the \texttt{-m} option but, doing so, you will enter a
 console editor (such as Vi) for writting your description. Managing this
 editors is not the matter of this documentation.
 \end{tip}
 
-There's a command we can use to see the project status. It will show
+There is a command we can use to see the project status. It will show
 us the branch we are working in, the files or folders we changed
 (added, deleted or modified), which of them are already added and if
 there are still commits waiting to be uploaded to the server. In our
@@ -334,7 +337,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 \end{terminal}
 
 We can see \texttt{text-file.txt} has been modified. As Git is
-suggesting, we've got two options to perform: add the changes for a
+suggesting, we have got two options to perform: add the changes for a
 later commit (\texttt{git add text-file.txt}) or discard those changes
 (\texttt{git checkout -{}- text-file.txt}). But before continuing, let us
 introduce a new tool: \texttt{gitk}.
@@ -352,9 +355,9 @@ $ gitk
 On the upper-left of the window, we can see the history tree, where
 each commit is represented by a circle and its description. In our
 example, this consist only in the initial commit and a red circle which
-represents some changes that haven't been added yet.
+represents some changes that have not been added yet.
 
-\begin{figure}[h]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.5]{git_example-00}
   \end{center}
@@ -365,16 +368,16 @@ At the right of each revision or commit, we can see the name of the
 committer with his or her email and the date the commit was made.
 
 \begin{tip}
-Notice that you haven't configured your name and email address, so,
+Notice that you have not configured your name and email address, so,
 although you made the initial commit, your name and email wont be
-displayed (instead, you'll find some session and system information).
+displayed (instead, you will find some session and system information).
 \end{tip}
 
 We can navigate through the history tree to see the changes that were
 made in each of them. If we select the upper line (local uncommitted
-changes), we'll see the following information:
+changes), we will see the following information:
 
-\begin{figure}[h]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.5]{git_example-01}
   \end{center}
@@ -409,10 +412,10 @@ $ git status
 \end{verbatim}
 \end{terminal}
 
-And if we use the \texttt{gitk} tool, we'll see the upper line has now
+And if we use the \texttt{gitk} tool, we will see the upper line has now
 a green circle, which represents changes waiting to be commited.
 
-\begin{figure}[h]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.5]{git_example-02}
   \end{center}
@@ -422,7 +425,7 @@ a green circle, which represents changes waiting to be commited.
 Now we can do two things: make the commit (\texttt{git commit -m
 'Changed line in test-file.txt'}) or revert the last operation
 (\texttt{git reset HEAD test-file.txt}) to unstage the file. If the
-perform the last operation, we'll see again a red circle with
+perform the last operation, we will see again a red circle with
 \texttt{gitk}, which means changes need to be added again. But normally,
 we want to commit the changes:
 
@@ -439,18 +442,18 @@ nothing to commit (working directory clean)
 
 The \texttt{gitk} tool will show us a new commit:
 
-\begin{figure}[h]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.5]{git_example-03}
   \end{center}
   \caption{New revision in the history tree}
 \end{figure}
 
-Normally, we'll keep working and making new commit, but there's a
+Normally, we will keep working and making new commit, but there is a
 chance that (even if we "checked" it before with \texttt{gitk}) we
-made an erroneous commit. Again, we've got two options: we can make
-a new commit to correct the last one or, if you didn't already pushed
-your changes to the server (which is something we haven't talked about
+made an erroneous commit. Again, we have got two options: we can make
+a new commit to correct the last one or, if you did not already pushed
+your changes to the server (which is something we have not talked about
 yet), undo the last commit in the local tree:
 
 \begin{terminal}
@@ -459,12 +462,12 @@ $ git reset --soft HEAD^
 \end{verbatim}
 \end{terminal}
 
-That way, we'll go back to the previous status.
+That way, we will go back to the previous status.
 
 \begin{tip}
 Using the \texttt{-{}-soft} option is highly recommended, as other
 options (as \texttt{-{}-hard}) will also unstage the changes. Try to
-always perform this operations step by step. Remember: it's for your
+always perform this operations step by step. Remember: it is for your
 own safety!
 \end{tip}
 
@@ -473,8 +476,8 @@ own safety!
 Now that we know how to make commits, let us get into branching. You can
 easily change between branches using
 \texttt{git checkout <branch\_name>}
-but, you'll need to add the \texttt{-b} option if the branch doesn't
-exist (that way, you'll create a new branch called
+but, you will need to add the \texttt{-b} option if the branch does not
+exist (that way, you will create a new branch called
 \texttt{<branch\_name>}).
 
 \begin{terminal}
@@ -486,7 +489,7 @@ Switched to a new branch 'newbr'
 
 Now we are exactly at the same revision as before, but in a new branch.
 
-\begin{figure}[h]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.5]{git_example-04}
   \end{center}
@@ -496,7 +499,7 @@ Now we are exactly at the same revision as before, but in a new branch.
 \begin{tip}
 Important: \texttt{gitk} shows by default the history of the branch we
 are currently in. If we want to see the full tree, we need to use the
-\texttt{-{}-all} option: \texttt{gitk -{}-all}. For now on, we'll be
+\texttt{-{}-all} option: \texttt{gitk -{}-all}. For now on, we will be
 using that option whenever we need to use the \texttt{gitk} tool.
 \end{tip}
 
@@ -515,9 +518,9 @@ $ git commit -m 'Added line 1 to test-file.txt'
 
 
 Now, our branch \texttt{newbr} is ahead in the history tree as the
-commit we made hasn't affect the \texttt{master} branch.
+commit we made has not affect the \texttt{master} branch.
 
-\begin{figure}[h]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.5]{git_example-05}
   \end{center}
@@ -547,7 +550,7 @@ in the new branch.
 
 Now the \texttt{master} branch is ahead in the history tree.
 
-\begin{figure}[h]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.5]{git_example-06}
   \end{center}
@@ -571,7 +574,7 @@ Automatic merge failed; fix conflicts and then commit the result.
 What happened here? Well, sometimes when you are working in a project
 with other people, you may find that others have made changes to the
 same sources you are working on in your branch. In our example, the
-second line of the file was modified in both branches, and Git doesn't
+second line of the file was modified in both branches, and Git does not
 know which one should it take.
 
 Let us see what Git says about this status:
@@ -589,18 +592,18 @@ no changes added to commit (use "git add" and/or "git commit -a")
 \end{verbatim}
 \end{terminal}
 
-For solving merging conflicts manually, we'll first a look at the
-history tree with \texttt{gitk}. We'll find which lines conflict in
+For solving merging conflicts manually, we will first a look at the
+history tree with \texttt{gitk}. We will find which lines conflict in
 the file.
 
-\begin{figure}[h]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.5]{git_example-07}
   \end{center}
   \caption{History tree after a merging conflict}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.5]{git_example-08}
   \end{center}
@@ -611,7 +614,7 @@ Those lines in red color, which are under the \texttt{HEAD} tag,
 represent changes in our current branch (\texttt{master}). Those in
 blue, which are over the \texttt{newbr} tag, represent changes in the
 \texttt{newbr} branch. What we need to do is to open the file and
-remove those lines we don't want to keep there.
+remove those lines we do not want to keep there.
 
 Let us say we want to keep the changes we made in the \texttt{newbr}
 branch. We need to delete the line in red (which corresponds to the
@@ -629,7 +632,7 @@ $ git commit -m 'Merge branch newbr into master (conflicts solved)'
 \end{verbatim}
 \end{terminal}
 
-\begin{figure}[h]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.5]{git_example-09}
   \end{center}
@@ -648,17 +651,17 @@ most of the conflicts by it self though.
 \subsection{Cloning an already existing repository}
 
 The \projectname\ project is already hosted in a server, more precisely
-in SourceForge. That means you'll need to have a SourceForge account
-and you'll need to ask the administrator to join the developers team
+in SourceForge. That means you will need to have a SourceForge account
+and you will need to ask the administrator to join the developers team
 in order to have write permissions in the server.
 
 \begin{tip}
 You can contribute to the \projectname\ project without being part of
 the developers team, generating and sending patches to them. Anyway,
-we'll not cover how to make patches within this document.
+we will not cover how to make patches within this document.
 \end{tip}
 
-Once you've joined the development team, you can clone the server's
+Once you have joined the development team, you can clone the server's
 repository to create a local copy of the project to work with. The
 \texttt{USERNAME} is your SourceForge user's name and the
 password you are asked for is your SourceForge's as well:
@@ -678,10 +681,10 @@ Resolving deltas: 100% (251/251), done.
 \end{verbatim}
 \end{terminal}
 
-Once the process has been completed, you'll see a folder called
-\texttt{cookie-libs} in which you'll find the entire project. Inside
-the folder, you'll be able to use the Git command line interface and
-the \texttt{gitk} tool as you did before, as it's a local repository
+Once the process has been completed, you will see a folder called
+\texttt{cookie-libs} in which you will find the entire project. Inside
+the folder, you will be able to use the Git command line interface and
+the \texttt{gitk} tool as you did before, as it is a local repository
 as well.
 
 \begin{terminal}
@@ -693,8 +696,8 @@ nothing to commit (working directory clean)
 \end{verbatim}
 \end{terminal}
 
-Before starting making changes, as we'll be now sharing our work with
-the rest of the developers, we'll need to configure Git so that it will
+Before starting making changes, as we will be now sharing our work with
+the rest of the developers, we will need to configure Git so that it will
 associate our commits with our name and email address\footnote{Using
 our real name and email address is important for other developers to
 know who are you and how to contact you in case they need it.}.
@@ -726,7 +729,7 @@ revision. Those tags correspond to the local branch (\texttt{master})
 and the remote
 branch (\texttt{remotes/origin/master}).
 
-\begin{figure}[h]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.5]{server-00}
   \end{center}
@@ -737,7 +740,7 @@ You can work in your local copy with the same commands we have
 learned, but, once you make a commit, it will be written only in your
 local \texttt{master} branch.
 
-\begin{figure}[h]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.5]{server-01}
   \end{center}
@@ -747,7 +750,7 @@ local \texttt{master} branch.
 Of course, we can keep doing local development but, at some time, we
 will want to share our changes with the other developers, so we will
 upload them to the server (also it is safer to have a copy of your
-local work). To do so, we'll use the \texttt{push} command once we've
+local work). To do so, we will use the \texttt{push} command once we have
 already made the commit in our local repository.
 
 \begin{terminal}
@@ -756,7 +759,7 @@ $ git push
 \end{verbatim}
 \end{terminal}
 
-\begin{figure}[h]
+\begin{figure}
   \begin{center}
     \includegraphics[scale=0.5]{server-00}
   \end{center}
@@ -778,8 +781,8 @@ Where \texttt{<SHA1 ID>} is the commit's ID (or the begining of
 it)\footnote{You can execute \texttt{git revert
 0e81e5588b4da07a4ff8388fee01dfed776a7e14} or \texttt{git revert 0e81e}}.
 
-Just as simple! There's only one more thing: how can we download
-changes from the server? (those which other developers made). That's
+Just as simple! There is only one more thing: how can we download
+changes from the server? (those which other developers made). That is
 a very simple task too:
 
 \begin{terminal}
@@ -820,7 +823,7 @@ $ git pull origin branch_name
 Again, it is not a good idea to delete branches from the server once
 we have pushed them. Anyway, if we already finished working with one
 branch and it has been already merged with the \texttt{master} branch,
-we may want to delete it to keep the history tree clean. First, we'll
+we may want to delete it to keep the history tree clean. First, we will
 delete our local branch:
 
 \begin{terminal}
@@ -830,7 +833,7 @@ $ git branch -d branch_name
 \end{terminal}
 
 \begin{tip}
-If we started a branch that we don't want to merge with the
+If we started a branch that we do not want to merge with the
 \texttt{master} branch (we may have started developing a crazy idea)
 and we want to delete it either way, we can use the command
 \texttt{git branch -D branch\_name}.
@@ -849,7 +852,7 @@ $ git push origin :branch_name
 
 \subsection{Commands we have reviewed withing this document}
 
-\begin{table}[h]
+\begin{table}
 \caption{Initial configuration}
 \centering
 \begin{tabular}{l l l}
@@ -864,7 +867,7 @@ Command & Options & Description \\
 \end{tabular}
 \end{table}
 
-\begin{table}[h]
+\begin{table}
 \caption{Simple commands}
 \centering
 \begin{tabular}{l l l}
@@ -887,7 +890,7 @@ Command & Options & Description \\
 \end{tabular}
 \end{table}
 
-\begin{table}[h]
+\begin{table}
 \caption{Working with branches}
 \centering
 \begin{tabular}{l l l}
@@ -908,7 +911,7 @@ Command & Options & Description \\
 
 \subsection{More useful commands}
 
-\begin{table}[h]
+\begin{table}
 \caption{Working with tags}
 \centering
 \begin{tabular}{l l l}
@@ -933,7 +936,7 @@ $ git push origin v0.1
 \end{verbatim}
 \end{terminal}
 
-\begin{table}[h]
+\begin{table}
 \caption{Patching}
 \centering
 \begin{tabular}{l l l}

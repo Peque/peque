@@ -34,8 +34,8 @@
 }
 
 % Captions
-\usepackage{caption}
-\usepackage{subcaption}
+\RequirePackage{caption}
+\RequirePackage{subcaption}
 \captionsetup
 {
   margin = 30pt,
@@ -51,7 +51,7 @@
 \definecolor{orange}{rgb}{1,0.5,0}
 
 % Code listings
-\usepackage{listings}
+\RequirePackage{listings}
 \lstset
 {
   basicstyle = \small\ttfamily,
@@ -95,17 +95,17 @@
 }
 
 % Euro symbol
-\usepackage[gen]{eurosym}
+\RequirePackage[gen]{eurosym}
 \DeclareUnicodeCharacter{20AC}{\euro{}}
 
 % Tables
-\usepackage{tabularx}
+\RequirePackage{tabularx}
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
 \newcolumntype{C}{>{\centering\arraybackslash}X}
 \newcolumntype{R}{>{\raggedleft\arraybackslash}X}
 
 % Links
-\usepackage{hyperref}
+\RequirePackage{hyperref}
 \hypersetup
 {
   colorlinks = false,      % No link color
