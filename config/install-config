@@ -27,17 +27,25 @@ gsettings set $SCHEMA_PATH move-tab-left '<Primary><Alt>7'
 gsettings set $SCHEMA_PATH move-tab-right '<Primary><Alt>8'
 gsettings set $SCHEMA_PATH prev-tab '<Primary><Alt>9'
 gsettings set $SCHEMA_PATH next-tab '<Primary><Alt>0'
-GSETTINGS_SCHEMA=org.gnome.Terminal.Legacy.Settings
-gsettings set $GSETTINGS_SCHEMA default-show-menubar false
-gsettings set $GSETTINGS_SCHEMA menu-accelerator-enabled false
+SCHEMA=org.gnome.Terminal.Legacy.Settings
+gsettings set $SCHEMA default-show-menubar false
+gsettings set $SCHEMA menu-accelerator-enabled false
 ## Region
-gsettings set org.gnome.system.locale region 'en_DK.UTF-8'
+SCHEMA=org.gnome.system.locale
+gsettings set $SCHEMA region 'en_DK.UTF-8'
 ## Clock
-gsettings set org.gnome.desktop.interface clock-format '24h'
-gsettings set org.gnome.desktop.interface clock-show-date true
-gsettings set org.gnome.desktop.interface clock-show-seconds false
+SCHEMA=org.gnome.desktop.interface
+gsettings set $SCHEMA clock-format '24h'
+gsettings set $SCHEMA clock-show-date true
+gsettings set $SCHEMA clock-show-seconds false
 # Language
-gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'es'), ('xkb', 'us'), ('xkb', 'es+dvorak')]"
+SCHEMA=org.gnome.desktop.input-sources
+gsettings set $SCHEMA sources "[('xkb', 'es'), ('xkb', 'us+dvorak')]"
+# Keyboard shortcuts
+SCHEMA=org.gnome.settings-daemon.plugins.media-keys
+gsettings set $SCHEMA volume-mute "'AudioMute'"
+gsettings set $SCHEMA volume-up "'AudioRaiseVolume'"
+gsettings set $SCHEMA volume-down "'AudioLowerVolume'"
 
 # .bash_profile
 rm -f ~/.bash_profile
