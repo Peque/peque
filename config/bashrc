@@ -15,7 +15,7 @@ deactivate() {
 
 # Conda
 #export PATH="$(conda info --root)/bin:$PATH"
-export PATH="/cache/miniconda/bin:$PATH"
+export PATH="$PATH:/cache/miniconda/bin"
 
 # PYTHONPATH
 PYTHONPATH=""
