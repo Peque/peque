@@ -46,6 +46,12 @@ SCHEMA=org.gnome.settings-daemon.plugins.media-keys
 gsettings set $SCHEMA volume-mute "'AudioMute'"
 gsettings set $SCHEMA volume-up "'AudioRaiseVolume'"
 gsettings set $SCHEMA volume-down "'AudioLowerVolume'"
+# Sound
+SCHEMA=org.gnome.desktop.sound
+gsettings set $SCHEMA event-sounds false
+# Windows
+SCHEMA=org.gnome.desktop.wm.preferences
+gsettings set $SCHEMA action-middle-click-titlebar 'lower'
 
 # .bash_profile
 rm -f ~/.bash_profile
