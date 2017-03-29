@@ -69,6 +69,10 @@ ln -s $DIR/bashrc ~/.bashrc
 rm -f ~/.gitconfig
 ln -s $DIR/gitconfig ~/.gitconfig
 
+# npm packages
+rm -f ~/.npmrc
+ln -s $DIR/npmrc ~/.npmrc
+
 # User dirs
 #rm -f ~/.config/user-dirs.dirs
 #ln -s $DIR/user-dirs.dirs ~/.config/user-dirs.dirs

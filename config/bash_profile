@@ -8,6 +8,4 @@ fi
 # Backup script
 (source ~/.backup_data &) > /dev/null 2>&1
 
-export PATH=$PATH:$HOME/.local/bin:$HOME/bin
-
 xinput set-prop "USB OPTICAL MOUSE" "Device Accel Constant Deceleration" 2.5

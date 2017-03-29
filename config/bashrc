@@ -14,12 +14,11 @@ deactivate() {
 }
 
 # Conda
-#export PATH="$(conda info --root)/bin:$PATH"
-export PATH="$PATH:/cache/miniconda/bin"
+newpath=/cache/miniconda/bin
+[[ ":$PATH:" != *":$newpath:"* ]] && export PATH="$PATH:$newpath"
 
 # PYTHONPATH
 PYTHONPATH=""
-PYTHONPATH+="/src/osmarkets/"
-PYTHONPATH+=":/src/panalysis/"
+PYTHONPATH+="/src/panalysis/"
 PYTHONPATH+=":/src/elliott/"
 export PYTHONPATH
