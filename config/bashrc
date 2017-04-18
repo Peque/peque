@@ -17,6 +17,10 @@ deactivate() {
 newpath=/cache/miniconda/bin
 [[ ":$PATH:" != *":$newpath:"* ]] && export PATH="$PATH:$newpath"
 
+# npm-packages
+newpath=/container/npm-packages/bin
+[[ ":$PATH:" != *":$newpath:"* ]] && export PATH="$PATH:$newpath"
+
 # PYTHONPATH
 PYTHONPATH=""
 PYTHONPATH+="/src/panalysis/"
