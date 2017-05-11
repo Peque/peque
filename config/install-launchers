@@ -13,73 +13,10 @@ ROOTDIR=$(pwd)
 cp $ROOTDIR/icons/* /usr/share/icons/hicolor/scalable/apps/
 
 # Create Elliott launcher
-NAME='Elliott'
-CONF="$ROOTDIR/terminator"
-WD="/src/elliott"
 echo "[Desktop Entry]
 Type=Application
 Terminal=false
 Icon=/usr/share/icons/hicolor/scalable/apps/python-terminator.svg
-Name=$NAME
-Exec=terminator -g $CONF -l ${NAME,,} --working-directory=$WD
-Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"
-
-# Create osBrain launcher
-NAME='osBrain'
-CONF="$ROOTDIR/terminator"
-WD="/src/osbrain"
-echo "[Desktop Entry]
-Type=Application
-Terminal=false
-Icon=/usr/share/icons/hicolor/scalable/apps/python-terminator.svg
-Name=$NAME
-Exec=terminator -g $CONF -l ${NAME,,} --working-directory=$WD
-Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"
-
-# Create osMarkets launcher
-NAME='osMarkets'
-CONF="$ROOTDIR/terminator"
-WD="/src/osmarkets"
-echo "[Desktop Entry]
-Type=Application
-Terminal=false
-Icon=/usr/share/icons/hicolor/scalable/apps/python-terminator.svg
-Name=$NAME
-Exec=terminator -g $CONF -l ${NAME,,} --working-directory=$WD
-Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"
-
-# Create RobinOS launcher
-NAME='RobinOS'
-CONF="$ROOTDIR/terminator"
-WD="/src/robinvol-osbrain"
-echo "[Desktop Entry]
-Type=Application
-Terminal=false
-Icon=/usr/share/icons/hicolor/scalable/apps/python-terminator.svg
-Name=$NAME
-Exec=terminator -g $CONF -l ${NAME,,} --working-directory=$WD
-Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"
-
-# Create PAnalysis launcher
-NAME='PAnalysis'
-CONF="$ROOTDIR/terminator"
-WD="/src/panalysis"
-echo "[Desktop Entry]
-Type=Application
-Terminal=false
-Icon=/usr/share/icons/hicolor/scalable/apps/python-terminator.svg
-Name=$NAME
-Exec=terminator -g $CONF -l ${NAME,,} --working-directory=$WD
-Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"
-
-# Create RobinVOL launcher
-NAME='RobinVOL'
-CONF="$ROOTDIR/terminator"
-WD="/src/robinvol"
-echo "[Desktop Entry]
-Type=Application
-Terminal=false
-Icon=/usr/share/icons/hicolor/scalable/apps/python-terminator.svg
-Name=$NAME
-Exec=terminator -g $CONF -l ${NAME,,} --working-directory=$WD
-Categories=Development;"> "/usr/share/applications/${NAME,,}.desktop"
+Name=PyWorkspace
+Exec=pyworkspace
+Categories=Development;"> "/usr/share/applications/pyworkspace.desktop"

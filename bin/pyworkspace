@@ -1,0 +1,94 @@
+#!/usr/bin/env python3
+import shlex
+import time
+from pathlib import Path
+from subprocess import Popen
+from tempfile import NamedTemporaryFile
+from tkinter import Tk
+from tkinter import simpledialog
+
+
+config = '''
+[global_config]
+  borderless = True
+  enabled_plugins = ,
+  handle_size = 1
+  suppress_multiple_term_dialog = True
+  window_state = maximise
+[keybindings]
+  broadcast_all = <Primary><Alt>a
+  broadcast_group = <Primary><Alt>g
+  broadcast_off = <Primary><Alt>o
+[profiles]
+  [[default]]
+    background_image = None
+    font = Monospace 11
+    icon_bell = False
+    scroll_on_output = False
+    scrollback_lines = 100000
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False
+[layouts]
+  [[default]]
+    [[[child0]]]
+      parent = ""
+      type = Window
+      order = 0
+    [[[child1]]]
+      type = HPaned
+      order = 0
+      parent = child0
+      ratio = 0.4
+    [[[child3]]]
+      type = VPaned
+      order = 1
+      parent = child1
+      ratio = 0.4
+    [[[child5]]]
+      type = VPaned
+      order = 1
+      parent = child3
+      ratio = 0.5
+    [[[terminal1]]]
+      profile = default
+      parent = child1
+      command = "bash --rcfile <(cat {bashrc}; echo 'export PROMPT_COMMAND="workon {environment}; unset PROMPT_COMMAND"') -i"
+      type = Terminal
+      order = 0
+    [[[terminal2]]]
+      profile = default
+      type = Terminal
+      order = 0
+      parent = child3
+      command = "bash --rcfile <(cat {bashrc}; echo 'export PROMPT_COMMAND="workon {environment}; git status; unset PROMPT_COMMAND"') -i"
+    [[[terminal3]]]
+      profile = default
+      type = Terminal
+      order = 0
+      parent = child5
+      command = "bash --rcfile <(cat {bashrc}; echo 'export PROMPT_COMMAND="workon {environment}; unset PROMPT_COMMAND"') -i"
+    [[[terminal4]]]
+      profile = default
+      type = Terminal
+      order = 1
+      parent = child5
+      command = "bash --rcfile <(cat {bashrc}; echo 'export PROMPT_COMMAND="workon {environment}; ipython; unset PROMPT_COMMAND"') -i"
+'''
+
+
+root = Tk()
+root.withdraw()
+environment = simpledialog.askstring('Launcher', 'Environment')
+config = config.format(environment=environment, bashrc='${HOME}/.bashrc')
+
+with NamedTemporaryFile() as temp:
+    temp = Path(temp.name)
+    temp.write_text(config)
+    command = "terminator -u -g {tmp} --working-directory={wd}"
+    command = command.format(
+        tmp=temp,
+        wd='/src/' + environment,
+    )
+    Popen(shlex.split(command))
+    time.sleep(1)
