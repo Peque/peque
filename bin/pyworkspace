@@ -79,7 +79,12 @@ config = '''
 
 root = Tk()
 root.withdraw()
-environment = simpledialog.askstring('Launcher', 'Environment')
+dialog = simpledialog.askstring('Launcher', 'working_directory[,environment]')
+if ',' in dialog:
+    working_directory, environment = dialog.split(',')
+else:
+    working_directory = dialog
+    environment = working_directory
 config = config.format(environment=environment, bashrc='${HOME}/.bashrc')
 
 with NamedTemporaryFile() as temp:
@@ -88,7 +93,7 @@ with NamedTemporaryFile() as temp:
     command = "terminator -u -g {tmp} --working-directory={wd}"
     command = command.format(
         tmp=temp,
-        wd='/src/' + environment,
+        wd='/src/' + working_directory,
     )
     Popen(shlex.split(command))
     time.sleep(1)
