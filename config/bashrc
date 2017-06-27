@@ -20,9 +20,3 @@ newpath=/cache/miniconda/bin
 # npm-packages
 newpath=/container/npm-packages/bin
 [[ ":$PATH:" != *":$newpath:"* ]] && export PATH="$PATH:$newpath"
-
-# PYTHONPATH
-PYTHONPATH=""
-PYTHONPATH+="/src/panalysis/"
-PYTHONPATH+=":/src/elliott/"
-export PYTHONPATH
