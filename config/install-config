@@ -45,6 +45,9 @@ gsettings set $SCHEMA clock-show-seconds false
 # Language
 SCHEMA=org.gnome.desktop.input-sources
 gsettings set $SCHEMA sources "[('xkb', 'es'), ('xkb', 'us+dvorak')]"
+# Touchpad
+SCHEMA=org.gnome.desktop.peripherals.touchpad
+gsettings set $SCHEMA tap-to-click true
 # Keyboard shortcuts
 SCHEMA=org.gnome.settings-daemon.plugins.media-keys
 gsettings set $SCHEMA volume-mute "'AudioMute'"
