@@ -20,6 +20,12 @@ let g:jedi#rename_command = "<leader>r"
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabCrMapping = 1
 
+" Assume .h files are C files and assume Doxygen documentation
+augroup project
+    autocmd!
+    autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
+augroup END
+
 " neomake
 nnoremap <A-c> :Neomake<CR>
 inoremap <A-c> <Esc>:Neomake<CR>
