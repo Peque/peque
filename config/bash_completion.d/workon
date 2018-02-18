@@ -5,7 +5,7 @@ _workon()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
     #opts=$(conda info --envs | grep envs | awk '{print $1}')
-    opts=$(ls /cache/miniconda/envs/)
+    opts=$(ls $HOME/.conda/envs/)
 
     COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
 }
