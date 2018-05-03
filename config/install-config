@@ -13,6 +13,8 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length
 gsettings set org.gnome.desktop.session idle-delay 0
 
 # GNOME settings
+## Software
+gsettings set org.gnome.software download-updates false
 ## Terminal
 GSETTINGS_SCHEMA=org.gnome.Terminal.Legacy.Keybindings
 GSETTINGS_PATH=/org/gnome/terminal/legacy/keybindings/
