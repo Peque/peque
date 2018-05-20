@@ -7,12 +7,11 @@ fi
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
+# GNOME settings
 # Increase screencast max length in seconds (CTRL + ALT + MAYUS + R)
 gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 3600
 # Set idle delay to 0
 gsettings set org.gnome.desktop.session idle-delay 0
-
-# GNOME settings
 ## Software
 gsettings set org.gnome.software download-updates false
 ## Terminal
@@ -36,6 +35,10 @@ gsettings set $SCHEMA_PATH next-tab '<Primary><Alt>0'
 SCHEMA=org.gnome.Terminal.Legacy.Settings
 gsettings set $SCHEMA default-show-menubar false
 gsettings set $SCHEMA menu-accelerator-enabled false
+## Nautilus
+SCHEMA=org.gnome.nautilus.preferences
+gsettings set $SCHEMA default-folder-viewer 'list-view'
+gsettings set $SCHEMA show-create-link true
 ## Region
 SCHEMA=org.gnome.system.locale
 gsettings set $SCHEMA region 'en_DK.UTF-8'
@@ -50,6 +53,7 @@ gsettings set $SCHEMA sources "[('xkb', 'es'), ('xkb', 'us+dvorak')]"
 # Touchpad
 SCHEMA=org.gnome.desktop.peripherals.touchpad
 gsettings set $SCHEMA tap-to-click true
+gsettings set $SCHEMA two-finger-scrolling-enabled true
 # Keyboard shortcuts
 SCHEMA=org.gnome.settings-daemon.plugins.media-keys
 gsettings set $SCHEMA volume-mute "'AudioMute'"
