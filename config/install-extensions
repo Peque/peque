@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# GNOME Shell extensions
+local="$HOME/.local/share/gnome-shell/extensions"
+mkdir -p $local
+
+# Sound device chooser extension
+uuid="sound-output-device-chooser@kgshank.net"
+directory="$local/$uuid"
+rm -f $directory
+ln -s /src/gse-sound-output-device-chooser/$uuid $directory
+gnome-shell-extension-tool --enable-extension $uuid
+name="/org/gnome/shell/extensions/sound-output-device-chooser"
+dconf write $name/hide-on-single-device "true"
+dconf write $name/icon-theme "'colored'"
+dconf write $name/show-profiles "false"
+
+echo "!!!!!!! Restart GNOME Shell !!!!!!!"
+echo "Press ALT+F2 -> write r (lower r letter) -> press Enter<Paste>"
