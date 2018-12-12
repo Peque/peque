@@ -1,24 +1,32 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'Valloric/YouCompleteMe'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 " Pathogen infect
-execute pathogen#infect()
-
-" jedi-vim
-" Do not show docstring window during completion
-autocmd FileType python setlocal completeopt-=preview
-" Do not start completion after typing a dot
-let g:jedi#popup_on_dot = 0
-" Use tab for completions
-let g:jedi#completions_command = "<C-Space>"
-" Defaults
-let g:jedi#goto_command = "<leader>d"
-let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#goto_definitions_command = ""
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>n"
-let g:jedi#rename_command = "<leader>r"
-
-" supertab
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabCrMapping = 1
 
 " Assume .h files are C files and assume Doxygen documentation
 augroup project
