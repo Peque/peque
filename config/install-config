@@ -94,6 +94,12 @@ ln -s $DIR/vimrc ~/.vimrc
 ln -s $DIR/vim ~/.vim
 ln -s $DIR/vim ~/.config/nvim
 
+# Virtual environments
+rm -f ~/.local/share/virtualenvs
+ln -s /cache/virtualenvs /home/peque/.local/share/
+rm -f ~/.conda
+ln -s /cache/conda /home/peque/.conda
+
 # Terminator
 rm -f ~/.config/terminator/config
 mkdir -p ~/.config/terminator
