@@ -8,9 +8,3 @@ fi
 # npm-packages
 newpath=/container/npm-packages/bin
 [[ ":$PATH:" != *":$newpath:"* ]] && export PATH="$PATH:$newpath"
-
-# CUDA
-newpath=/usr/local/cuda/bin
-[[ ":$PATH:" != *":$newpath:"* ]] && export PATH="$PATH:$newpath"
-newpath=/usr/local/cuda/lib64
-[[ ":$LD_LIBRARY_PATH:" != *":$newpath:"* ]] && export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$newpath"
