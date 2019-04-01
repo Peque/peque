@@ -99,6 +99,8 @@ rm -f ~/.local/share/virtualenvs
 ln -s /cache/virtualenvs /home/peque/.local/share/
 rm -f ~/.conda
 ln -s /cache/conda /home/peque/.conda
+rm -f ~/.cache/pipenv
+ln -s /cache/pipenv /home/peque/.cache/
 
 # Terminator
 rm -f ~/.config/terminator/config
