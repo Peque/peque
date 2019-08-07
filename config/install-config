@@ -47,6 +47,7 @@ SCHEMA=org.gnome.desktop.interface
 gsettings set $SCHEMA clock-format '24h'
 gsettings set $SCHEMA clock-show-date true
 gsettings set $SCHEMA clock-show-seconds false
+gsettings set $SCHEMA clock-show-weekday true
 # Language
 SCHEMA=org.gnome.desktop.input-sources
 gsettings set $SCHEMA sources "[('xkb', 'es'), ('xkb', 'us+dvorak')]"
