@@ -103,6 +103,10 @@ ln -s /cache/conda /home/peque/.conda
 rm -f ~/.cache/pipenv
 ln -s /cache/pipenv /home/peque/.cache/
 
+# Containers (Podman, Docker)
+rm -f ~/.local/share/containers
+ln -s /container/containers ~/.local/share/
+
 # Terminator
 rm -f ~/.config/terminator/config
 mkdir -p ~/.config/terminator
