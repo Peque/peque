@@ -1,8 +1,0 @@
-#/bin/bash
-
-($(which primusrun) nvidia-settings -c :8 \
-	-a [gpu:0]/GPUGraphicsClockOffset[2]=-80 \
-	-a [gpu:0]/GPUMemoryTransferRateOffset[2]=-150 \
-	-a [gpu:0]/GPUProcessorClockOffset[2]=-100 \
-	2> /dev/null &)
-$(which primusrun) $@ -c :8
