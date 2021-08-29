@@ -4,12 +4,20 @@
     {
       "pattern": "https?://mail.google.com/*",
       "passKeys": ""
+    },
+    {
+      "pattern": "https?://*:*/notebooks/*.ipynb*",
+      "passKeys": "djkabmy"
+    },
+    {
+      "pattern": "https?://ieco.io/*/editor",
+      "passKeys": ""
     }
   ],
   "filterLinkHints": false,
   "waitForEnterForFilteredHints": true,
   "hideHud": false,
-  "keyMappings": "# Insert your preferred key mappings here.\nmap <a-9> previousTab\nmap <a-0> nextTab\nmap <a-q> removeTab\nmap <a-k> scrollPageUp\nmap <a-j> scrollPageDown\nmap <a-e> Vomnibar.activateBookmarksInNewTab",
+  "keyMappings": "# Insert your preferred key mappings here.\nmap <a-9> previousTab\nmap <a-0> nextTab\nmap <a-q> removeTab\nmap <a-k> scrollPageUp\nmap <a-j> scrollPageDown\nmap <a-e> Vomnibar.activateBookmarksInNewTab\nmap <a-h> goBack\nmap <a-l> goForward",
   "linkHintCharacters": "sadfjklewcmpgh",
   "linkHintNumbers": "0123456789",
   "newTabUrl": "about:newtab",
