@@ -78,6 +78,8 @@ ln -s $DIR/bashrc ~/.bashrc
 # .gitconfig
 rm -f ~/.gitconfig
 ln -s $DIR/gitconfig ~/.gitconfig
+rm -f ~/.gitconfig-ieco
+ln -s $DIR/gitconfig-ieco ~/.gitconfig-ieco
 
 # npm packages
 rm -f ~/.npmrc

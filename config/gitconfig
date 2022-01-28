@@ -2,6 +2,10 @@
 	editor = nvim
 [push]
 	default = simple
+[pull]
+	ff = only
 [user]
 	email = peque@neosit.es
 	name = Miguel Sánchez de León Peque
+[includeIf "gitdir:ieco/"]
+	path = .gitconfig-ieco
