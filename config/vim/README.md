@@ -1,8 +1,6 @@
-Install Vundle:
+Install vim-plug:
 
-```
-git clone https://github.com/VundleVim/Vundle.vim.git bundle/Vundle.vim
-```
+https://github.com/junegunn/vim-plug
 
 Launch Neovim and run `:PlugInstall`.
 
