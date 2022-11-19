@@ -4,6 +4,7 @@ filetype off                  " required
 call plug#begin()
 Plug 'Valloric/YouCompleteMe'
 Plug 'neomake/neomake'
+Plug 'editorconfig/editorconfig-vim'
 call plug#end()
 
 filetype plugin indent on    " required
