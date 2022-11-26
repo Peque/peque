@@ -5,6 +5,3 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-# npm-packages
-newpath=/container/npm-packages/bin
-[[ ":$PATH:" != *":$newpath:"* ]] && export PATH="$PATH:$newpath"

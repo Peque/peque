@@ -8,12 +8,6 @@ fi
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # GNOME settings
-# Increase screencast max length in seconds (CTRL + ALT + MAYUS + R)
-gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 3600
-# Set idle delay to 0
-gsettings set org.gnome.desktop.session idle-delay 0
-## Software
-gsettings set org.gnome.software download-updates false
 ## Terminal
 GSETTINGS_SCHEMA=org.gnome.Terminal.Legacy.Keybindings
 GSETTINGS_PATH=/org/gnome/terminal/legacy/keybindings/
@@ -32,9 +26,6 @@ gsettings set $SCHEMA_PATH move-tab-left '<Primary><Alt>7'
 gsettings set $SCHEMA_PATH move-tab-right '<Primary><Alt>8'
 gsettings set $SCHEMA_PATH prev-tab '<Primary><Alt>9'
 gsettings set $SCHEMA_PATH next-tab '<Primary><Alt>0'
-SCHEMA=org.gnome.Terminal.Legacy.Settings
-gsettings set $SCHEMA default-show-menubar false
-gsettings set $SCHEMA menu-accelerator-enabled false
 ## Nautilus
 SCHEMA=org.gnome.nautilus.preferences
 gsettings set $SCHEMA default-folder-viewer 'list-view'
@@ -51,18 +42,10 @@ gsettings set $SCHEMA clock-show-weekday true
 ## Calendar
 SCHEMA=org.gnome.desktop.calendar
 gsettings set $SCHEMA show-weekdate true
-# Language
-SCHEMA=org.gnome.desktop.input-sources
-gsettings set $SCHEMA sources "[('xkb', 'es'), ('xkb', 'us+dvorak')]"
 # Touchpad
 SCHEMA=org.gnome.desktop.peripherals.touchpad
 gsettings set $SCHEMA tap-to-click true
 gsettings set $SCHEMA two-finger-scrolling-enabled true
-# Keyboard shortcuts
-SCHEMA=org.gnome.settings-daemon.plugins.media-keys
-gsettings set $SCHEMA volume-mute "'AudioMute'"
-gsettings set $SCHEMA volume-up "'AudioRaiseVolume'"
-gsettings set $SCHEMA volume-down "'AudioLowerVolume'"
 # Sound
 SCHEMA=org.gnome.desktop.sound
 gsettings set $SCHEMA event-sounds false
@@ -84,14 +67,6 @@ ln -s $DIR/gitconfig ~/.gitconfig
 rm -f ~/.gitconfig-ieco
 ln -s $DIR/gitconfig-ieco ~/.gitconfig-ieco
 
-# npm packages
-rm -f ~/.npmrc
-ln -s $DIR/npmrc ~/.npmrc
-
-# User dirs
-#rm -f ~/.config/user-dirs.dirs
-#ln -s $DIR/user-dirs.dirs ~/.config/user-dirs.dirs
-
 # Vim
 rm -f ~/.vimrc
 rm -rf ~/.vim
@@ -99,28 +74,6 @@ rm -rf ~/.config/nvim
 ln -s $DIR/vimrc ~/.vimrc
 ln -s $DIR/vim ~/.vim
 ln -s $DIR/vim ~/.config/nvim
-
-# Virtual environments
-rm -f ~/.local/share/virtualenvs
-ln -s /cache/virtualenvs /home/peque/.local/share/
-rm -f ~/.conda
-ln -s /cache/conda /home/peque/.conda
-rm -f ~/.cache/pipenv
-ln -s /cache/pipenv /home/peque/.cache/
-
-# Containers (Podman, Docker)
-rm -f ~/.local/share/containers
-ln -s /container/containers ~/.local/share/
-
-# Terminator
-rm -f ~/.config/terminator/config
-mkdir -p ~/.config/terminator
-ln -s $DIR/terminator ~/.config/terminator/config
-
-# IPython
-rm -f ~/.ipython/profile_default/ipython_config.py
-mkdir -p ~/.ipython/profile_default
-ln -s $DIR/ipython_config.py ~/.ipython/profile_default/ipython_config.py
 
 # Shotwell
 rm -rf ~/.local/share/shotwell/data
