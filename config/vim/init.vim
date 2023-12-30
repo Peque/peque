@@ -1,6 +1,8 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+let g:python3_host_prog="python3"
+
 call plug#begin()
 Plug 'Valloric/YouCompleteMe'
 Plug 'neomake/neomake'
