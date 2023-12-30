@@ -1,5 +1,7 @@
 [core]
 	editor = nvim
+[init]
+	defaultBranch = main
 [push]
 	default = simple
 [pull]
