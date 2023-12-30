@@ -74,11 +74,3 @@ rm -rf ~/.config/nvim
 ln -s $DIR/vimrc ~/.vimrc
 ln -s $DIR/vim ~/.vim
 ln -s $DIR/vim ~/.config/nvim
-
-# Shotwell
-rm -rf ~/.local/share/shotwell/data
-rm -rf ~/.cache/shotwell/thumbs
-mkdir -p ~/.local/share/shotwell
-mkdir -p ~/.cache/shotwell
-ln -s /mnt/album/.shotwell_data/ ~/.local/share/shotwell/data
-ln -s /mnt/album/.shotwell_thumbs/ ~/.cache/shotwell/thumbs
