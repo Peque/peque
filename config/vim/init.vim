@@ -7,6 +7,7 @@ call plug#begin()
 Plug 'Valloric/YouCompleteMe'
 Plug 'neomake/neomake'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'rebelot/kanagawa.nvim'
 call plug#end()
 
 filetype plugin indent on    " required
@@ -37,6 +38,7 @@ inoremap <A-c> <Esc>:Neomake<CR>
 syntax on
 filetype on
 filetype plugin indent on
+colorscheme kanagawa-wave
 
 " clipboard
 set clipboard+=unnamed
