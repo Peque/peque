@@ -4,7 +4,7 @@ filetype off                  " required
 let g:python3_host_prog="python3"
 
 call plug#begin()
-Plug 'Valloric/YouCompleteMe'
+Plug 'ycm-core/YouCompleteMe'
 Plug 'neomake/neomake'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'rebelot/kanagawa.nvim'
@@ -84,11 +84,11 @@ nnoremap <A-1> 1gt
 nnoremap <A-2> 2gt
 nnoremap <A-3> 3gt
 nnoremap <A-4> 4gt
-nnoremap <A-7> :tabmove -1<CR> 
-nnoremap <A-8> :tabmove +1<CR> 
-nnoremap <A-9> :tabprevious<CR> 
-nnoremap <A-0> :tabnext<CR> 
-nnoremap <A-e> :tabedit 
+nnoremap <A-7> :tabmove -1<CR>
+nnoremap <A-8> :tabmove +1<CR>
+nnoremap <A-9> :tabprevious<CR>
+nnoremap <A-0> :tabnext<CR>
+nnoremap <A-e> :tabedit<Space>
 inoremap <A-1> <Esc>1gt
 inoremap <A-2> <Esc>2gt
 inoremap <A-3> <Esc>3gt
@@ -97,7 +97,7 @@ inoremap <A-7> <Esc>:tabmove -1<CR>
 inoremap <A-8> <Esc>:tabmove +1<CR>
 inoremap <A-9> <Esc>:tabprevious<CR>
 inoremap <A-0> <Esc>:tabnext<CR>
-inoremap <A-e> <Esc>:tabedit 
+inoremap <A-e> <Esc>:tabedit<Space>
 
 " [Alt + m] will exit insert mode, clear any command and clear searcf highlight
 inoremap <A-m> <Esc>
@@ -119,7 +119,3 @@ nnoremap <A-w> :write<CR><Esc>
 nnoremap <A-q> :quit<CR><Esc>
 inoremap <A-w> <Esc>:write<CR><Esc>
 inoremap <A-q> <Esc>
-
-" Make
-command Make execute "!make"
-map <F9> :Make<CR>
