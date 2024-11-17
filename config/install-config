@@ -53,14 +53,6 @@ gsettings set $SCHEMA event-sounds false
 SCHEMA=org.gnome.desktop.wm.preferences
 gsettings set $SCHEMA action-middle-click-titlebar 'lower'
 
-# .bash_profile
-rm -f ~/.bash_profile
-ln -s $DIR/bash_profile ~/.bash_profile
-
-# .bashrc
-rm -f ~/.bashrc
-ln -s $DIR/bashrc ~/.bashrc
-
 # .gitconfig
 rm -f ~/.gitconfig
 ln -s $DIR/gitconfig ~/.gitconfig
@@ -74,3 +66,11 @@ rm -rf ~/.config/nvim
 ln -s $DIR/vimrc ~/.vimrc
 ln -s $DIR/vim ~/.vim
 ln -s $DIR/vim ~/.config/nvim
+
+# Shotwell
+rm -rf ~/.local/share/shotwell/data
+rm -rf ~/.cache/shotwell/thumbs
+mkdir -p ~/.local/share/shotwell
+mkdir -p ~/.cache/shotwell
+ln -s /var/mnt/hdd_vg-album/Shotwell/data ~/.local/share/shotwell/data
+ln -s /var/mnt/hdd_vg-album/Shotwell/thumbs ~/.cache/shotwell/thumbs

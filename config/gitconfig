@@ -11,3 +11,10 @@
 	name = Miguel Sánchez de León Peque
 [includeIf "gitdir:ieco/"]
 	path = .gitconfig-ieco
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[credential]
+	helper = libsecret
